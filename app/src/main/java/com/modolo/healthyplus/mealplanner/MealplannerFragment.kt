@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
@@ -12,13 +13,16 @@ import com.modolo.healthyplus.R
 import com.modolo.healthyplus.mealplanner.food.Food
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import kotlin.collections.ArrayList
 
 class MealplannerFragment : Fragment(), MealAdapter.MealListener, MealAdapterHistory.MealHistoryListener {
-    companion object {
-        fun newInstance() = MealplannerFragment()
-    }
 
+    private val presets = ArrayList<Meal>()
+    private val incoming = ArrayList<Meal>()
+    private val history = ArrayList<Meal>()
+
+    lateinit var  presetsView: RecyclerView
+    lateinit var  incomingView: RecyclerView
+    lateinit var  historyView: RecyclerView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -29,15 +33,11 @@ class MealplannerFragment : Fragment(), MealAdapter.MealListener, MealAdapterHis
         }
 
 
-        val presetsView = view.findViewById<RecyclerView>(R.id.presetsMeals)
-        val incomingView = view.findViewById<RecyclerView>(R.id.incomingMeals)
-        val historyView = view.findViewById<RecyclerView>(R.id.historyMeals)
+        presetsView = view.findViewById(R.id.presetsMeals)
+        incomingView = view.findViewById(R.id.incomingMeals)
+        historyView = view.findViewById(R.id.historyMeals)
 
-        val dummyMeals = randomMeals(20)
-
-        val presets = ArrayList<Meal>()
-        val incoming = ArrayList<Meal>()
-        val history = ArrayList<Meal>()
+        val dummyMeals = randomMeals(10)
 
         for (meal in dummyMeals) {
             when {
@@ -73,11 +73,21 @@ class MealplannerFragment : Fragment(), MealAdapter.MealListener, MealAdapterHis
         return foods
     }
 
-    override fun onMealListener(meal: Meal, position: Int, longpress: Boolean) {
-        TODO("Not yet implemented")
+    override fun onMealListener(meal: Meal, position: Int, editMeal: Boolean, done: Boolean) {
+        if(editMeal)
+            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, EditMealFragment(meal), "EditMealTag").commitNow()
+        else if(done){
+            incoming.remove(meal)
+            meal.isdone = true
+            //todo update database
+            history.add(meal)
+            incomingView.adapter = MealAdapter(incoming, this, requireContext())
+            val sortedHistory = history.sortedByDescending { it.date }
+            historyView.adapter = MealAdapterHistory(ArrayList(sortedHistory), this, requireContext())
+        }
     }
 
-    override fun onMealHistoryListener(meal: Meal, position: Int, longpress: Boolean) {
+    override fun onMealHistoryListener(meal: Meal, position: Int, editMeal: Boolean) {
         TODO("Not yet implemented")
     }
 

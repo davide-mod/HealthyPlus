@@ -130,7 +130,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/marginSmall"
             android:layout_marginBottom="@dimen/marginSmall"
-            android:gravity="start"
+            android:gravity="center"
             app:boxStrokeWidth="0dp"
             app:layout_constraintBottom_toTopOf="@id/addBtn"
             app:layout_constraintEnd_toStartOf="@id/spinnerUdm"
@@ -147,7 +147,7 @@
                 android:backgroundTint="@color/white"
                 android:gravity="start"
                 android:hint="@string/meal_planner_label_quantity"
-                android:inputType="text"
+                android:inputType="numberDecimal"
                 android:padding="@dimen/marginStandard" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -184,7 +184,7 @@
                 android:backgroundTint="@color/white"
                 android:gravity="start"
                 android:hint="@string/meal_planner_label_kcal"
-                android:inputType="text"
+                android:inputType="numberDecimal"
                 android:padding="@dimen/marginStandard" />
         </com.google.android.material.textfield.TextInputLayout>
 

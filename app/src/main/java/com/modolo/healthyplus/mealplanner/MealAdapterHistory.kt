@@ -39,18 +39,16 @@ class MealAdapterHistory(private val meals: ArrayList<Meal>, private val mealLis
             mealDateAgo.text = daysBetween.toString()+" giorni fa"
 
             mealEdit.setOnClickListener {
-                //open edit page, pass (meal) on creation
-                mealListener.onMealHistoryListener(meal, holder.layoutPosition, false)
-            }
-            holder.itemView.setOnLongClickListener {
                 mealListener.onMealHistoryListener(meal, holder.layoutPosition, true)
-                true
+            }
+            holder.itemView.setOnClickListener {
+                mealListener.onMealHistoryListener(meal, holder.layoutPosition, false)
             }
         }
     }
 
 
     interface MealHistoryListener {
-        fun onMealHistoryListener(meal: Meal, position: Int, longpress: Boolean)
+        fun onMealHistoryListener(meal: Meal, position: Int, editMeal: Boolean)
     }
 }

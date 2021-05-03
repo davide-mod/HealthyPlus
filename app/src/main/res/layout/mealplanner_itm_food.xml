@@ -7,7 +7,7 @@
     android:backgroundTint="@color/white"
     android:layout_marginStart="@dimen/marginStandard"
     android:layout_marginEnd="@dimen/marginStandard"
-    android:layout_marginBottom="@dimen/marginStandard">
+    android:layout_marginTop="@dimen/marginStandard">
 
     <TextView
         android:id="@+id/name"

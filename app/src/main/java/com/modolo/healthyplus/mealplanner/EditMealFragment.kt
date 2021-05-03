@@ -15,16 +15,19 @@ import com.google.android.material.textfield.TextInputEditText
 import com.modolo.healthyplus.R
 import com.modolo.healthyplus.mealplanner.food.Food
 import com.modolo.healthyplus.mealplanner.food.FoodAdapter
+import com.modolo.healthyplus.signup.SignupFragment
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-class EditMealFragment(private val meal: Meal?): Fragment(), FoodAdapter.FoodListener {
+class EditMealFragment(private val meal: Meal?) : Fragment(), FoodAdapter.FoodListener {
 
-    constructor(): this(null)
+    constructor() : this(null)
+
     private var foodListTmp = ArrayList<Food>()
     lateinit var foodName: TextInputEditText
     lateinit var foodQuantity: TextInputEditText
     lateinit var udmSpinner: Spinner
+    lateinit var foodRecycler: RecyclerView
     lateinit var foodKcal: TextInputEditText
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -33,26 +36,43 @@ class EditMealFragment(private val meal: Meal?): Fragment(), FoodAdapter.FoodLis
         val close = view.findViewById<ImageView>(R.id.close)
         val delete = view.findViewById<TextView>(R.id.btnDelete)
         val save = view.findViewById<TextView>(R.id.btnSave)
-        val foodRecycler = view.findViewById<RecyclerView>( R.id.foodRecycler)
+        foodRecycler = view.findViewById(R.id.foodRecycler)
         val inputFields = view.findViewById<ConstraintLayout>(R.id.inputLayout)
         foodName = inputFields.findViewById(R.id.foodNameText)
         foodQuantity = inputFields.findViewById(R.id.quantityText)
         udmSpinner = inputFields.findViewById(R.id.spinnerUdm)
         foodKcal = inputFields.findViewById(R.id.kcalText)
         val addFood = inputFields.findViewById<TextView>(R.id.addBtn)
-        if(meal!=null){
+        if (meal != null) {
             name.setText(meal.name)
             foodListTmp = meal.foodList
         }
         foodRecycler.adapter = FoodAdapter(foodListTmp, this, requireContext())
         addFood.setOnClickListener {
-            if(foodName.text.toString() != ""){
+            if (foodName.text.toString() != "") {
                 val nameTmp = foodName.text.toString()
-                val quantityTmp = if(foodQuantity.text.toString()!="") foodQuantity.text.toString().toFloat() else 0.0F
+                val quantityTmp = if (foodQuantity.text.toString() != "") foodQuantity.text.toString().toFloat() else 0.0F
                 val udmTmp = udmSpinner.selectedItem.toString()
-                val kcalTmp = if(foodKcal.text.toString()!="") foodKcal.text.toString().toFloat() else 0.0F
+                val kcalTmp = if (foodKcal.text.toString() != "") foodKcal.text.toString().toFloat() else 0.0F
                 foodListTmp.add(Food(nameTmp, quantityTmp, udmTmp, kcalTmp))
+                foodRecycler.adapter = FoodAdapter(foodListTmp, this, requireContext())
+
+                foodName.setText("")
+                foodQuantity.setText("")
+                foodKcal.setText("")
             }
+        }
+
+        delete.setOnClickListener {
+            //todo QUERY to remove from db
+        }
+
+        save.setOnClickListener {
+            //todo QUERY to update db
+        }
+
+        close.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, MealplannerFragment(), "MealPlannerTag").commitNow()
         }
         return view
     }
@@ -63,14 +83,15 @@ class EditMealFragment(private val meal: Meal?): Fragment(), FoodAdapter.FoodLis
         udmSpinner.setSelection(findSpinnerElement(food.udm))
         foodKcal.setText(food.kcal.toString())
         foodListTmp.remove(food)
+        foodRecycler.adapter = FoodAdapter(foodListTmp, this, requireContext())
     }
-    fun findSpinnerElement(value : String): Int{
+
+    private fun findSpinnerElement(value: String): Int {
         val udmlist = resources.getStringArray(R.array.udms_short)
         udmlist.forEachIndexed { index, s ->
-            if(s == value)
+            if (s == value)
                 return index
         }
-        return 1
-
+        return 0
     }
 }

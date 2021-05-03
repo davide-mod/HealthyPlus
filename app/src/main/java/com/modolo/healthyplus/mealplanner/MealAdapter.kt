@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
@@ -45,20 +46,22 @@ class MealAdapter(private val meals: ArrayList<Meal>, private val mealListener: 
                 mealEdit.background = getDrawable(context, R.drawable.btn_bottom_right)
             }
 
-
-
-            holder.itemView.setOnClickListener {
-                mealListener.onMealListener(meal, holder.layoutPosition, false)
+            mealEdit.setOnClickListener {
+                mealEdit.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
+                mealListener.onMealListener(meal, holder.layoutPosition, editMeal = true, done = false)
             }
-            holder.itemView.setOnLongClickListener {
-                mealListener.onMealListener(meal, holder.layoutPosition, true)
-                true
+            mealDone.setOnClickListener {
+                mealDone.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
+                mealListener.onMealListener(meal, holder.layoutPosition, editMeal = false, done = true)
+            }
+            holder.itemView.setOnClickListener {
+                mealListener.onMealListener(meal, holder.layoutPosition, editMeal = false, done = false)
             }
         }
     }
 
 
     interface MealListener {
-        fun onMealListener(meal: Meal, position: Int, longpress: Boolean)
+        fun onMealListener(meal: Meal, position: Int, editMeal: Boolean, done: Boolean)
     }
 }

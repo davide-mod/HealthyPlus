@@ -27,6 +27,7 @@ class LoginFragment : Fragment(){
         cards.adapter = LoginCardsAdapter(lista)
         val layoutSignup = view.findViewById<ConstraintLayout>(R.id.layoutSignup)
         layoutSignup.setOnClickListener {
+            layoutSignup.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.alpha))
             requireActivity().supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, SignupFragment(), "SignUpTag").commitNow()
         }
 
