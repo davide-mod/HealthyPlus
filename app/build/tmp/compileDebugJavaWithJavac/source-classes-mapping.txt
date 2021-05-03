@@ -1,0 +1,2 @@
+com/modolo/healthyplus/BuildConfig.java
+ com.modolo.healthyplus.BuildConfig

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="@dimen/iconNearTitle"
+        android:layout_height="@dimen/iconNearTitle"
+        android:layout_margin="@dimen/marginStandard"
+        android:src="@drawable/mealplanner_icon"
+        app:layout_constraintBottom_toBottomOf="@id/title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/title"
+        app:tint="@color/main_mealplanner" />
+
+    <EditText
+        android:id="@+id/title"
+        style="@style/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/main_mealplanner"
+        android:layout_margin="@dimen/marginStandard"
+        android:hint="Pasto"
+        android:inputType="text"
+        app:layout_constraintStart_toEndOf="@id/icon"
+        app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/close"
+        android:layout_width="@dimen/iconNearTitle"
+        android:layout_height="@dimen/iconNearTitle"
+        android:layout_margin="@dimen/marginStandard"
+        android:src="@drawable/meal_fit_close"
+        app:layout_constraintBottom_toBottomOf="@id/title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/title"
+        app:tint="@color/main_mealplanner" />
+
+    <TextView
+        android:id="@+id/btnDelete"
+        style="@style/buttonTextFinish"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/marginStandard"
+        android:background="@drawable/background"
+        android:backgroundTint="@color/red"
+        android:gravity="center"
+        android:padding="@dimen/marginStandard"
+        android:text="@string/fitness_meal_delete"
+        app:drawableStartCompat="@drawable/meal_fit_delete"
+        app:layout_constraintEnd_toStartOf="@id/btnSave"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <TextView
+        android:id="@+id/btnSave"
+        style="@style/buttonTextFinish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginStandard"
+        android:layout_marginEnd="@dimen/marginStandard"
+        android:layout_marginBottom="@dimen/marginStandard"
+        android:background="@drawable/background"
+        android:backgroundTint="@color/main"
+        android:gravity="center"
+        android:padding="@dimen/marginStandard"
+        android:text="@string/fitness_meal_save_edit"
+        app:drawableStartCompat="@drawable/meal_fit_save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnDelete"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/foodRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/marginStandard"
+        android:background="@drawable/background"
+        android:backgroundTint="@color/bg_grey"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/inputLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnDelete" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/inputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/marginStandard"
+        android:layout_marginEnd="@dimen/marginStandard"
+        android:background="@drawable/btn_top"
+        android:backgroundTint="@color/bg_grey"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/foodNameBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/marginSmall"
+            app:boxStrokeWidth="0dp"
+            app:layout_constraintBottom_toTopOf="@id/quantityBox"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/foodNameText"
+                style="@style/label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/marginSmall"
+                android:layout_marginTop="@dimen/marginSmall"
+                android:layout_marginEnd="@dimen/marginSmall"
+                android:background="@drawable/background"
+                android:backgroundTint="@color/white"
+                android:gravity="start"
+                android:hint="@string/meal_planner_label_food"
+                android:inputType="text"
+                android:padding="@dimen/marginStandard" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/quantityBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/marginSmall"
+            android:layout_marginBottom="@dimen/marginSmall"
+            android:gravity="start"
+            app:boxStrokeWidth="0dp"
+            app:layout_constraintBottom_toTopOf="@id/addBtn"
+            app:layout_constraintEnd_toStartOf="@id/spinnerUdm"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/foodNameBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/quantityText"
+                style="@style/label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/marginSmall"
+                android:background="@drawable/background"
+                android:backgroundTint="@color/white"
+                android:gravity="start"
+                android:hint="@string/meal_planner_label_quantity"
+                android:inputType="text"
+                android:padding="@dimen/marginStandard" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Spinner
+            android:id="@+id/spinnerUdm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawSelectorOnTop="true"
+            android:entries="@array/udms_short"
+            app:layout_constraintBottom_toBottomOf="@id/quantityBox"
+            app:layout_constraintEnd_toStartOf="@id/kcalBox"
+            app:layout_constraintStart_toEndOf="@id/quantityBox"
+            app:layout_constraintTop_toTopOf="@id/quantityBox" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/kcalBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/marginSmall"
+            android:layout_marginEnd="@dimen/marginSmall"
+            app:boxStrokeWidth="0dp"
+            app:layout_constraintBottom_toTopOf="@id/addBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/spinnerUdm"
+            app:layout_constraintTop_toBottomOf="@id/foodNameBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/kcalText"
+                style="@style/label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/marginSmall"
+                android:background="@drawable/background"
+                android:backgroundTint="@color/white"
+                android:gravity="start"
+                android:hint="@string/meal_planner_label_kcal"
+                android:inputType="text"
+                android:padding="@dimen/marginStandard" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/addBtn"
+            style="@style/buttonTextFinish"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginSmall"
+            android:layout_marginBottom="@dimen/marginSmall"
+            android:layout_marginStart="@dimen/marginStandard"
+            android:layout_marginEnd="@dimen/marginStandard"
+            android:background="@drawable/background"
+            android:backgroundTint="@color/main_mealplanner"
+            android:padding="@dimen/marginStandard"
+            android:text="@string/meal_planner_btn_addtotoal"
+            app:drawableStartCompat="@drawable/icon_add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

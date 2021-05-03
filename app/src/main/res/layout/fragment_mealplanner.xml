@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/marginStandard"
+        android:drawablePadding="@dimen/marginSmall"
+        android:text="@string/meal_planner_title"
+        android:textColor="@color/main_mealplanner"
+        app:drawableStartCompat="@drawable/mealplanner_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/hamburger"
+        android:layout_width="@dimen/iconNearTitle"
+        android:layout_height="@dimen/iconNearTitle"
+        android:layout_margin="@dimen/marginStandard"
+        android:contentDescription="@string/profile_picture"
+        android:src="@drawable/icon_hamburger"
+        app:layout_constraintBottom_toBottomOf="@id/title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/title"
+        app:tint="@color/main_mealplanner" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mainView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/marginStandard"
+        android:background="@color/bg_grey"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title">
+
+        <TextView
+            android:id="@+id/incomingMealsLabel"
+            style="@style/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/marginStandard"
+            android:text="@string/fitness_meal_coming"
+            android:textSize="@dimen/mealLabel"
+            app:layout_constraintBottom_toTopOf="@id/incomingMeals"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/incomingMeals"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/presetsMealsLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/incomingMealsLabel" />
+
+        <TextView
+            android:id="@+id/presetsMealsLabel"
+            style="@style/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/marginStandard"
+            android:text="@string/fitness_meal_preset"
+            android:textSize="@dimen/mealLabel"
+            app:layout_constraintBottom_toTopOf="@id/presetsMeals"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/incomingMeals" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/presetsMeals"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/historyMealsLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/presetsMealsLabel" />
+
+        <TextView
+            android:id="@+id/historyMealsLabel"
+            style="@style/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/marginStandard"
+            android:text="@string/fitness_meal_history"
+            android:textSize="@dimen/mealLabel"
+            app:layout_constraintBottom_toTopOf="@id/historyMeals"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/presetsMeals" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/historyMeals"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/btnSnack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/historyMealsLabel" />
+
+        <TextView
+            android:id="@+id/btnSnack"
+            style="@style/buttonTextFinish"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/main_mealplanner"
+            android:padding="@dimen/marginStandard"
+            android:text="@string/meal_planner_snack_btn"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnMeal"
+            app:drawableStartCompat="@drawable/icon_add" />
+        <TextView
+            android:id="@+id/btnMeal"
+            style="@style/buttonTextFinish"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/main"
+            android:padding="@dimen/marginStandard"
+            android:text="@string/meal_planner_meal_btn"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnSnack"
+            app:drawableStartCompat="@drawable/icon_add" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

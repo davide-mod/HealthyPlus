@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="title">24sp</dimen>
+    <dimen name="iconNearTitle">24dp</dimen>
+    <dimen name="marginStandard">16dp</dimen>
+    <dimen name="marginSmall">8dp</dimen>
+    <dimen name="radius">10dp</dimen>
+    <!--LOGIN-->
+    <dimen name="buttonText">18sp</dimen>
+    <dimen name="buttonIcon">18dp</dimen>
+    <dimen name="label">16sp</dimen>
+    <dimen name="cardsize">333dp</dimen>
+    <!-- HOME -->
+    <dimen name="menuVoice">18sp</dimen>
+    <dimen name="notTitleText">18sp</dimen>
+    <dimen name="notDescText">16sp</dimen>
+    <dimen name="noTimeText">16sp</dimen>
+    <!-- MEAL PLANNER -->
+    <dimen name="mealName">22dp</dimen>
+    <dimen name="mealLabel">16sp</dimen>
+    <dimen name="mealDate">16dp</dimen>
+</resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/itemHome"
+        android:icon="@drawable/signup_username"
+        android:iconTint="@color/white"
+        android:title="@string/home"
+        />
+    <item
+        android:id="@+id/itemMealPlanner"
+        android:icon="@drawable/signup_username"
+        android:iconTint="@color/white"
+        android:title="@string/meal_planner_title"
+        />
+    <item
+        android:id="@+id/itemFitnessTracker"
+        android:icon="@drawable/signup_username"
+        android:iconTint="@color/white"
+        android:title="@string/fitness_tracker_title"
+        />
+    <item
+        android:id="@+id/itemUser"
+        android:icon="@drawable/signup_username"
+        android:title="@string/user_title"
+        />
+    <item
+        android:icon="@drawable/signup_username"
+        android:iconTint="@color/white"
+        android:id="@+id/itemCredits"
+        android:title="@string/credits"
+        />
+</menu>
