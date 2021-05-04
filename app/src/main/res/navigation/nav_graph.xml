@@ -15,7 +15,11 @@
         android:id="@+id/mainFragment"
         android:name="com.modolo.healthyplus.main.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_nav_main"
+            app:destination="@id/mainFragment" />
+    </fragment>
     <fragment
         android:id="@+id/signupFragment"
         android:name="com.modolo.healthyplus.signup.SignupFragment"

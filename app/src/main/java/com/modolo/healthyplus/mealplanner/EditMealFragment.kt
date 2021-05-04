@@ -10,6 +10,8 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import com.modolo.healthyplus.R
@@ -72,7 +74,7 @@ class EditMealFragment(private val meal: Meal?) : Fragment(), FoodAdapter.FoodLi
         }
 
         close.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, MealplannerFragment(), "MealPlannerTag").commitNow()
+            findNavController().navigateUp()
         }
         return view
     }

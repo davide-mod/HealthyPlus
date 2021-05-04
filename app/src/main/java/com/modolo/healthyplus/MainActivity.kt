@@ -14,36 +14,33 @@ import com.modolo.healthyplus.R
 
 class MainActivity : AppCompatActivity() {
     private lateinit var drawer: DrawerLayout
-    private lateinit var handler: Handler
+
     private val navigationListener =
-            NavigationView.OnNavigationItemSelectedListener { item ->
-                drawer.closeDrawer(GravityCompat.START)
-                handler.postDelayed({
-                    when (item.itemId) {
-                        R.id.itemHome -> {
-                            findNavController(R.id.nav_host_fragment).navigate(R.id.mainFragment)
-                        }
-                        R.id.itemMealPlanner -> {
-                            findNavController(R.id.nav_host_fragment).navigate(R.id.mealplannerFragment)
-                        }
-                        R.id.itemFitnessTracker -> {
-                            findNavController(R.id.nav_host_fragment).navigate(R.id.editMealFragment)
-                        }
-                        R.id.itemUser -> {
-                            findNavController(R.id.nav_host_fragment).navigate(R.id.mainFragment)
-                        }
-                        R.id.itemCredits -> {
-                            findNavController(R.id.nav_host_fragment).navigate(R.id.mainFragment)
-                        }
-                    }
-                }, 0)
-                true
+        NavigationView.OnNavigationItemSelectedListener { item ->
+            drawer.closeDrawer(GravityCompat.START)
+            when (item.itemId) {
+                R.id.itemHome -> {
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.mainFragment)
+                }
+                R.id.itemMealPlanner -> {
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.mealplannerFragment)
+                }
+                R.id.itemFitnessTracker -> {
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.editMealFragment)
+                }
+                R.id.itemUser -> {
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.mainFragment)
+                }
+                R.id.itemCredits -> {
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.mainFragment)
+                }
             }
+            false
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        handler = Handler()
         drawer = findViewById(R.id.drawerMain)
         val menulaterale = findViewById<NavigationView>(R.id.menulaterale)
         menulaterale.setNavigationItemSelectedListener(navigationListener)

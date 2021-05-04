@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.modolo.healthyplus.MainActivity
 import com.modolo.healthyplus.R
@@ -75,7 +76,7 @@ class MealplannerFragment : Fragment(), MealAdapter.MealListener, MealAdapterHis
 
     override fun onMealListener(meal: Meal, position: Int, editMeal: Boolean, done: Boolean) {
         if(editMeal)
-            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, EditMealFragment(meal), "EditMealTag").commitNow()
+            findNavController().navigate(R.id.editMealFragment)
         else if(done){
             incoming.remove(meal)
             meal.isdone = true

@@ -1,2 +1,4 @@
 com/modolo/healthyplus/BuildConfig.java
  com.modolo.healthyplus.BuildConfig
+com/modolo/healthyplus/main/MainFragmentDirections.java
+ com.modolo.healthyplus.main.MainFragmentDirections
