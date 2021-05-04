@@ -39,5 +39,9 @@
         android:id="@+id/editMealFragment"
         tools:layout="@layout/mealplanner_frag_edit"
         android:name="com.modolo.healthyplus.mealplanner.EditMealFragment"
-        android:label="EditMealFragment" />
+        android:label="EditMealFragment" >
+        <argument
+            android:name="meal"
+            app:argType="com.modolo.healthyplus.mealplanner.Meal"/>
+    </fragment>
 </navigation>

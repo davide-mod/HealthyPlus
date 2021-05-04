@@ -38,15 +38,15 @@ class MealplannerFragment : Fragment(), MealAdapter.MealListener, MealAdapterHis
         incomingView = view.findViewById(R.id.incomingMeals)
         historyView = view.findViewById(R.id.historyMeals)
 
-        val dummyMeals = randomMeals(10)
 
-        for (meal in dummyMeals) {
+        for (meal in randomMeals(10)) {
             when {
                 meal.ispreset -> presets.add(meal)
                 !meal.isdone -> incoming.add(meal)
                 else -> history.add(meal)
             }
         }
+
         presetsView.adapter = MealAdapter(presets, this, requireContext())
         incomingView.adapter = MealAdapter(incoming, this, requireContext())
         historyView.adapter = MealAdapterHistory(history, this, requireContext())
@@ -75,8 +75,11 @@ class MealplannerFragment : Fragment(), MealAdapter.MealListener, MealAdapterHis
     }
 
     override fun onMealListener(meal: Meal, position: Int, editMeal: Boolean, done: Boolean) {
-        if(editMeal)
-            findNavController().navigate(R.id.editMealFragment)
+        if(editMeal) {
+            val bundle = Bundle()
+            bundle.putSerializable("meal", meal)
+            findNavController().navigate(R.id.editMealFragment, bundle)
+        }
         else if(done){
             incoming.remove(meal)
             meal.isdone = true

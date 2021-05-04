@@ -1751,6 +1751,8 @@ drawable material_ic_keyboard_arrow_right_black_24dp
 drawable material_ic_menu_arrow_down_black_24dp
 drawable material_ic_menu_arrow_up_black_24dp
 drawable meal_bottombtn
+drawable meal_fit_arrow
+drawable meal_fit_cards
 drawable meal_fit_close
 drawable meal_fit_delete
 drawable meal_fit_save
@@ -1880,7 +1882,9 @@ id bottom
 id bounce
 id btnDelete
 id btnMeal
+id btnProceed
 id btnSave
+id btnSavedMeals
 id btnSnack
 id buttonPanel
 id cache_measures
@@ -2389,6 +2393,7 @@ layout material_time_input
 layout material_timepicker
 layout material_timepicker_dialog
 layout material_timepicker_textinput_display
+layout mealplanner_frag_add
 layout mealplanner_frag_edit
 layout mealplanner_itm_food
 layout mealplanner_itm_meal

@@ -21,18 +21,20 @@ import com.modolo.healthyplus.signup.SignupFragment
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-class EditMealFragment(private val meal: Meal?) : Fragment(), FoodAdapter.FoodListener {
+class EditMealFragment() : Fragment(), FoodAdapter.FoodListener {
 
-    constructor() : this(null)
-
+    lateinit var meal: Meal
     private var foodListTmp = ArrayList<Food>()
     lateinit var foodName: TextInputEditText
     lateinit var foodQuantity: TextInputEditText
     lateinit var udmSpinner: Spinner
     lateinit var foodRecycler: RecyclerView
     lateinit var foodKcal: TextInputEditText
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         val view = inflater.inflate(R.layout.mealplanner_frag_edit, container, false)
         val name = view.findViewById<EditText>(R.id.title)
         val close = view.findViewById<ImageView>(R.id.close)
@@ -45,17 +47,17 @@ class EditMealFragment(private val meal: Meal?) : Fragment(), FoodAdapter.FoodLi
         udmSpinner = inputFields.findViewById(R.id.spinnerUdm)
         foodKcal = inputFields.findViewById(R.id.kcalText)
         val addFood = inputFields.findViewById<TextView>(R.id.addBtn)
-        if (meal != null) {
-            name.setText(meal.name)
-            foodListTmp = meal.foodList
-        }
+        foodListTmp = meal.foodList
         foodRecycler.adapter = FoodAdapter(foodListTmp, this, requireContext())
         addFood.setOnClickListener {
             if (foodName.text.toString() != "") {
                 val nameTmp = foodName.text.toString()
-                val quantityTmp = if (foodQuantity.text.toString() != "") foodQuantity.text.toString().toFloat() else 0.0F
+                val quantityTmp =
+                    if (foodQuantity.text.toString() != "") foodQuantity.text.toString()
+                        .toFloat() else 0.0F
                 val udmTmp = udmSpinner.selectedItem.toString()
-                val kcalTmp = if (foodKcal.text.toString() != "") foodKcal.text.toString().toFloat() else 0.0F
+                val kcalTmp =
+                    if (foodKcal.text.toString() != "") foodKcal.text.toString().toFloat() else 0.0F
                 foodListTmp.add(Food(nameTmp, quantityTmp, udmTmp, kcalTmp))
                 foodRecycler.adapter = FoodAdapter(foodListTmp, this, requireContext())
 
@@ -77,6 +79,21 @@ class EditMealFragment(private val meal: Meal?) : Fragment(), FoodAdapter.FoodLi
             findNavController().navigateUp()
         }
         return view
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            val mealTmp = it.getSerializable("meal") as Meal
+            meal = Meal(
+                mealTmp.name,
+                mealTmp.foodList,
+                mealTmp.date,
+                mealTmp.ispreset,
+                mealTmp.isdone,
+                mealTmp.id
+            )
+        }
     }
 
     override fun onFoodListener(food: Food, position: Int, longpress: Boolean) {
