@@ -20,7 +20,7 @@
     <TextView
         android:id="@+id/eaten"
         style="@style/buttonTextFinish"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/marginStandard"
         android:layout_marginStart="@dimen/marginStandard"
@@ -38,7 +38,7 @@
     <TextView
         android:id="@+id/aspreset"
         style="@style/buttonTextFinish"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/marginStandard"
         android:layout_marginStart="@dimen/marginStandard"
@@ -55,7 +55,7 @@
     <TextView
         android:id="@+id/schedule"
         style="@style/buttonTextFinish"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/marginStandard"
         android:background="@drawable/background"

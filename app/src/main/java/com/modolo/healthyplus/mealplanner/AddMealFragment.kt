@@ -8,10 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.Spinner
-import android.widget.TextView
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -27,6 +24,14 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class AddMealFragment : Fragment(), FoodAdapter.FoodListener {
+
+    lateinit var foodName: TextInputEditText
+    lateinit var foodQuantity: TextInputEditText
+    lateinit var udmSpinner: Spinner
+    lateinit var foodKcal: TextInputEditText
+    lateinit var foodList: ArrayList<Food>
+    lateinit var foodRecycler: RecyclerView
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,18 +40,16 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener {
 
         val name = view.findViewById<EditText>(R.id.title)
         val savedMeals = view.findViewById<TextView>(R.id.btnSavedMeals)
-        val proceed = view.findViewById<TextView>(R.id.btnProceed)
 
-
-        val foodList = ArrayList<Food>()
+        foodList = ArrayList()
         //i campi per l'aggiunta di un cibo
         val inputFields = view.findViewById<ConstraintLayout>(R.id.inputLayout)
-        val foodName = inputFields.findViewById<TextInputEditText>(R.id.foodNameText)
-        val foodQuantity = inputFields.findViewById<TextInputEditText>(R.id.quantityText)
-        val udmSpinner = inputFields.findViewById<Spinner>(R.id.spinnerUdm)
-        val foodKcal = inputFields.findViewById<TextInputEditText>(R.id.kcalText)
+        foodName = inputFields.findViewById(R.id.foodNameText)
+        foodQuantity = inputFields.findViewById(R.id.quantityText)
+        udmSpinner = inputFields.findViewById(R.id.spinnerUdm)
+        foodKcal = inputFields.findViewById(R.id.kcalText)
         val addFood = inputFields.findViewById<TextView>(R.id.addBtn)
-        val foodRecycler = view.findViewById<RecyclerView>(R.id.foodRecycler)
+        foodRecycler = view.findViewById(R.id.foodRecycler)
         //aggiungi cibo
         addFood.setOnClickListener {
             Log.i("devdebug", "gheson")
@@ -61,10 +64,14 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener {
                 foodList.add(Food(nameTmp, quantityTmp, udmTmp, kcalTmp))
                 //mostro i cibi nella Recycler
                 foodRecycler.adapter = FoodAdapter(foodList, this, requireContext())
+                //resetto i campi
+                foodName.setText("")
+                foodQuantity.setText("")
+                foodKcal.setText("")
             }
         }
 
-
+        val proceed = view.findViewById<TextView>(R.id.btnProceed)
         proceed.setOnClickListener {
             val nameTmp = name.text.toString()
             if (foodList.size > 0 && nameTmp != "") {
@@ -80,8 +87,18 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener {
 
                 val eaten = dialog.findViewById<TextView>(R.id.eaten)
                 eaten.setOnClickListener {
-                    //se premuto il tasto mangiato, verrà semplicemente aggiunto allo storico
-                    //todo add to eaten db -> open mealPlannerFrag
+                    val meal = Meal(
+                        nameTmp, foodList, LocalDateTime.now(),
+                        ispreset = false,
+                        isdone = true,
+                        id = 0
+                    )
+                    val bundle = Bundle()
+                    bundle.putSerializable("meal", meal)
+                    findNavController().navigate(R.id.mealplannerFragment, bundle)
+                    dialog.dismiss()
+                    //verrà semplicemente aggiunto allo storico
+                    //todo OPEN DIALOG
                 }
                 val aspreset = dialog.findViewById<TextView>(R.id.aspreset)
                 aspreset.setOnClickListener {
@@ -95,6 +112,8 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener {
                 }
                 dialog.show()
             }
+            else{
+                Toast.makeText(requireContext(), "Inserisci il nome ed almeno un elemento", Toast.LENGTH_SHORT).show()            }
         }
 
         //chiudi se premuto X
@@ -107,11 +126,23 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener {
 
 
     override fun onFoodListener(food: Food, position: Int, longpress: Boolean) {
-        /*foodName.setText(food.name)
+        //quando un cibo viene selezionato, vengono caricati i suoi parametri nei vari campi
+        foodName.setText(food.name)
         foodQuantity.setText(food.quantity.toString())
         udmSpinner.setSelection(findSpinnerElement(food.udm))
         foodKcal.setText(food.kcal.toString())
-        foodListTmp.remove(food)*/
-        TODO("Not yet implemented")
+        //e viene rimosso dalla lista, dando la possibilità di modificarlo
+        foodList.remove(food)
+        foodRecycler.adapter = FoodAdapter(foodList, this, requireContext())
+    }
+
+    //funzione per recuperare l'id di un valore nello spinner partendo dal testo
+    private fun findSpinnerElement(value: String): Int {
+        val udmlist = resources.getStringArray(R.array.udms_short)
+        udmlist.forEachIndexed { index, s ->
+            if (s == value)
+                return index
+        }
+        return 0
     }
 }

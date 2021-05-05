@@ -66,7 +66,6 @@ animator nav_default_enter_anim
 animator nav_default_exit_anim
 animator nav_default_pop_enter_anim
 animator nav_default_pop_exit_anim
-array udms
 array udms_short
 attr action
 attr actionBarDivider
@@ -1751,6 +1750,7 @@ drawable material_ic_keyboard_arrow_right_black_24dp
 drawable material_ic_menu_arrow_down_black_24dp
 drawable material_ic_menu_arrow_up_black_24dp
 drawable meal_bottombtn
+drawable meal_fit_alarm
 drawable meal_fit_arrow
 drawable meal_fit_cards
 drawable meal_fit_close
@@ -1868,6 +1868,7 @@ id animateToEnd
 id animateToStart
 id appTitle
 id asConfigured
+id aspreset
 id async
 id auto
 id autoComplete
@@ -2175,6 +2176,7 @@ id save_non_transition_alpha
 id save_overlay_view
 id sawtooth
 id scale
+id schedule
 id screen
 id scroll
 id scrollData
@@ -2400,7 +2402,7 @@ layout mealplanner_frag_edit
 layout mealplanner_itm_food
 layout mealplanner_itm_meal
 layout mealplanner_itm_mealhistory
-layout mealplanner_savepopup
+layout mealplanner_save_dialog
 layout mtrl_alert_dialog
 layout mtrl_alert_dialog_actions
 layout mtrl_alert_dialog_title
@@ -2499,7 +2501,6 @@ string error_icon_content_description
 string exposed_dropdown_menu_content_description
 string fab_transformation_scrim_behavior
 string fab_transformation_sheet_behavior
-string fitness_meal_addtopreset
 string fitness_meal_coming
 string fitness_meal_daysago
 string fitness_meal_delete
@@ -2510,7 +2511,6 @@ string fitness_meal_placeholdertime
 string fitness_meal_preset
 string fitness_meal_procede
 string fitness_meal_save_edit
-string fitness_meal_schedule
 string fitness_meal_today
 string fitness_tracker_card_label
 string fitness_tracker_placeholdername
@@ -2542,6 +2542,8 @@ string material_timepicker_select_time
 string material_timepicker_text_input_mode_description
 string meal_description_label
 string meal_eaten
+string meal_fit_addpreset
+string meal_fit_schedule
 string meal_placeholderfood
 string meal_placeholderkcal
 string meal_placeholderquant

@@ -31,7 +31,7 @@
         tools:layout="@layout/activity_main" />
     <fragment
         android:id="@+id/mealplannerFragment"
-        android:name="com.modolo.healthyplus.mealplanner.MealplannerFragment"
+        android:name="com.modolo.healthyplus.mealplanner.MealPlannerFragment"
         android:label="MealplannerFragment"
         tools:layout="@layout/fragment_mealplanner" />
     <fragment
@@ -47,5 +47,11 @@
         android:id="@+id/addMealFragment"
         tools:layout="@layout/mealplanner_frag_add"
         android:name="com.modolo.healthyplus.mealplanner.AddMealFragment"
-        android:label="AddMealFragment" />
+        android:label="AddMealFragment" >
+        <argument
+            android:name="meal"
+            app:argType="com.modolo.healthyplus.mealplanner.Meal"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 </navigation>
