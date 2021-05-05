@@ -74,6 +74,7 @@
         <item>taz</item>
         <item>cuc</item>
     </string-array>
+    <string name="meal_eaten">MANGIATO!</string>
     <!-- FITNESS TRACKER STRINGS -->
     <string name="fitness_tracker_title">Fitness Tracker</string>
     <string name="fitness_tracker_card_label"><u>scheda</u></string>

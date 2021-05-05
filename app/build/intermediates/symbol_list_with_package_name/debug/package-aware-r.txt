@@ -1859,6 +1859,7 @@ id actions
 id activity_chooser_view_content
 id add
 id addBtn
+id addMealFragment
 id alertTitle
 id aligned
 id all
@@ -1952,6 +1953,7 @@ id dropdown_menu
 id easeIn
 id easeInOut
 id easeOut
+id eaten
 id editMealFragment
 id edit_query
 id elastic
@@ -2398,6 +2400,7 @@ layout mealplanner_frag_edit
 layout mealplanner_itm_food
 layout mealplanner_itm_meal
 layout mealplanner_itm_mealhistory
+layout mealplanner_savepopup
 layout mtrl_alert_dialog
 layout mtrl_alert_dialog_actions
 layout mtrl_alert_dialog_title
@@ -2538,6 +2541,7 @@ string material_timepicker_pm
 string material_timepicker_select_time
 string material_timepicker_text_input_mode_description
 string meal_description_label
+string meal_eaten
 string meal_placeholderfood
 string meal_placeholderkcal
 string meal_placeholderquant

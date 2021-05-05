@@ -9,13 +9,12 @@
         android:id="@+id/loginFragment"
         android:name="com.modolo.healthyplus.login.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login"
-        />
+        tools:layout="@layout/fragment_login" />
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.modolo.healthyplus.main.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_nav_main"
             app:destination="@id/mainFragment" />
@@ -23,8 +22,8 @@
     <fragment
         android:id="@+id/signupFragment"
         android:name="com.modolo.healthyplus.signup.SignupFragment"
-        tools:layout="@layout/fragment_signup"
-        android:label="SignupFragment" />
+        android:label="SignupFragment"
+        tools:layout="@layout/fragment_signup" />
     <activity
         android:id="@+id/mainActivity"
         android:name="com.modolo.healthyplus.MainActivity"
@@ -32,16 +31,21 @@
         tools:layout="@layout/activity_main" />
     <fragment
         android:id="@+id/mealplannerFragment"
-        tools:layout="@layout/fragment_mealplanner"
         android:name="com.modolo.healthyplus.mealplanner.MealplannerFragment"
-        android:label="MealplannerFragment" />
+        android:label="MealplannerFragment"
+        tools:layout="@layout/fragment_mealplanner" />
     <fragment
         android:id="@+id/editMealFragment"
-        tools:layout="@layout/mealplanner_frag_edit"
         android:name="com.modolo.healthyplus.mealplanner.EditMealFragment"
-        android:label="EditMealFragment" >
+        android:label="EditMealFragment"
+        tools:layout="@layout/mealplanner_frag_edit">
         <argument
             android:name="meal"
-            app:argType="com.modolo.healthyplus.mealplanner.Meal"/>
+            app:argType="com.modolo.healthyplus.mealplanner.Meal" />
     </fragment>
+    <fragment
+        android:id="@+id/addMealFragment"
+        tools:layout="@layout/mealplanner_frag_add"
+        android:name="com.modolo.healthyplus.mealplanner.AddMealFragment"
+        android:label="AddMealFragment" />
 </navigation>
