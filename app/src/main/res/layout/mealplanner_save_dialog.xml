@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginStandard"
+        android:layout_marginStart="@dimen/marginStandard"
+        android:layout_marginEnd="@dimen/marginStandard"        android:textColor="@color/main_mealplanner"
+        app:layout_constraintBottom_toTopOf="@id/eaten"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/eaten"
+        style="@style/buttonTextFinish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginStandard"
+        android:layout_marginStart="@dimen/marginStandard"
+        android:layout_marginEnd="@dimen/marginStandard"
+        android:background="@drawable/background"
+        android:backgroundTint="@color/main"
+        android:padding="@dimen/marginStandard"
+        android:text="@string/meal_eaten"
+        app:drawableStartCompat="@drawable/ic_done"
+        app:layout_constraintBottom_toTopOf="@id/aspreset"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <TextView
+        android:id="@+id/aspreset"
+        style="@style/buttonTextFinish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginStandard"
+        android:layout_marginStart="@dimen/marginStandard"
+        android:layout_marginEnd="@dimen/marginStandard"        android:background="@drawable/background"
+        android:backgroundTint="@color/main_mealplanner"
+        android:padding="@dimen/marginStandard"
+        android:text="@string/meal_fit_addpreset"
+        app:drawableStartCompat="@drawable/meal_fit_save"
+        app:layout_constraintBottom_toTopOf="@id/schedule"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/eaten" />
+
+    <TextView
+        android:id="@+id/schedule"
+        style="@style/buttonTextFinish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/marginStandard"
+        android:background="@drawable/background"
+        android:backgroundTint="@color/main_mealplanner"
+        android:padding="@dimen/marginStandard"
+        android:text="@string/meal_fit_schedule"
+        app:drawableStartCompat="@drawable/meal_fit_alarm"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/aspreset" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

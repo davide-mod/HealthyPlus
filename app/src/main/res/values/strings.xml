@@ -42,8 +42,6 @@
     <string name="fitness_meal_delete">Elimina</string>
     <string name="fitness_meal_edit">Modifica</string>
     <string name="fitness_meal_save_edit">Salva modifiche</string>
-    <string name="fitness_meal_schedule">PROGRAMMA</string>
-    <string name="fitness_meal_addtopreset">SALVA PREIMPOSTATO</string>
     <string name="fitness_meal_placeholdertime">00:00</string>
     <!-- MEAL PLANNER STRINGS -->
     <string name="meal_planner_title">Meal Planner</string>
@@ -60,21 +58,14 @@
     <string name="meal_placeholderfood">Pasta al tonno</string>
     <string name="meal_placeholderquant">150 g</string>
     <string name="meal_placeholderkcal">570 kcal</string>
-    <string-array name="udms">
-        <item>Grammi</item>
-        <item>Litri</item>
-        <item>Unità</item>
-        <item>Tazze</item>
-        <item>Cucchiai</item>
-    </string-array>
     <string-array name="udms_short">
         <item>g</item>
         <item>l</item>
         <item>u</item>
-        <item>taz</item>
-        <item>cuc</item>
     </string-array>
     <string name="meal_eaten">MANGIATO!</string>
+    <string name="meal_fit_addpreset">AGGIUNGI AI PRESET</string>
+    <string name="meal_fit_schedule">PROGRAMMA PER DOPO</string>
     <!-- FITNESS TRACKER STRINGS -->
     <string name="fitness_tracker_title">Fitness Tracker</string>
     <string name="fitness_tracker_card_label"><u>scheda</u></string>
