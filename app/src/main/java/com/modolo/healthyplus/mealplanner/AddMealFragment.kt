@@ -1,6 +1,5 @@
 package com.modolo.healthyplus.mealplanner
 
-import android.app.DatePickerDialog
 import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
@@ -11,16 +10,14 @@ import android.view.Window
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.datepicker.MaterialDatePicker.Builder.datePicker
 import com.google.android.material.textfield.TextInputEditText
-import com.modolo.healthyplus.MainActivity
 import com.modolo.healthyplus.R
 import com.modolo.healthyplus.mealplanner.food.Food
 import com.modolo.healthyplus.mealplanner.food.FoodAdapter
 import java.time.LocalDateTime
-import java.util.*
 import kotlin.collections.ArrayList
 
 class AddMealFragment : Fragment(), FoodAdapter.FoodListener {
@@ -31,6 +28,8 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener {
     lateinit var foodKcal: TextInputEditText
     lateinit var foodList: ArrayList<Food>
     lateinit var foodRecycler: RecyclerView
+
+    private lateinit var viewModel: MealsSharedViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -93,9 +92,11 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener {
                         isdone = true,
                         id = 0
                     )
-                    val bundle = Bundle()
-                    bundle.putSerializable("meal", meal)
-                    findNavController().navigate(R.id.mealplannerFragment, bundle)
+                    viewModel.addMeal(meal)
+                    //val bundle = Bundle()
+                    //bundle.putSerializable("meal", meal)
+                    //findNavController().navigate(R.id.mealplannerFragment)
+                    findNavController().navigateUp()
                     dialog.dismiss()
                     //verrà semplicemente aggiunto allo storico
                 }
@@ -121,6 +122,11 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener {
             findNavController().navigateUp()
         }
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this).get(MealsSharedViewModel::class.java)
     }
 
 

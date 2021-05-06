@@ -10,18 +10,14 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import com.modolo.healthyplus.R
 import com.modolo.healthyplus.mealplanner.food.Food
 import com.modolo.healthyplus.mealplanner.food.FoodAdapter
-import com.modolo.healthyplus.signup.SignupFragment
-import java.time.LocalDate
-import java.time.LocalDateTime
 
-class EditMealFragment() : Fragment(), FoodAdapter.FoodListener {
+class EditMealFragment : Fragment(), FoodAdapter.FoodListener {
 
     lateinit var meal: Meal
     private var foodListTmp = ArrayList<Food>()

@@ -7,11 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.modolo.healthyplus.MainActivity
 import com.modolo.healthyplus.R
 import com.modolo.healthyplus.mealplanner.food.Food
+import com.modolo.healthyplus.mealplanner.meal.MealAdapter
+import com.modolo.healthyplus.mealplanner.meal.MealAdapterHistory
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -22,6 +25,8 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
     private val incoming = ArrayList<Meal>()
     private val history = ArrayList<Meal>()
 
+    private lateinit var viewModel: MealsSharedViewModel
+    private var meals = mutableListOf<Meal>()
     lateinit var extraMeal: Meal
     var delete = false
     var edit = false
@@ -49,7 +54,7 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
 
         //todo lettura pasti da DB
         //creo pasti randomici solo per testing
-        //if (presets.size == 0 && incoming.size == 0 && history.size == 0) {
+        /*f (presets.size == 0 && incoming.size == 0 && history.size == 0) {
             Log.i("devdebug", "${presets.size} ${incoming.size} ${history.size}")
             for (meal in randomMeals(10)) {
                 when {
@@ -58,7 +63,20 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
                     else -> history.add(meal)
                 }
             }
-        //}
+        }*/
+
+        if (!this::viewModel.isInitialized)
+            viewModel = ViewModelProvider(this).get(MealsSharedViewModel::class.java)
+        //meals = viewModel.getMeals()
+
+        for (meal in meals)
+        {
+            when{
+                meal.ispreset -> presets.add(meal)
+                meal.isdone -> history.add(meal)
+                else -> incoming.add(meal)
+            }
+        }
         //extraMeal è inizializzato quando ne viene creato uno nuovo o ne viene modificato uno già esistente
         if (this::extraMeal.isInitialized) {
             //controlliamo se è stato passato il parametro per eliminare un pasto esistente
@@ -103,11 +121,10 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
 
         val sortedHistory =
             history.sortedByDescending { it.date } //ordino la lista per avere in cima gli ultimi
-        Log.i("devdebug", history.toString())
         //carico le liste dei pasti nelle varie Recycler
-        presetsView.adapter = MealAdapter(presets, this, requireContext())
+        /*presetsView.adapter = MealAdapter(presets, this, requireContext())
         incomingView.adapter = MealAdapter(incoming, this, requireContext())
-        historyView.adapter = MealAdapterHistory(ArrayList(sortedHistory), this, requireContext())
+        historyView.adapter = MealAdapterHistory(ArrayList(sortedHistory), this, requireContext())*/
 
 
         //aggiunta pasto
@@ -152,6 +169,17 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
             delete = it.getBoolean("delete")
 
         }
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this).get(MealsSharedViewModel::class.java)
+        viewModel.meals.observe(viewLifecycleOwner, {
+            meals = it
+            presetsView.adapter = MealAdapter(ArrayList(meals), this, requireContext())
+            incomingView.adapter = MealAdapter(ArrayList(meals), this, requireContext())
+            historyView.adapter = MealAdapterHistory(ArrayList(meals), this, requireContext())
+        })
+        Log.i("devdebug", meals.toString())
     }
 
     //quando un pasto tra i preset o quelli in arrivo viene premuto

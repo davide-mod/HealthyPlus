@@ -43,6 +43,17 @@
 26-->C:\Users\Davide\AndroidStudioProjects\HealthyPlus\app\src\main\AndroidManifest.xml:16:27-74
 27            </intent-filter>
 28        </activity>
-29    </application>
-30
-31</manifest>
+29
+30        <provider
+30-->[androidx.lifecycle:lifecycle-process:2.2.0] C:\Users\Davide\.gradle\caches\transforms-2\files-2.1\9cafa2a4a706ba6d5dd19f0792c86933\jetified-lifecycle-process-2.2.0\AndroidManifest.xml:25:9-29:43
+31            android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
+31-->[androidx.lifecycle:lifecycle-process:2.2.0] C:\Users\Davide\.gradle\caches\transforms-2\files-2.1\9cafa2a4a706ba6d5dd19f0792c86933\jetified-lifecycle-process-2.2.0\AndroidManifest.xml:26:13-79
+32            android:authorities="com.modolo.healthyplus.lifecycle-process"
+32-->[androidx.lifecycle:lifecycle-process:2.2.0] C:\Users\Davide\.gradle\caches\transforms-2\files-2.1\9cafa2a4a706ba6d5dd19f0792c86933\jetified-lifecycle-process-2.2.0\AndroidManifest.xml:27:13-69
+33            android:exported="false"
+33-->[androidx.lifecycle:lifecycle-process:2.2.0] C:\Users\Davide\.gradle\caches\transforms-2\files-2.1\9cafa2a4a706ba6d5dd19f0792c86933\jetified-lifecycle-process-2.2.0\AndroidManifest.xml:28:13-37
+34            android:multiprocess="true" />
+34-->[androidx.lifecycle:lifecycle-process:2.2.0] C:\Users\Davide\.gradle\caches\transforms-2\files-2.1\9cafa2a4a706ba6d5dd19f0792c86933\jetified-lifecycle-process-2.2.0\AndroidManifest.xml:29:13-40
+35    </application>
+36
+37</manifest>
