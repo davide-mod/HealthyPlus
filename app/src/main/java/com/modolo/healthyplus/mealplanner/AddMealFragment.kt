@@ -98,7 +98,6 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener {
                     findNavController().navigate(R.id.mealplannerFragment, bundle)
                     dialog.dismiss()
                     //verrà semplicemente aggiunto allo storico
-                    //todo OPEN DIALOG
                 }
                 val aspreset = dialog.findViewById<TextView>(R.id.aspreset)
                 aspreset.setOnClickListener {

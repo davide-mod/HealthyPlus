@@ -136,7 +136,9 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
     }
 
     override fun onMealHistoryListener(meal: Meal, position: Int, editMeal: Boolean) {
-        TODO("Not yet implemented")
+        val bundle = Bundle()
+        bundle.putSerializable("meal", meal)
+        findNavController().navigate(R.id.editMealFragment, bundle)
     }
 
 }
