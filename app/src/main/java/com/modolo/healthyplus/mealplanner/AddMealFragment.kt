@@ -116,6 +116,10 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, PresetAdapter.Pres
                 }
                 val schedule = dialog.findViewById<TextView>(R.id.schedule)
                 schedule.setOnClickListener {
+                    viewModel.addMeal(meal)
+                    Log.i("devdebug", "added incoming: $meal")
+                    findNavController().navigateUp()
+                    dialog.dismiss()
                     //dopo aver selezionato data e ora si manderà ai pasti in arrivo
                     //TODO dateandtimepicker dialog -> add to db ->open mealplannerFrag
                 }

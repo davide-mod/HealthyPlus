@@ -30,10 +30,9 @@ class MealsSharedViewModel: ViewModel() {
         for (element in meals.value!!)
         {
             if(element.id == meal.id){
-                Log.i("devdebug","element before edit: $element")
                 element.name = meal.name
                 element.foodList = meal.foodList
-                Log.i("devdebug","element after edit: $element")
+                element.isdone = meal.isdone
                 break
             }
         }
@@ -44,15 +43,5 @@ class MealsSharedViewModel: ViewModel() {
         for(meal in meals.value!!)
             id = if(meal.id > id) meal.id else id
         return id
-    }
-    fun deleteMeal(category: String, mealId: Int) {
-        if(category == "presets"){
-            for(meal in meals.value!!){
-                if (meal.id == mealId)
-                {
-                    meals.value!!.remove(meal)
-                }
-            }
-        }
     }
 }

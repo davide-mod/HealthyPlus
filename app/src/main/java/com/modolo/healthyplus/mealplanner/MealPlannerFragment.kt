@@ -54,7 +54,7 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
 
         //todo lettura pasti da DB
         //creo pasti randomici solo per testing
-        /*f (presets.size == 0 && incoming.size == 0 && history.size == 0) {
+        /*if (presets.size == 0 && incoming.size == 0 && history.size == 0) {
             Log.i("devdebug", "${presets.size} ${incoming.size} ${history.size}")
             for (meal in randomMeals(10)) {
                 when {
@@ -64,64 +64,6 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
                 }
             }
         }*/
-
-        /*for (meal in meals)
-        {
-            when{
-                meal.ispreset -> presets.add(meal)
-                meal.isdone -> history.add(meal)
-                else -> incoming.add(meal)
-            }
-        }*/
-        //extraMeal è inizializzato quando ne viene creato uno nuovo o ne viene modificato uno già esistente
-        /*if (this::extraMeal.isInitialized) {
-            //controlliamo se è stato passato il parametro per eliminare un pasto esistente
-            if (!delete && !edit) {
-                when {
-                    extraMeal.ispreset -> presets.add(extraMeal)
-                    !extraMeal.isdone -> incoming.add(extraMeal)
-                    else -> history.add(extraMeal)
-                }
-            }
-            else { //altrimenti dobbiamo trovarlo ed eliminarlo o modificarlo
-                var found = false
-                for (meal in presets) {
-                    if (meal.id == extraMeal.id) {
-                        presets.remove(meal)
-                        if(edit) presets.add(extraMeal)
-                        found = true
-                        break
-                    }
-                }
-                if (!found) {
-                    for (meal in incoming) {
-                        if (meal.id == extraMeal.id) {
-                            incoming.remove(meal)
-                            if(edit) incoming.add(extraMeal)
-                            found = true
-                            break
-                        }
-                    }
-                }
-                if (!found) {
-                    for (meal in history) {
-                        if (meal.id == extraMeal.id) {
-                            history.remove(meal)
-                            if(edit) history.add(extraMeal)
-                            break
-                        }
-                    }
-                }
-            }
-        }
-*/
-        val sortedHistory =
-            history.sortedByDescending { it.date } //ordino la lista per avere in cima gli ultimi
-        //carico le liste dei pasti nelle varie Recycler
-        /*presetsView.adapter = MealAdapter(presets, this, requireContext())
-        incomingView.adapter = MealAdapter(incoming, this, requireContext())
-        historyView.adapter = MealAdapterHistory(ArrayList(sortedHistory), this, requireContext())*/
-
 
         //aggiunta pasto
         val btnMeal = view.findViewById<TextView>(R.id.btnMeal)
@@ -162,8 +104,8 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(MealsSharedViewModel::class.java)
-        viewModel.meals.observe(viewLifecycleOwner, {
-            meals = it
+        viewModel.meals.observe(viewLifecycleOwner, { mutableList ->
+            meals = mutableList
             presets.clear()
             history.clear()
             incoming.clear()
@@ -174,11 +116,12 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
                     else -> incoming.add(meal)
                 }
             }
+            val sortedHistory =
+                history.sortedByDescending { it.date } //ordino la lista per avere in cima gli ultimi
             presetsView.adapter = MealAdapter(presets, this, requireContext())
             incomingView.adapter = MealAdapter(incoming, this, requireContext())
-            historyView.adapter = MealAdapterHistory(history, this, requireContext())
+            historyView.adapter = MealAdapterHistory(ArrayList(sortedHistory), this, requireContext())
         })
-        Log.i("devdebug", "onViewCreated: $meals")
     }
 
     //quando un pasto tra i preset o quelli in arrivo viene premuto
@@ -190,16 +133,14 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
             bundle.putSerializable("meal", meal)
             findNavController().navigate(R.id.editMealFragment, bundle)
         } else if (done) { //se invece è stato premuto il tasto "fatto" lo sposto nello storico
-            incoming.remove(meal) //rimuovo da quelli in arrivo
-            meal.isdone = true //setto a true il parametro "isdone"
-            //todo update database
+            meal.isdone = true
+            viewModel.updateMeal(meal)
+            incoming.remove(meal)
             history.add(meal)
-            incomingView.adapter =
-                MealAdapter(incoming, this, requireContext())//aggiorno la Recycler
             val sortedHistory =
                 history.sortedByDescending { it.date } //ordino la lista per avere in cima gli ultimi
-            historyView.adapter =
-                MealAdapterHistory(ArrayList(sortedHistory), this, requireContext())
+            incomingView.adapter = MealAdapter(incoming, this, requireContext())
+            historyView.adapter = MealAdapterHistory(ArrayList(sortedHistory), this, requireContext())
         }
     }
 
