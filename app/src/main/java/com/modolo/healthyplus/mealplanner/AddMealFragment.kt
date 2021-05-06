@@ -17,10 +17,11 @@ import com.google.android.material.textfield.TextInputEditText
 import com.modolo.healthyplus.R
 import com.modolo.healthyplus.mealplanner.food.Food
 import com.modolo.healthyplus.mealplanner.food.FoodAdapter
+import com.modolo.healthyplus.mealplanner.presets.PresetAdapter
 import java.time.LocalDateTime
 import kotlin.collections.ArrayList
 
-class AddMealFragment : Fragment(), FoodAdapter.FoodListener {
+class AddMealFragment : Fragment(), FoodAdapter.FoodListener, PresetAdapter.PresetListener{
 
     lateinit var foodName: TextInputEditText
     lateinit var foodQuantity: TextInputEditText
@@ -28,6 +29,9 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener {
     lateinit var foodKcal: TextInputEditText
     lateinit var foodList: ArrayList<Food>
     lateinit var foodRecycler: RecyclerView
+
+    private var presetList = ArrayList<Meal>()
+    lateinit var mealTitle: EditText
 
     private lateinit var viewModel: MealsSharedViewModel
 
@@ -37,8 +41,7 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener {
     ): View {
         val view = inflater.inflate(R.layout.mealplanner_frag_add, container, false)
 
-        val name = view.findViewById<EditText>(R.id.title)
-        val savedMeals = view.findViewById<TextView>(R.id.btnSavedMeals)
+        mealTitle = view.findViewById(R.id.title)
 
         foodList = ArrayList()
         //i campi per l'aggiunta di un cibo
@@ -49,9 +52,10 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener {
         foodKcal = inputFields.findViewById(R.id.kcalText)
         val addFood = inputFields.findViewById<TextView>(R.id.addBtn)
         foodRecycler = view.findViewById(R.id.foodRecycler)
-        //aggiungi cibo
+
+
+        //aggiungi cibo secondo i parametri inseriti
         addFood.setOnClickListener {
-            Log.i("devdebug", "gheson")
             if (foodName.text.toString() != "") {
                 val nameTmp = foodName.text.toString()
                 val quantityTmp =
@@ -61,60 +65,79 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener {
                 val kcalTmp =
                     if (foodKcal.text.toString() != "") foodKcal.text.toString().toFloat() else 0.0F
                 foodList.add(Food(nameTmp, quantityTmp, udmTmp, kcalTmp))
-                //mostro i cibi nella Recycler
                 foodRecycler.adapter = FoodAdapter(foodList, this, requireContext())
                 //resetto i campi
                 foodName.setText("")
                 foodQuantity.setText("")
                 foodKcal.setText("")
+                foodName.requestFocus()
             }
         }
 
+        //quando ha terminato di inserire i cibi si procede
         val proceed = view.findViewById<TextView>(R.id.btnProceed)
         proceed.setOnClickListener {
-            val nameTmp = name.text.toString()
+            val nameTmp = mealTitle.text.toString()
             if (foodList.size > 0 && nameTmp != "") {
                 //se il nostro pasto ha un nome ed almeno un elemento possiamo salvarlo
                 //apro il dialog per la scelta
                 val dialog = Dialog(requireContext())
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
                 dialog.setCancelable(true)
-                dialog.setContentView(R.layout.mealplanner_save_dialog)
+                dialog.setContentView(R.layout.mealplanner_dialog_save)
+
                 //recupero i vari elementi per poter procedere
                 val title = dialog.findViewById<TextView>(R.id.title)
                 title.text = nameTmp //imposto il titolo in base al nome del pasto
 
+                val id = viewModel.getLastId()
+                val meal = Meal(
+                    nameTmp, foodList, LocalDateTime.now(),
+                    ispreset = false,
+                    isdone = false,
+                    id = id+1
+                )
+
                 val eaten = dialog.findViewById<TextView>(R.id.eaten)
                 eaten.setOnClickListener {
-                    val meal = Meal(
-                        nameTmp, foodList, LocalDateTime.now(),
-                        ispreset = false,
-                        isdone = true,
-                        id = 0
-                    )
-                    viewModel.addMeal(meal)
-                    //val bundle = Bundle()
-                    //bundle.putSerializable("meal", meal)
-                    //findNavController().navigate(R.id.mealplannerFragment)
-                    findNavController().navigateUp()
+                    meal.isdone = true //imposto che è stato mangiato
+                    viewModel.addMeal(meal) //lo passo alla viewmodel condivisa
+                    Log.i("devdebug", "added meal: $meal")
+                    findNavController().navigateUp() //torno alla home del modulo
                     dialog.dismiss()
-                    //verrà semplicemente aggiunto allo storico
                 }
                 val aspreset = dialog.findViewById<TextView>(R.id.aspreset)
                 aspreset.setOnClickListener {
-                    //qui si aggiunge ai presets
-                    //todo add to preset db - > open mealPlannerFrag
+                    meal.ispreset = true
+                    viewModel.addMeal(meal)
+                    Log.i("devdebug", "added preset: $meal")
+                    findNavController().navigateUp()
+                    dialog.dismiss()
                 }
                 val schedule = dialog.findViewById<TextView>(R.id.schedule)
                 schedule.setOnClickListener {
                     //dopo aver selezionato data e ora si manderà ai pasti in arrivo
-                    //todo dateandtimepicker dialog -> add to db ->open mealplannerFrag
+                    //TODO dateandtimepicker dialog -> add to db ->open mealplannerFrag
                 }
                 dialog.show()
             }
             else{
                 Toast.makeText(requireContext(), "Inserisci il nome ed almeno un elemento", Toast.LENGTH_SHORT).show()            }
         }
+
+        //scelta di un eventuale preset
+        val savedMeals = view.findViewById<TextView>(R.id.btnSavedMeals)
+        savedMeals.setOnClickListener {
+            val dialog = Dialog(requireContext())
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog.setCancelable(true)
+            dialog.setContentView(R.layout.mealplanner_dialog_presets)
+
+            val recyclerPresets = dialog.findViewById<RecyclerView>(R.id.recyclerMeals)
+            recyclerPresets.adapter=PresetAdapter(presetList, this, requireContext())
+            dialog.show()
+        }
+
 
         //chiudi se premuto X
         val close = view.findViewById<ImageView>(R.id.close)
@@ -126,7 +149,12 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MealsSharedViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(MealsSharedViewModel::class.java)
+        for(meal in viewModel.getMeals()){
+            if(meal.ispreset)
+                presetList.add(meal)
+        }
+
     }
 
 
@@ -149,5 +177,12 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener {
                 return index
         }
         return 0
+    }
+
+    override fun onPresetListener(meal: Meal, position: Int, longpress: Boolean) {
+        mealTitle.setText(meal.name)
+        foodList = meal.foodList
+        foodRecycler.adapter = FoodAdapter(foodList, this, requireContext())
+
     }
 }

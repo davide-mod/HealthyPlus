@@ -65,20 +65,16 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
             }
         }*/
 
-        if (!this::viewModel.isInitialized)
-            viewModel = ViewModelProvider(this).get(MealsSharedViewModel::class.java)
-        //meals = viewModel.getMeals()
-
-        for (meal in meals)
+        /*for (meal in meals)
         {
             when{
                 meal.ispreset -> presets.add(meal)
                 meal.isdone -> history.add(meal)
                 else -> incoming.add(meal)
             }
-        }
+        }*/
         //extraMeal è inizializzato quando ne viene creato uno nuovo o ne viene modificato uno già esistente
-        if (this::extraMeal.isInitialized) {
+        /*if (this::extraMeal.isInitialized) {
             //controlliamo se è stato passato il parametro per eliminare un pasto esistente
             if (!delete && !edit) {
                 when {
@@ -118,7 +114,7 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
                 }
             }
         }
-
+*/
         val sortedHistory =
             history.sortedByDescending { it.date } //ordino la lista per avere in cima gli ultimi
         //carico le liste dei pasti nelle varie Recycler
@@ -135,51 +131,54 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
         return view
     }
 
-    private fun randomMeals(number: Int): ArrayList<Meal> {
-        val meals = ArrayList<Meal>()
-        for (i in 0..number) {
-            var date = LocalDateTime.now()
-            if (i % 3 == 0) {
-                date = LocalDateTime.parse(
-                    "2021-05-01 10:30",
-                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
-                )
-                meals.add(Meal("Pasto$i", randomFoods(5), date, i % 2 == 0, true, i))
-            } else
-                meals.add(Meal("Pasto$i", randomFoods(5), date, i % 2 == 0, i % 3 == 0, i))
+    /*
+        private fun randomMeals(number: Int): ArrayList<Meal> {
+            val meals = ArrayList<Meal>()
+            for (i in 0..number) {
+                var date = LocalDateTime.now()
+                if (i % 3 == 0) {
+                    date = LocalDateTime.parse(
+                        "2021-05-01 10:30",
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+                    )
+                    meals.add(Meal("Pasto$i", randomFoods(5), date, i % 2 == 0, true, i))
+                } else
+                    meals.add(Meal("Pasto$i", randomFoods(5), date, i % 2 == 0, i % 3 == 0, i))
+            }
+            return meals
         }
-        return meals
-    }
 
-    private fun randomFoods(number: Int): ArrayList<Food> {
-        val foods = ArrayList<Food>()
-        for (i in 0..number) {
-            foods.add(Food("Cibo$i", i.toFloat(), "l", i.toFloat()))
+        private fun randomFoods(number: Int): ArrayList<Food> {
+            val foods = ArrayList<Food>()
+            for (i in 0..number) {
+                foods.add(Food("Cibo$i", i.toFloat(), "l", i.toFloat()))
+            }
+            return foods
         }
-        return foods
-    }
+    */
+    //TODO remove arguments
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            val mealTmp = it.getSerializable("meal")
-            if (mealTmp != null)
-                extraMeal = mealTmp as Meal
-
-            delete = it.getBoolean("delete")
-
-        }
-    }
+    //viewmodel per comunicare tra fragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MealsSharedViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(MealsSharedViewModel::class.java)
         viewModel.meals.observe(viewLifecycleOwner, {
             meals = it
-            presetsView.adapter = MealAdapter(ArrayList(meals), this, requireContext())
-            incomingView.adapter = MealAdapter(ArrayList(meals), this, requireContext())
-            historyView.adapter = MealAdapterHistory(ArrayList(meals), this, requireContext())
+            presets.clear()
+            history.clear()
+            incoming.clear()
+            for (meal in meals) {
+                when {
+                    meal.ispreset -> presets.add(meal)
+                    meal.isdone -> history.add(meal)
+                    else -> incoming.add(meal)
+                }
+            }
+            presetsView.adapter = MealAdapter(presets, this, requireContext())
+            incomingView.adapter = MealAdapter(incoming, this, requireContext())
+            historyView.adapter = MealAdapterHistory(history, this, requireContext())
         })
-        Log.i("devdebug", meals.toString())
+        Log.i("devdebug", "onViewCreated: $meals")
     }
 
     //quando un pasto tra i preset o quelli in arrivo viene premuto

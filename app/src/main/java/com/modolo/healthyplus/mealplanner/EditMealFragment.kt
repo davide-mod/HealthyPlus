@@ -10,6 +10,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
@@ -26,16 +27,21 @@ class EditMealFragment : Fragment(), FoodAdapter.FoodListener {
     lateinit var udmSpinner: Spinner
     lateinit var foodRecycler: RecyclerView
     lateinit var foodKcal: TextInputEditText
+    lateinit var newName: EditText
+    private lateinit var viewModel: MealsSharedViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         val view = inflater.inflate(R.layout.mealplanner_frag_edit, container, false)
-        val name = view.findViewById<EditText>(R.id.title)
-        name.setText(meal.name)
+
+        newName = view.findViewById(R.id.title)
+        newName.setText(meal.name)
+
         val delete = view.findViewById<TextView>(R.id.btnDelete)
         val save = view.findViewById<TextView>(R.id.btnSave)
+
         foodRecycler = view.findViewById(R.id.foodRecycler)
         val inputFields = view.findViewById<ConstraintLayout>(R.id.inputLayout)
         foodName = inputFields.findViewById(R.id.foodNameText)
@@ -65,20 +71,18 @@ class EditMealFragment : Fragment(), FoodAdapter.FoodListener {
         }
 
         delete.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putSerializable("meal", meal)
-            bundle.putBoolean("delete", true)
-            findNavController().navigate(R.id.mealplannerFragment, bundle)
+            viewModel.removeMeal(meal)
+            findNavController().navigateUp()
         }
 
         save.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putSerializable("meal", meal)
-            bundle.putBoolean("edit", true)
-            findNavController().navigate(R.id.mealplannerFragment, bundle)
+            meal.name = newName.text.toString()
+            meal.foodList = foodListTmp
+            viewModel.updateMeal(meal)
+            findNavController().navigateUp()
         }
 
-        //chiudi quando si preme la X
+        //chiudi quando si preme la X senza salvare
         val close = view.findViewById<ImageView>(R.id.close)
         close.setOnClickListener {
             findNavController().navigateUp()
@@ -100,6 +104,10 @@ class EditMealFragment : Fragment(), FoodAdapter.FoodListener {
             )
         }
     }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(requireActivity()).get(MealsSharedViewModel::class.java)
+            }
 
     override fun onFoodListener(food: Food, position: Int, longpress: Boolean) {
         foodName.setText(food.name)
