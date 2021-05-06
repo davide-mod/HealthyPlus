@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -40,6 +41,7 @@ class MealAdapterHistory(private val meals: ArrayList<Meal>, private val mealLis
             mealDateAgo.text = daysBetween.toString()+" giorni fa"
 
             mealEdit.setOnClickListener {
+                mealEdit.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
                 mealListener.onMealHistoryListener(meal, holder.layoutPosition, true)
             }
             holder.itemView.setOnClickListener {

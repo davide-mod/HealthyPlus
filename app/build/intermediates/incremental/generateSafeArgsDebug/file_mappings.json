@@ -1,1 +1,1 @@
-[{"navFile":"src\\main\\res\\navigation\\nav_graph.xml","javaFiles":["com.modolo.healthyplus.main.MainFragmentDirections","com.modolo.healthyplus.mealplanner.MealPlannerFragmentArgs","com.modolo.healthyplus.mealplanner.EditMealFragmentArgs","com.modolo.healthyplus.mealplanner.AddMealFragmentArgs"]}]
+[{"navFile":"src\\main\\res\\navigation\\nav_graph.xml","javaFiles":["com.modolo.healthyplus.main.MainFragmentDirections","com.modolo.healthyplus.mealplanner.EditMealFragmentArgs","com.modolo.healthyplus.mealplanner.AddMealFragmentArgs"]}]

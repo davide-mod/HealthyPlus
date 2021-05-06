@@ -20,14 +20,15 @@
         style="@style/titleText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/main_mealplanner"
         android:layout_margin="@dimen/marginStandard"
+        android:gravity="start"
         android:hint="Pasto"
         android:inputType="text"
-        android:gravity="start"
+        android:textColor="@color/main_mealplanner"
         app:layout_constraintEnd_toStartOf="@id/close"
         app:layout_constraintStart_toEndOf="@id/icon"
         app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/close"
         android:layout_width="@dimen/iconNearTitle"
@@ -104,9 +105,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/marginStandard"
-            app:boxStrokeWidth="0dp"
             android:background="@drawable/background"
             android:backgroundTint="@color/white"
+            app:boxStrokeWidth="0dp"
             app:layout_constraintBottom_toTopOf="@id/quantityBox"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -130,10 +131,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/marginStandard"
             android:layout_marginBottom="@dimen/marginStandard"
-            android:gravity="center"
-            app:boxStrokeWidth="0dp"
             android:background="@drawable/background"
             android:backgroundTint="@color/white"
+            android:gravity="center"
+            app:boxStrokeWidth="0dp"
             app:layout_constraintBottom_toTopOf="@id/addBtn"
             app:layout_constraintEnd_toStartOf="@id/spinnerUdm"
             app:layout_constraintStart_toStartOf="parent"
@@ -148,7 +149,7 @@
                 android:backgroundTint="@color/white"
                 android:gravity="start"
                 android:hint="@string/meal_planner_label_quantity"
-                android:inputType="numberDecimal"/>
+                android:inputType="numberDecimal" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Spinner
@@ -185,7 +186,7 @@
                 android:backgroundTint="@color/white"
                 android:gravity="start"
                 android:hint="@string/meal_planner_label_kcal"
-                android:inputType="numberDecimal"/>
+                android:inputType="numberDecimal" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -193,10 +194,10 @@
             style="@style/buttonTextFinish"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/marginSmall"
-            android:layout_marginBottom="@dimen/marginSmall"
             android:layout_marginStart="@dimen/marginStandard"
+            android:layout_marginTop="@dimen/marginSmall"
             android:layout_marginEnd="@dimen/marginStandard"
+            android:layout_marginBottom="@dimen/marginSmall"
             android:background="@drawable/background"
             android:backgroundTint="@color/main_mealplanner"
             android:padding="@dimen/marginStandard"

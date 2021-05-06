@@ -2,10 +2,6 @@ com/modolo/healthyplus/mealplanner/EditMealFragmentArgs.java
  com.modolo.healthyplus.mealplanner.EditMealFragmentArgs
  com.modolo.healthyplus.mealplanner.EditMealFragmentArgs$1
  com.modolo.healthyplus.mealplanner.EditMealFragmentArgs$Builder
-com/modolo/healthyplus/mealplanner/MealPlannerFragmentArgs.java
- com.modolo.healthyplus.mealplanner.MealPlannerFragmentArgs
- com.modolo.healthyplus.mealplanner.MealPlannerFragmentArgs$1
- com.modolo.healthyplus.mealplanner.MealPlannerFragmentArgs$Builder
 com/modolo/healthyplus/BuildConfig.java
  com.modolo.healthyplus.BuildConfig
 com/modolo/healthyplus/main/MainFragmentDirections.java

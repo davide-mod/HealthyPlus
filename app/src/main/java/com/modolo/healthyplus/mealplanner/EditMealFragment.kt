@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Spinner
@@ -53,6 +54,7 @@ class EditMealFragment : Fragment(), FoodAdapter.FoodListener {
 
         foodRecycler.adapter = FoodAdapter(foodListTmp, this, requireContext())
         addFood.setOnClickListener {
+            addFood.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
             if (foodName.text.toString() != "") {
                 val nameTmp = foodName.text.toString()
                 val quantityTmp =
@@ -71,11 +73,13 @@ class EditMealFragment : Fragment(), FoodAdapter.FoodListener {
         }
 
         delete.setOnClickListener {
+            delete.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
             viewModel.removeMeal(meal)
             findNavController().navigateUp()
         }
 
         save.setOnClickListener {
+            save.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
             meal.name = newName.text.toString()
             meal.foodList = foodListTmp
             viewModel.updateMeal(meal)

@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/background"
-    android:backgroundTint="@color/white"
     android:layout_marginStart="@dimen/marginStandard"
+    android:layout_marginTop="@dimen/marginStandard"
     android:layout_marginEnd="@dimen/marginStandard"
-    android:layout_marginTop="@dimen/marginStandard">
+    android:background="@drawable/background"
+    android:backgroundTint="@color/white">
 
     <TextView
         android:id="@+id/name"

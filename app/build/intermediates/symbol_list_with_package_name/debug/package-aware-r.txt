@@ -1734,6 +1734,7 @@ drawable icon_arrow_back
 drawable icon_edit
 drawable icon_fit
 drawable icon_hamburger
+drawable icon_home
 drawable icon_meal
 drawable login_fb
 drawable login_google
@@ -2400,6 +2401,7 @@ layout material_timepicker_dialog
 layout material_timepicker_textinput_display
 layout mealplanner_dialog_presets
 layout mealplanner_dialog_save
+layout mealplanner_dialog_snack
 layout mealplanner_frag_add
 layout mealplanner_frag_edit
 layout mealplanner_itm_food

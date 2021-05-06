@@ -118,10 +118,11 @@
             android:background="@color/main_mealplanner"
             android:padding="@dimen/marginStandard"
             android:text="@string/meal_planner_snack_btn"
+            app:drawableStartCompat="@drawable/icon_add"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btnMeal"
-            app:drawableStartCompat="@drawable/icon_add" />
+            app:layout_constraintStart_toStartOf="parent" />
+
         <TextView
             android:id="@+id/btnMeal"
             style="@style/buttonTextFinish"
@@ -130,10 +131,10 @@
             android:background="@color/main"
             android:padding="@dimen/marginStandard"
             android:text="@string/meal_planner_meal_btn"
+            app:drawableStartCompat="@drawable/icon_add"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btnSnack"
-            app:drawableStartCompat="@drawable/icon_add" />
+            app:layout_constraintStart_toEndOf="@id/btnSnack" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

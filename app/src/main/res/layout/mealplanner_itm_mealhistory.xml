@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/marginStandard"
-    android:layout_marginBottom="@dimen/marginStandard"
     android:layout_marginEnd="@dimen/marginStandard"
+    android:layout_marginBottom="@dimen/marginStandard"
     android:background="@drawable/background"
     android:backgroundTint="@color/white">
 
@@ -19,8 +19,8 @@
         android:layout_marginEnd="@dimen/marginStandard"
         android:text="PRANZO"
         app:layout_constraintBottom_toTopOf="@id/mealDate"
-        app:layout_constraintStart_toStartOf="@id/mealDate"
         app:layout_constraintEnd_toEndOf="@id/mealDate"
+        app:layout_constraintStart_toStartOf="@id/mealDate"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView

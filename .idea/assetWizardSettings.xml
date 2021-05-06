@@ -3,6 +3,11 @@
   <component name="WizardSettings">
     <option name="children">
       <map>
+        <entry key="imageWizard">
+          <value>
+            <PersistentState />
+          </value>
+        </entry>
         <entry key="vectorWizard">
           <value>
             <PersistentState>
@@ -29,8 +34,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="meal_fit_alarm" />
-                            <entry key="sourceFile" value="C:\Users\Davide\Downloads\alarm.svg" />
+                            <entry key="outputName" value="icon_home" />
+                            <entry key="sourceFile" value="C:\Users\Davide\Downloads\ion_home.svg" />
                           </map>
                         </option>
                       </PersistentState>

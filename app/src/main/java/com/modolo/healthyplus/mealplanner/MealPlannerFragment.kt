@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -27,9 +28,6 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
 
     private lateinit var viewModel: MealsSharedViewModel
     private var meals = mutableListOf<Meal>()
-    lateinit var extraMeal: Meal
-    var delete = false
-    var edit = false
 
     lateinit var presetsView: RecyclerView
     lateinit var incomingView: RecyclerView
@@ -52,53 +50,14 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
         incomingView = view.findViewById(R.id.incomingMeals)
         historyView = view.findViewById(R.id.historyMeals)
 
-        //todo lettura pasti da DB
-        //creo pasti randomici solo per testing
-        /*if (presets.size == 0 && incoming.size == 0 && history.size == 0) {
-            Log.i("devdebug", "${presets.size} ${incoming.size} ${history.size}")
-            for (meal in randomMeals(10)) {
-                when {
-                    meal.ispreset -> presets.add(meal)
-                    !meal.isdone -> incoming.add(meal)
-                    else -> history.add(meal)
-                }
-            }
-        }*/
-
         //aggiunta pasto
         val btnMeal = view.findViewById<TextView>(R.id.btnMeal)
         btnMeal.setOnClickListener {
+            btnMeal.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
             findNavController().navigate(R.id.addMealFragment)
         }
         return view
     }
-
-    /*
-        private fun randomMeals(number: Int): ArrayList<Meal> {
-            val meals = ArrayList<Meal>()
-            for (i in 0..number) {
-                var date = LocalDateTime.now()
-                if (i % 3 == 0) {
-                    date = LocalDateTime.parse(
-                        "2021-05-01 10:30",
-                        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
-                    )
-                    meals.add(Meal("Pasto$i", randomFoods(5), date, i % 2 == 0, true, i))
-                } else
-                    meals.add(Meal("Pasto$i", randomFoods(5), date, i % 2 == 0, i % 3 == 0, i))
-            }
-            return meals
-        }
-
-        private fun randomFoods(number: Int): ArrayList<Food> {
-            val foods = ArrayList<Food>()
-            for (i in 0..number) {
-                foods.add(Food("Cibo$i", i.toFloat(), "l", i.toFloat()))
-            }
-            return foods
-        }
-    */
-    //TODO remove arguments
 
     //viewmodel per comunicare tra fragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
