@@ -33,7 +33,21 @@
         android:id="@+id/mealplannerFragment"
         android:name="com.modolo.healthyplus.mealplanner.MealPlannerFragment"
         android:label="MealplannerFragment"
-        tools:layout="@layout/fragment_mealplanner" />
+        tools:layout="@layout/fragment_mealplanner" >
+        <argument
+            android:name="delete"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
+            android:name="meal"
+            app:argType="com.modolo.healthyplus.mealplanner.Meal"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="edit"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
     <fragment
         android:id="@+id/editMealFragment"
         android:name="com.modolo.healthyplus.mealplanner.EditMealFragment"

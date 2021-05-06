@@ -37,6 +37,7 @@ class EditMealFragment() : Fragment(), FoodAdapter.FoodListener {
     ): View {
         val view = inflater.inflate(R.layout.mealplanner_frag_edit, container, false)
         val name = view.findViewById<EditText>(R.id.title)
+        name.setText(meal.name)
         val delete = view.findViewById<TextView>(R.id.btnDelete)
         val save = view.findViewById<TextView>(R.id.btnSave)
         foodRecycler = view.findViewById(R.id.foodRecycler)
@@ -47,6 +48,7 @@ class EditMealFragment() : Fragment(), FoodAdapter.FoodListener {
         foodKcal = inputFields.findViewById(R.id.kcalText)
         val addFood = inputFields.findViewById<TextView>(R.id.addBtn)
         foodListTmp = meal.foodList
+
         foodRecycler.adapter = FoodAdapter(foodListTmp, this, requireContext())
         addFood.setOnClickListener {
             if (foodName.text.toString() != "") {
@@ -67,11 +69,17 @@ class EditMealFragment() : Fragment(), FoodAdapter.FoodListener {
         }
 
         delete.setOnClickListener {
-            //todo QUERY to remove from db
+            val bundle = Bundle()
+            bundle.putSerializable("meal", meal)
+            bundle.putBoolean("delete", true)
+            findNavController().navigate(R.id.mealplannerFragment, bundle)
         }
 
         save.setOnClickListener {
-            //todo QUERY to update db
+            val bundle = Bundle()
+            bundle.putSerializable("meal", meal)
+            bundle.putBoolean("edit", true)
+            findNavController().navigate(R.id.mealplannerFragment, bundle)
         }
 
         //chiudi quando si preme la X

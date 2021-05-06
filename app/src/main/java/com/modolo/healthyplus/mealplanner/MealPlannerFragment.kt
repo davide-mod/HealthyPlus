@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -23,7 +22,9 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
     private val incoming = ArrayList<Meal>()
     private val history = ArrayList<Meal>()
 
-    lateinit var newMeal: Meal
+    lateinit var extraMeal: Meal
+    var delete = false
+    var edit = false
 
     lateinit var presetsView: RecyclerView
     lateinit var incomingView: RecyclerView
@@ -48,7 +49,7 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
 
         //todo lettura pasti da DB
         //creo pasti randomici solo per testing
-        if (presets.size == 0 && incoming.size == 0 && history.size == 0) {
+        //if (presets.size == 0 && incoming.size == 0 && history.size == 0) {
             Log.i("devdebug", "${presets.size} ${incoming.size} ${history.size}")
             for (meal in randomMeals(10)) {
                 when {
@@ -57,16 +58,52 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
                     else -> history.add(meal)
                 }
             }
-        }
-        if (this::newMeal.isInitialized) {
-            when {
-                newMeal.ispreset -> presets.add(newMeal)
-                !newMeal.isdone -> incoming.add(newMeal)
-                else -> history.add(newMeal)
+        //}
+        //extraMeal è inizializzato quando ne viene creato uno nuovo o ne viene modificato uno già esistente
+        if (this::extraMeal.isInitialized) {
+            //controlliamo se è stato passato il parametro per eliminare un pasto esistente
+            if (!delete && !edit) {
+                when {
+                    extraMeal.ispreset -> presets.add(extraMeal)
+                    !extraMeal.isdone -> incoming.add(extraMeal)
+                    else -> history.add(extraMeal)
+                }
+            }
+            else { //altrimenti dobbiamo trovarlo ed eliminarlo o modificarlo
+                var found = false
+                for (meal in presets) {
+                    if (meal.id == extraMeal.id) {
+                        presets.remove(meal)
+                        if(edit) presets.add(extraMeal)
+                        found = true
+                        break
+                    }
+                }
+                if (!found) {
+                    for (meal in incoming) {
+                        if (meal.id == extraMeal.id) {
+                            incoming.remove(meal)
+                            if(edit) incoming.add(extraMeal)
+                            found = true
+                            break
+                        }
+                    }
+                }
+                if (!found) {
+                    for (meal in history) {
+                        if (meal.id == extraMeal.id) {
+                            history.remove(meal)
+                            if(edit) history.add(extraMeal)
+                            break
+                        }
+                    }
+                }
             }
         }
+
         val sortedHistory =
             history.sortedByDescending { it.date } //ordino la lista per avere in cima gli ultimi
+        Log.i("devdebug", history.toString())
         //carico le liste dei pasti nelle varie Recycler
         presetsView.adapter = MealAdapter(presets, this, requireContext())
         incomingView.adapter = MealAdapter(incoming, this, requireContext())
@@ -108,8 +145,12 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            val mealTmp = it.getSerializable("meal") as Meal
-            newMeal = mealTmp
+            val mealTmp = it.getSerializable("meal")
+            if (mealTmp != null)
+                extraMeal = mealTmp as Meal
+
+            delete = it.getBoolean("delete")
+
         }
     }
 
