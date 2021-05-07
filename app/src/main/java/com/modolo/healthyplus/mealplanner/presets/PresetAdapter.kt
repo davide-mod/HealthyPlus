@@ -11,6 +11,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.modolo.healthyplus.R
 import com.modolo.healthyplus.mealplanner.Meal
+import com.modolo.healthyplus.mealplanner.food.Food
 import java.time.format.DateTimeFormatter
 
 class PresetAdapter(
@@ -36,10 +37,10 @@ class PresetAdapter(
         with(holder) {
             mealName.text = meal.name
             holder.itemView.setOnClickListener {
-                presetListener.onPresetListener(meal, holder.layoutPosition, false)
+                presetListener.onPresetListener(meal.name, meal.foodList, holder.layoutPosition, false)
             }
             holder.itemView.setOnLongClickListener {
-                presetListener.onPresetListener(meal, holder.layoutPosition, true)
+                presetListener.onPresetListener(meal.name, meal.foodList, holder.layoutPosition, true)
                 true
             }
         }
@@ -47,6 +48,6 @@ class PresetAdapter(
 
 
     interface PresetListener {
-        fun onPresetListener(meal: Meal, position: Int, longpress: Boolean)
+        fun onPresetListener(mealName: String, foodListPar :MutableList<Food>, position: Int, longpress: Boolean)
     }
 }

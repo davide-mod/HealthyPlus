@@ -1,6 +1,7 @@
 package com.modolo.healthyplus.mealplanner
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,14 +22,16 @@ import com.modolo.healthyplus.mealplanner.food.FoodAdapter
 
 class EditMealFragment : Fragment(), FoodAdapter.FoodListener {
 
-    lateinit var meal: Meal
+    lateinit var mealPassed: Meal
     private var foodListTmp = ArrayList<Food>()
+
+
     lateinit var foodName: TextInputEditText
     lateinit var foodQuantity: TextInputEditText
     lateinit var udmSpinner: Spinner
     lateinit var foodRecycler: RecyclerView
     lateinit var foodKcal: TextInputEditText
-    lateinit var newName: EditText
+    lateinit var nameEdit: EditText
     private lateinit var viewModel: MealsSharedViewModel
 
     override fun onCreateView(
@@ -37,8 +40,7 @@ class EditMealFragment : Fragment(), FoodAdapter.FoodListener {
     ): View {
         val view = inflater.inflate(R.layout.mealplanner_frag_edit, container, false)
 
-        newName = view.findViewById(R.id.title)
-        newName.setText(meal.name)
+        nameEdit = view.findViewById(R.id.title)
 
         val delete = view.findViewById<TextView>(R.id.btnDelete)
         val save = view.findViewById<TextView>(R.id.btnSave)
@@ -50,9 +52,6 @@ class EditMealFragment : Fragment(), FoodAdapter.FoodListener {
         udmSpinner = inputFields.findViewById(R.id.spinnerUdm)
         foodKcal = inputFields.findViewById(R.id.kcalText)
         val addFood = inputFields.findViewById<TextView>(R.id.addBtn)
-        foodListTmp = meal.foodList
-
-        foodRecycler.adapter = FoodAdapter(foodListTmp, this, requireContext())
         addFood.setOnClickListener {
             addFood.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
             if (foodName.text.toString() != "") {
@@ -64,7 +63,7 @@ class EditMealFragment : Fragment(), FoodAdapter.FoodListener {
                 val kcalTmp =
                     if (foodKcal.text.toString() != "") foodKcal.text.toString().toFloat() else 0.0F
                 foodListTmp.add(Food(nameTmp, quantityTmp, udmTmp, kcalTmp))
-                foodRecycler.adapter = FoodAdapter(foodListTmp, this, requireContext())
+                foodRecycler.adapter = FoodAdapter(ArrayList(foodListTmp), this, requireContext())
 
                 foodName.setText("")
                 foodQuantity.setText("")
@@ -74,44 +73,38 @@ class EditMealFragment : Fragment(), FoodAdapter.FoodListener {
 
         delete.setOnClickListener {
             delete.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
-            viewModel.removeMeal(meal)
+            viewModel.removeMeal(mealPassed.id)
             findNavController().navigateUp()
         }
 
         save.setOnClickListener {
+            mealPassed.name = nameEdit.text.toString()
+            mealPassed.foodList = foodListTmp
+            Log.i("devdebug", "editMeal: save pressed")
+            viewModel.updateMeal(mealPassed)
             save.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
-            meal.name = newName.text.toString()
-            meal.foodList = foodListTmp
-            viewModel.updateMeal(meal)
             findNavController().navigateUp()
         }
 
         //chiudi quando si preme la X senza salvare
         val close = view.findViewById<ImageView>(R.id.close)
         close.setOnClickListener {
+            viewModel.resetEdit()
             findNavController().navigateUp()
         }
         return view
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            val mealTmp = it.getSerializable("meal") as Meal
-            meal = Meal(
-                mealTmp.name,
-                mealTmp.foodList,
-                mealTmp.date,
-                mealTmp.ispreset,
-                mealTmp.isdone,
-                mealTmp.id
-            )
-        }
-    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(MealsSharedViewModel::class.java)
-            }
+        mealPassed = viewModel.getEdit()
+        Log.i("devdebug", "editMeal received: $mealPassed")
+        nameEdit.setText(mealPassed.name)
+        foodListTmp = ArrayList(mealPassed.foodList)
+        foodRecycler.adapter = FoodAdapter(ArrayList(foodListTmp), this, requireContext())
+
+    }
 
     override fun onFoodListener(food: Food, position: Int, longpress: Boolean) {
         foodName.setText(food.name)
@@ -119,7 +112,7 @@ class EditMealFragment : Fragment(), FoodAdapter.FoodListener {
         udmSpinner.setSelection(findSpinnerElement(food.udm))
         foodKcal.setText(food.kcal.toString())
         foodListTmp.remove(food)
-        foodRecycler.adapter = FoodAdapter(foodListTmp, this, requireContext())
+        foodRecycler.adapter = FoodAdapter(ArrayList(foodListTmp), this, requireContext())
     }
 
     private fun findSpinnerElement(value: String): Int {

@@ -13,11 +13,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.modolo.healthyplus.MainActivity
 import com.modolo.healthyplus.R
-import com.modolo.healthyplus.mealplanner.food.Food
 import com.modolo.healthyplus.mealplanner.meal.MealAdapter
 import com.modolo.healthyplus.mealplanner.meal.MealAdapterHistory
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
     MealAdapterHistory.MealHistoryListener {
@@ -27,7 +24,7 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
     private val history = ArrayList<Meal>()
 
     private lateinit var viewModel: MealsSharedViewModel
-    private var meals = mutableListOf<Meal>()
+    private var meals = ArrayList<Meal>()
 
     lateinit var presetsView: RecyclerView
     lateinit var incomingView: RecyclerView
@@ -88,12 +85,13 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
         //si controlla se ad essere premuto è stato il pulsante di edit
         if (editMeal) {
             //carico il fragment di edit passando il pasto come parametro
-            val bundle = Bundle()
-            bundle.putSerializable("meal", meal)
-            findNavController().navigate(R.id.editMealFragment, bundle)
+            Log.i("devdebug", "MainFragment: wanna edit ${meal.name} e id ${meal.id}")
+            val mealToEdit = Meal(meal.name, meal.foodList, meal.date, meal.ispreset, meal.isdone, meal.id)
+            viewModel.setMealToEdit(mealToEdit)
+            findNavController().navigate(R.id.editMealFragment)
         } else if (done) { //se invece è stato premuto il tasto "fatto" lo sposto nello storico
             meal.isdone = true
-            viewModel.updateMeal(meal)
+            //viewModel.updateMeal(meal)
             incoming.remove(meal)
             history.add(meal)
             val sortedHistory =
@@ -104,9 +102,9 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
     }
 
     override fun onMealHistoryListener(meal: Meal, position: Int, editMeal: Boolean) {
-        val bundle = Bundle()
-        bundle.putSerializable("meal", meal)
-        findNavController().navigate(R.id.editMealFragment, bundle)
+        Log.i("devdebug", "MainFragment: wannaEditHistory ${meal.name} e id ${meal.id}")
+        viewModel.setMealToEdit(meal)
+        findNavController().navigate(R.id.editMealFragment)
     }
 
 }
