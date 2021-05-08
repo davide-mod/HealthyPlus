@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "27644008478",
+    "project_id": "healthyplus-297ed",
+    "storage_bucket": "healthyplus-297ed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:27644008478:android:ef76be2ce19d1c36db760f",
+        "android_client_info": {
+          "package_name": "com.modolo.healthyplus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "27644008478-3a5750f46o7lld22bdrphmomjk4jc3om.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpm0KO61o1NvPQjQzZGGbh0nlOnQR2a-c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "27644008478-3a5750f46o7lld22bdrphmomjk4jc3om.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
