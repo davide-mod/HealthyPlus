@@ -1,6 +1,8 @@
 package com.modolo.healthyplus.mealplanner
 
 import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -91,6 +93,8 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, PresetAdapter.Pres
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
                 dialog.setCancelable(true)
                 dialog.setContentView(R.layout.mealplanner_dialog_save)
+                dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
 
                 //recupero i vari elementi per poter procedere
                 val title = dialog.findViewById<TextView>(R.id.title)
@@ -152,6 +156,7 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, PresetAdapter.Pres
 
             val recyclerPresets = presetDialog.findViewById<RecyclerView>(R.id.recyclerMeals)
             recyclerPresets.adapter = PresetAdapter(presetList, this, requireContext())
+            presetDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             presetDialog.show()
         }
 

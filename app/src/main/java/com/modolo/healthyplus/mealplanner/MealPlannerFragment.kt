@@ -1,20 +1,27 @@
 package com.modolo.healthyplus.mealplanner
 
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.textfield.TextInputEditText
 import com.modolo.healthyplus.MainActivity
 import com.modolo.healthyplus.R
+import com.modolo.healthyplus.mealplanner.food.Food
 import com.modolo.healthyplus.mealplanner.meal.MealAdapter
 import com.modolo.healthyplus.mealplanner.meal.MealAdapterHistory
+import java.time.LocalDateTime
 
 class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
     MealAdapterHistory.MealHistoryListener {
@@ -52,6 +59,40 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
         btnMeal.setOnClickListener {
             btnMeal.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
             findNavController().navigate(R.id.addMealFragment)
+        }
+
+        val btnSnack = view.findViewById<TextView>(R.id.btnSnack)
+        btnSnack.setOnClickListener {
+            val dialog = Dialog(requireContext())
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog.setCancelable(true)
+            dialog.setContentView(R.layout.mealplanner_dialog_snack)
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+            val snackTitle = dialog.findViewById<EditText>(R.id.title)
+            val snackQuantity = dialog.findViewById<TextInputEditText>(R.id.quantityText)
+            val snackSpinner = dialog.findViewById<Spinner>(R.id.spinnerUdm)
+            val snackKcal = dialog.findViewById<EditText>(R.id.kcalText)
+            val snackSave = dialog.findViewById<TextView>(R.id.addBtn)
+
+            snackSave.setOnClickListener {
+                //recupero i parametri dal dialog permettendo anche di lasciare il tutto non compilato
+                val snackNam = if(snackTitle.text.toString() == "") "Snack" else snackTitle.text.toString()
+                val snackQua = if(snackQuantity.text.toString() == "") 0.0F else snackQuantity.text.toString().toFloat()
+                val snackSpi = snackSpinner.selectedItem.toString()
+                val snackKca = if(snackKcal.text.toString() == "") 0.0F else snackKcal.text.toString().toFloat()
+                val food = mutableListOf<Food>()
+                food.add(Food(snackNam, snackQua, snackSpi, snackKca))
+                val snackMeal = Meal(snackNam, food, LocalDateTime.now(), isdone = true, ispreset = false, id = viewModel.getNewId())
+                viewModel.addMeal(snackMeal)
+                history.add(snackMeal)
+                val sortedHistory =
+                    history.sortedByDescending { it.date } //ordino la lista per avere in cima gli ultimi
+                historyView.adapter = MealAdapterHistory(ArrayList(sortedHistory), this, requireContext())
+                dialog.dismiss()
+            }
+
+            dialog.show()
         }
         return view
     }

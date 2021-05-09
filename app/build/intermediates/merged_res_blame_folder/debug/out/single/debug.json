@@ -270,5 +270,9 @@
     {
         "merged": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\build\\intermediates\\res\\merged\\debug\\font_ubuntu_regular.ttf.flat",
         "source": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\src\\main\\res\\font\\ubuntu_regular.ttf"
+    },
+    {
+        "merged": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\build\\intermediates\\res\\merged\\debug\\drawable_btn_bottom_notrounded.xml.flat",
+        "source": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\src\\main\\res\\drawable\\btn_bottom_notrounded.xml"
     }
 ]
