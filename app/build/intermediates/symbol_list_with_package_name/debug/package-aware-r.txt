@@ -2054,10 +2054,6 @@ id home
 id homeAsUp
 id honorRequest
 id icon
-id iconEmail
-id iconFB
-id iconGoogle
-id iconSignup
 id icon_group
 id icon_only
 id ifRoom
@@ -2304,11 +2300,7 @@ id test_radiobutton_android_button_tint
 id test_radiobutton_app_button_tint
 id text
 id text2
-id textEmail
 id textEnd
-id textFB
-id textGoogle
-id textSignup
 id textSpacerNoButtons
 id textSpacerNoTitle
 id textStart

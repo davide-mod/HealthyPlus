@@ -3,22 +3,29 @@ package com.modolo.healthyplus.mealplanner
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.modolo.healthyplus.DButil
 import com.modolo.healthyplus.mealplanner.food.Food
 import java.time.LocalDateTime
 
-class MealsSharedViewModel : ViewModel() {
+class MealsSharedViewModel: ViewModel() {
+    val mAuth  = FirebaseAuth.getInstance()
     val meals = MutableLiveData(ArrayList<Meal>())
     var mealtoEdit = MutableLiveData(
         Meal(
-            "", ArrayList(), LocalDateTime.now(),
+            "", ArrayList(), LocalDateTime.now().toString(),
             ispreset = false,
             isdone = false,
-            id = 0
+            id = ""
         )
     )
 
     fun addMeal(meal: Meal) {
         meals.value!!.add(meal)
+        DButil(mAuth, Firebase.firestore).addMeal(meal)
         Log.i("devdebug", "viewModel: added ${meal.name} with id ${meal.id}")
     }
 
@@ -30,7 +37,7 @@ class MealsSharedViewModel : ViewModel() {
         mealtoEdit = MutableLiveData(meal)
     }
 
-    fun removeMeal(id: Int) {
+    fun removeMeal(id: String) {
         Log.i("devdebug", "viewModel: mealList size ${meals.value!!.size}")
         val iter: MutableIterator<Meal> = meals.value!!.iterator()
         while (iter.hasNext()) {
@@ -56,23 +63,16 @@ class MealsSharedViewModel : ViewModel() {
     fun resetEdit() {
         mealtoEdit = MutableLiveData(
             Meal(
-                "", ArrayList(), LocalDateTime.now(),
+                "", ArrayList(), LocalDateTime.now().toString(),
                 ispreset = false,
                 isdone = false,
-                id = 0
+                id = ""
             )
         )
     }
 
     fun getEdit(): Meal {
         return mealtoEdit.value!!
-    }
-
-    fun getNewId(): Int {
-        var id = 1
-        for (meal in meals.value!!)
-            id = if (meal.id > id) meal.id else id
-        return id + 1
     }
 }
 

@@ -1,15 +1,21 @@
 package com.modolo.healthyplus
 
 import android.util.Log
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
+import com.modolo.healthyplus.mealplanner.Meal
+import com.modolo.healthyplus.mealplanner.food.Food
+import java.time.LocalDateTime
 import java.util.*
+import kotlin.collections.ArrayList
 
-class DButil(private val mAuth: FirebaseAuth, private val db: FirebaseFirestore) {
+class DButil(mAuth: FirebaseAuth, private val db: FirebaseFirestore) {
     private var user: FirebaseUser? = mAuth.currentUser
 
-    fun addUser(surname: String, dateofbirth: String){
+    fun addUser(surname: String, dateofbirth: String) {
         val newUserInfo = hashMapOf(
             "email" to "${user?.email}",
             "name" to "${user?.displayName}",
@@ -25,5 +31,14 @@ class DButil(private val mAuth: FirebaseAuth, private val db: FirebaseFirestore)
             Log.i("devdebug", "Update not done correctly")
         }
 
+    }
+
+    fun addMeal(newMeal: Meal) {
+        db.collection("meal").document(user?.uid.toString()).collection("meals").document()
+            .set(newMeal)
+    }
+
+    fun getMeals(): Task<QuerySnapshot> {
+        return db.collection("meal").document(user?.uid.toString()).collection("meals").get()
     }
 }

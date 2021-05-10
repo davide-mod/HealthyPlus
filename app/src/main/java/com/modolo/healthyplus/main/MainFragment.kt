@@ -9,11 +9,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.ContextCompat.getColor
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.modolo.healthyplus.MainActivity
 import com.modolo.healthyplus.R
+import com.modolo.healthyplus.mealplanner.Meal
+import com.modolo.healthyplus.mealplanner.MealsSharedViewModel
+import com.modolo.healthyplus.mealplanner.meal.MealAdapter
+import com.modolo.healthyplus.mealplanner.meal.MealAdapterHistory
 
 class MainFragment : Fragment(), NotificationAdapter.NotificationListener{
 
@@ -22,6 +27,7 @@ class MainFragment : Fragment(), NotificationAdapter.NotificationListener{
     private val MOD_SPORT_JOURNAL = "sport"
 
     private lateinit var mAuth: FirebaseAuth
+
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -58,11 +64,8 @@ class MainFragment : Fragment(), NotificationAdapter.NotificationListener{
         super.onStart()
         mAuth = FirebaseAuth.getInstance()
         val user = mAuth.currentUser
-        if(user == null)
+        if(user == null) {
             findNavController().navigate(R.id.loginFragment)
-        else {
-            Log.i("devdebug", "Già loggato")
-            //lettura da db
         }
     }
 

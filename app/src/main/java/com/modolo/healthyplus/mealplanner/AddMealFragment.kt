@@ -36,7 +36,7 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, PresetAdapter.Pres
     private var presetList = ArrayList<Meal>()
     private lateinit var presetDialog: Dialog
     private lateinit var mealTitle: EditText
-    private var newId = 0
+    private var newId = ""
     private lateinit var newMeal: Meal
 
     private lateinit var viewModel: MealsSharedViewModel
@@ -100,10 +100,10 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, PresetAdapter.Pres
                 val title = dialog.findViewById<TextView>(R.id.title)
                 title.text = mealNameTmp //imposto il titolo in base al nome del pasto
                 newMeal = Meal(
-                    mealNameTmp, foodList, LocalDateTime.now(),
+                    mealNameTmp, foodList, LocalDateTime.now().toString(),
                     ispreset = false,
                     isdone = false,
-                    id = newId
+                    id = ""
                 )
                 Log.i("devdebug", "AddFragment: newMeal $newMeal")
                 Log.i("devdebug", "AddFragment: newMeal ${newMeal.name} e id ${newMeal.id}")
@@ -177,7 +177,7 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, PresetAdapter.Pres
         }
         if(presetList.size > 0)
             Log.i("devdebug", "AddFragment: viewModel element[0] ${presetList[0].name} e id ${presetList[0].id}")
-        newId = viewModel.getNewId()
+        newId = ""
 
     }
 

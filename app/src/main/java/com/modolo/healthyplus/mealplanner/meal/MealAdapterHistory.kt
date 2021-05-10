@@ -35,10 +35,10 @@ class MealAdapterHistory(private val meals: ArrayList<Meal>, private val mealLis
         val meal = meals[position]
         with(holder) {
             mealName.text = meal.name
-            val formatter = DateTimeFormatter.ofPattern("HH:mm dd/MM")
-            mealDate.text = meal.date.format(formatter).toString()
-            val daysBetween = Duration.between(meal.date, LocalDateTime.now()).toDays()
-            mealDateAgo.text = daysBetween.toString()+" giorni fa"
+            //val formatter = DateTimeFormatter.ofPattern("HH:mm dd/MM")
+            //mealDate.text = meal.date.format(formatter).toString()
+            //val daysBetween = Duration.between(meal.date as LocalDateTime, LocalDateTime.now()).toDays()
+            mealDateAgo.text = meal.date
 
             mealEdit.setOnClickListener {
                 mealEdit.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))

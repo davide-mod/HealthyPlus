@@ -16,6 +16,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.modolo.healthyplus.DButil
 import com.modolo.healthyplus.MainActivity
 import com.modolo.healthyplus.R
 import com.modolo.healthyplus.mealplanner.food.Food
@@ -29,6 +33,9 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
     private val presets = ArrayList<Meal>()
     private val incoming = ArrayList<Meal>()
     private val history = ArrayList<Meal>()
+
+    private lateinit var mAuth: FirebaseAuth
+
 
     private lateinit var viewModel: MealsSharedViewModel
     private var meals = ArrayList<Meal>()
@@ -53,6 +60,25 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
         presetsView = view.findViewById(R.id.presetsMeals)
         incomingView = view.findViewById(R.id.incomingMeals)
         historyView = view.findViewById(R.id.historyMeals)
+
+        mAuth = FirebaseAuth.getInstance()
+        val mealsFromGoogle = DButil(mAuth, Firebase.firestore).getMeals()
+        mealsFromGoogle.addOnSuccessListener { doc ->
+            doc.forEach { me ->
+                meals.add(
+                    Meal(
+                        name = me.data["name"] as String,
+                        foodList = (me.data["foodList"] as ArrayList<Food>).toMutableList(),
+                        date = (me.data["date"] as String),
+                        ispreset = me.data["ispreset"] as Boolean,
+                        isdone = me.data["isdone"] as Boolean,
+                        id = me.id
+                    )
+                )
+            }
+        }
+        //TODO SET MEALS ON VIEWMODEL
+        setMeals()
 
         //aggiunta pasto
         val btnMeal = view.findViewById<TextView>(R.id.btnMeal)
@@ -83,7 +109,7 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
                 val snackKca = if(snackKcal.text.toString() == "") 0.0F else snackKcal.text.toString().toFloat()
                 val food = mutableListOf<Food>()
                 food.add(Food(snackNam, snackQua, snackSpi, snackKca))
-                val snackMeal = Meal(snackNam, food, LocalDateTime.now(), isdone = true, ispreset = false, id = viewModel.getNewId())
+                val snackMeal = Meal(snackNam, food, LocalDateTime.now().toString(), isdone = true, ispreset = false, id = "")
                 viewModel.addMeal(snackMeal)
                 history.add(snackMeal)
                 val sortedHistory =
@@ -97,27 +123,32 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
         return view
     }
 
+    private fun setMeals(){
+        presets.clear()
+        history.clear()
+        incoming.clear()
+        for (meal in meals) {
+            when {
+                meal.ispreset -> presets.add(meal)
+                meal.isdone -> history.add(meal)
+                else -> incoming.add(meal)
+            }
+        }
+        Log.i("devdebug", meals.toString())
+        val sortedHistory =
+            history.sortedByDescending { it.date } //ordino la lista per avere in cima gli ultimi
+        presetsView.adapter = MealAdapter(presets, this, requireContext())
+        incomingView.adapter = MealAdapter(incoming, this, requireContext())
+        historyView.adapter = MealAdapterHistory(ArrayList(sortedHistory), this, requireContext())
+    }
+
     //viewmodel per comunicare tra fragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(MealsSharedViewModel::class.java)
         viewModel.meals.observe(viewLifecycleOwner, { mutableList ->
-            meals = mutableList
-            presets.clear()
-            history.clear()
-            incoming.clear()
-            for (meal in meals) {
-                when {
-                    meal.ispreset -> presets.add(meal)
-                    meal.isdone -> history.add(meal)
-                    else -> incoming.add(meal)
-                }
-            }
-            val sortedHistory =
-                history.sortedByDescending { it.date } //ordino la lista per avere in cima gli ultimi
-            presetsView.adapter = MealAdapter(presets, this, requireContext())
-            incomingView.adapter = MealAdapter(incoming, this, requireContext())
-            historyView.adapter = MealAdapterHistory(ArrayList(sortedHistory), this, requireContext())
+            meals = mutableList as ArrayList<Meal>
+            //setMeals()
         })
     }
 

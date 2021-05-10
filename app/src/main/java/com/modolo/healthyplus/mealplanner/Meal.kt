@@ -5,4 +5,4 @@ import java.time.LocalDateTime
 import kotlin.collections.ArrayList
 import java.io.Serializable
 
-data class Meal(var name: String, var foodList: MutableList<Food>, var date: LocalDateTime, var ispreset: Boolean, var isdone: Boolean, var id: Int): Serializable
+data class Meal(var name: String, var foodList: MutableList<Food>, var date: String, var ispreset: Boolean, var isdone: Boolean, var id: String): Serializable

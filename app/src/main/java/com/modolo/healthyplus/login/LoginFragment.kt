@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.fragment.findNavController
 import com.github.islamkhsh.CardSliderViewPager
@@ -58,6 +59,12 @@ class LoginFragment : Fragment(){
         google.setOnClickListener {
             google.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
             signIn()
+        }
+
+        val facebook = view.findViewById<TextView>(R.id.layoutFacebook)
+        facebook.setOnClickListener {
+            facebook.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
+            Toast.makeText(requireContext(), "Login con Facebook non disponibile", Toast.LENGTH_SHORT).show()
         }
         return view
     }
