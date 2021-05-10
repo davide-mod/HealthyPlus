@@ -23,9 +23,6 @@ class MainFragment : Fragment(), NotificationAdapter.NotificationListener{
 
     private lateinit var mAuth: FirebaseAuth
 
-    companion object {
-        fun newInstance() = MainFragment()
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -39,6 +36,7 @@ class MainFragment : Fragment(), NotificationAdapter.NotificationListener{
         ham.setOnClickListener {
             (activity as MainActivity?)?.openDrawer()
         }
+        (activity as MainActivity?)!!.setDrawerEnabled(true)
 
         val notifications = ArrayList<Notification>()
         for(i in 1..20) {

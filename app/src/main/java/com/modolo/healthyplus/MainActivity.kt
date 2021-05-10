@@ -1,5 +1,6 @@
 package com.modolo.healthyplus
 
+import android.R.id.toggle
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -44,5 +45,10 @@ class MainActivity : AppCompatActivity() {
 
     fun openDrawer() {
         drawer.openDrawer(GravityCompat.START)
+    }
+    fun setDrawerEnabled(enabled: Boolean) {
+        val lockMode =
+            if (enabled) DrawerLayout.LOCK_MODE_UNLOCKED else DrawerLayout.LOCK_MODE_LOCKED_CLOSED
+        drawer.setDrawerLockMode(lockMode)
     }
 }

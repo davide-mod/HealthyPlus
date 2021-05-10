@@ -18,6 +18,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.modolo.healthyplus.MainActivity
 import com.modolo.healthyplus.R
 import com.modolo.healthyplus.signup.SignupFragment
 
@@ -31,16 +32,18 @@ class LoginFragment : Fragment(){
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         val view = inflater.inflate(R.layout.fragment_login, container, false)
+        (activity as MainActivity?)!!.setDrawerEnabled(false)
+
         val lista = ArrayList<String>()
         lista.add("Healthy Plus\nIl contenitore di funzionalità per una vita sana")
         lista.add("Meal Planner\nDiario Alimentare completo per aiutarti a programmare i pasti")
         lista.add("Fitness Tracker\nL'allenamento in palestra ancora più immediato")
         val cards = view.findViewById<CardSliderViewPager>(R.id.viewPager)
         cards.adapter = LoginCardsAdapter(lista)
-        val layoutSignup = view.findViewById<ConstraintLayout>(R.id.layoutSignup)
+        val layoutSignup = view.findViewById<TextView>(R.id.layoutSignup)
         layoutSignup.setOnClickListener {
-            layoutSignup.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.alpha))
-            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, SignupFragment(), "SignUpTag").commitNow()
+            layoutSignup.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
+            findNavController().navigate(R.id.signupFragment)
         }
 
         val gso: GoogleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -51,8 +54,9 @@ class LoginFragment : Fragment(){
 
         mAuth = FirebaseAuth.getInstance()
 
-        val google = view.findViewById<ConstraintLayout>(R.id.layoutGoogle)
+        val google = view.findViewById<TextView>(R.id.layoutGoogle)
         google.setOnClickListener {
+            google.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
             signIn()
         }
         return view
@@ -64,7 +68,6 @@ class LoginFragment : Fragment(){
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)

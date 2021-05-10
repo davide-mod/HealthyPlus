@@ -3,16 +3,23 @@ package com.modolo.healthyplus.signup
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
+import android.util.Log.i
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.modolo.healthyplus.DButil
+import com.modolo.healthyplus.MainActivity
 import com.modolo.healthyplus.main.MainFragment
 import com.modolo.healthyplus.R
 import com.modolo.healthyplus.login.LoginFragment
@@ -33,10 +40,12 @@ class SignupFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val view = inflater.inflate(R.layout.fragment_signup, container, false)
+        (activity as MainActivity?)!!.setDrawerEnabled(false)
+
         mAuth = Firebase.auth
         val back = view.findViewById<ImageView>(R.id.back)
         back.setOnClickListener {
-            findNavController().navigateUp()
+            findNavController().navigate(R.id.loginFragment)
         }
 
         var email = "";
@@ -75,6 +84,7 @@ class SignupFragment : Fragment() {
 
         val layoutSignup = view.findViewById<TextView>(R.id.layoutSignup)
         layoutSignup.setOnClickListener {
+            layoutSignup.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
             var ready = true
             val emailtmp = emailText.text.toString()
             if (emailtmp != "" && emailtmp.isEmailValid()) email = emailtmp
@@ -96,7 +106,7 @@ class SignupFragment : Fragment() {
             if (dateofbirth == "") ready = false
 
             if (ready) {
-                register(email, password)
+                register(email, password, name, surname, dateofbirth)
             } else
                 Toast.makeText(
                     requireContext(),
@@ -113,15 +123,26 @@ class SignupFragment : Fragment() {
             .matches()
     }
 
-    private fun register(email: String, password: String): Boolean {
+    private fun register(
+        email: String,
+        password: String,
+        name: String,
+        surname: String,
+        dateofbirth: String
+    ) {
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val user = mAuth.currentUser
+                val userUpdate = UserProfileChangeRequest.Builder().setDisplayName(name).build()
+                user?.updateProfile(userUpdate)?.addOnCompleteListener {
+                    DButil(mAuth, Firebase.firestore).addUser(surname, dateofbirth)
+                }
+                findNavController().navigate(R.id.mainFragment)
 
+            } else {
+                Toast.makeText(requireContext(), task.exception.toString(), Toast.LENGTH_SHORT).show()
             }
         }
-
-        return true
     }
 
 

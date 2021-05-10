@@ -42,8 +42,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/indicator" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <TextView
         android:id="@+id/layoutGoogle"
+        style="@style/buttonText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/marginStandard"
@@ -51,36 +52,18 @@
         android:layout_marginBottom="@dimen/marginStandard"
         android:background="@drawable/background"
         android:backgroundTint="@color/bg_grey"
+        android:text="@string/login_google"
+        android:padding="@dimen/marginStandard"
+        android:gravity="center"
+        app:drawableStartCompat="@drawable/login_google"
         app:layout_constraintBottom_toTopOf="@id/layoutFacebook"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/loginLabel">
+        app:layout_constraintTop_toBottomOf="@id/loginLabel" />
 
-        <ImageView
-            android:id="@+id/iconGoogle"
-            android:layout_width="@dimen/buttonIcon"
-            android:layout_height="@dimen/buttonIcon"
-            android:layout_margin="@dimen/marginStandard"
-            android:src="@drawable/login_google"
-            app:layout_constraintBottom_toBottomOf="@id/textGoogle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/textGoogle" />
-
-        <TextView
-            android:id="@+id/textGoogle"
-            style="@style/buttonText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/marginStandard"
-            android:text="@string/login_google"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <TextView
         android:id="@+id/layoutFacebook"
+        style="@style/buttonText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/marginStandard"
@@ -88,36 +71,17 @@
         android:layout_marginBottom="@dimen/marginStandard"
         android:background="@drawable/background"
         android:backgroundTint="@color/bg_grey"
+        android:text="@string/login_facebook"
+        android:padding="@dimen/marginStandard"
+        android:gravity="center"
+        app:drawableStartCompat="@drawable/login_fb"
         app:layout_constraintBottom_toTopOf="@id/layoutEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layoutGoogle">
-
-        <ImageView
-            android:id="@+id/iconFB"
-            android:layout_width="@dimen/buttonIcon"
-            android:layout_height="@dimen/buttonIcon"
-            android:layout_margin="@dimen/marginStandard"
-            android:src="@drawable/login_fb"
-            app:layout_constraintBottom_toBottomOf="@id/textFB"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/textFB" />
-
-        <TextView
-            android:id="@+id/textFB"
-            style="@style/buttonText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/marginStandard"
-            android:text="@string/login_facebook"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+        app:layout_constraintTop_toBottomOf="@id/layoutGoogle" />
+    <TextView
         android:id="@+id/layoutEmail"
+        style="@style/buttonText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/marginStandard"
@@ -125,36 +89,17 @@
         android:layout_marginBottom="@dimen/marginStandard"
         android:background="@drawable/background"
         android:backgroundTint="@color/bg_grey"
+        android:text="@string/login_email"
+        android:padding="@dimen/marginStandard"
+        android:gravity="center"
+        app:drawableStartCompat="@drawable/login_mail"
         app:layout_constraintBottom_toTopOf="@id/layoutSignup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layoutFacebook">
-
-        <ImageView
-            android:id="@+id/iconEmail"
-            android:layout_width="@dimen/buttonIcon"
-            android:layout_height="@dimen/buttonIcon"
-            android:layout_margin="@dimen/marginStandard"
-            android:src="@drawable/login_mail"
-            app:layout_constraintBottom_toBottomOf="@id/textEmail"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/textEmail" />
-
-        <TextView
-            android:id="@+id/textEmail"
-            style="@style/buttonText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/marginStandard"
-            android:text="@string/login_email"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+        app:layout_constraintTop_toBottomOf="@id/layoutFacebook" />
+    <TextView
         android:id="@+id/layoutSignup"
+        style="@style/buttonTextFinish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/marginStandard"
@@ -162,31 +107,13 @@
         android:layout_marginBottom="@dimen/marginStandard"
         android:background="@drawable/background"
         android:backgroundTint="@color/main"
+        android:text="@string/signup_btn_label"
+        android:padding="@dimen/marginStandard"
+        android:gravity="center"
+        app:drawableStartCompat="@drawable/login_signup"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layoutEmail">
+        app:layout_constraintTop_toBottomOf="@id/layoutEmail" />
 
-        <ImageView
-            android:id="@+id/iconSignup"
-            android:layout_width="@dimen/buttonIcon"
-            android:layout_height="@dimen/buttonIcon"
-            android:layout_margin="@dimen/marginStandard"
-            android:src="@drawable/login_signup"
-            app:layout_constraintBottom_toBottomOf="@id/textSignup"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/textSignup" />
-
-        <TextView
-            android:id="@+id/textSignup"
-            style="@style/buttonTextFinish"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/marginStandard"
-            android:text="@string/signup_btn_label"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

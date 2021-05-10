@@ -49,6 +49,9 @@
                 android:id="@+id/emailBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/marginStandard"
+                android:background="@drawable/background"
+                android:backgroundTint="@color/bg_grey"
                 app:boxStrokeWidth="0dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -56,22 +59,19 @@
                     style="@style/label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/marginStandard"
-                    android:layout_marginTop="@dimen/marginStandard"
-                    android:layout_marginEnd="@dimen/marginStandard"
                     android:background="@drawable/background"
                     android:backgroundTint="@color/bg_grey"
-                    android:drawableStart="@drawable/login_mail"
                     android:gravity="center"
+                    android:drawableStart="@drawable/login_mail"
                     android:hint="@string/signup_label_mail"
-                    android:inputType="textEmailAddress"
-                    android:padding="@dimen/marginStandard" />
+                    android:inputType="textEmailAddress"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/passwordBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/marginStandard"
                 app:boxStrokeWidth="0dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -79,22 +79,19 @@
                     style="@style/label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/marginStandard"
-                    android:layout_marginTop="@dimen/marginStandard"
-                    android:layout_marginEnd="@dimen/marginStandard"
                     android:background="@drawable/background"
                     android:backgroundTint="@color/bg_grey"
                     android:drawableStart="@drawable/signup_password"
                     android:gravity="center"
                     android:hint="@string/signup_label_psw1"
-                    android:inputType="textPassword"
-                    android:padding="@dimen/marginStandard" />
+                    android:inputType="textPassword"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/password2Box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/marginStandard"
                 app:boxStrokeWidth="0dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -102,22 +99,19 @@
                     style="@style/label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/marginStandard"
-                    android:layout_marginTop="@dimen/marginStandard"
-                    android:layout_marginEnd="@dimen/marginStandard"
                     android:background="@drawable/background"
                     android:backgroundTint="@color/bg_grey"
                     android:drawableStart="@drawable/signup_password"
                     android:gravity="center"
                     android:hint="@string/signup_label_psw2"
-                    android:inputType="textPassword"
-                    android:padding="@dimen/marginStandard" />
+                    android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/nameBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/marginStandard"
                 app:boxStrokeWidth="0dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -125,22 +119,19 @@
                     style="@style/label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/marginStandard"
-                    android:layout_marginTop="@dimen/marginStandard"
-                    android:layout_marginEnd="@dimen/marginStandard"
                     android:background="@drawable/background"
                     android:backgroundTint="@color/bg_grey"
                     android:drawableStart="@drawable/signup_username"
                     android:gravity="center"
                     android:hint="@string/signup_label_name"
-                    android:inputType="text"
-                    android:padding="@dimen/marginStandard" />
+                    android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/surnameBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/marginStandard"
                 app:boxStrokeWidth="0dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -148,16 +139,12 @@
                     style="@style/label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/marginStandard"
-                    android:layout_marginTop="@dimen/marginStandard"
-                    android:layout_marginEnd="@dimen/marginStandard"
                     android:background="@drawable/background"
                     android:backgroundTint="@color/bg_grey"
                     android:drawableStart="@drawable/signup_username"
                     android:gravity="center"
                     android:hint="@string/signup_label_surname"
-                    android:inputType="text"
-                    android:padding="@dimen/marginStandard" />
+                    android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
