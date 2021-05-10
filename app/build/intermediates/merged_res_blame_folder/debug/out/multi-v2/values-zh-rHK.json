@@ -55,23 +55,6 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Davide\\.gradle\\caches\\transforms-2\\files-2.1\\efde9dffac32b6d2f7985adbebeafd08\\jetified-play-services-basement-17.1.0\\res\\values-zh-rHK\\values.xml",
-                    "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "251",
-                        "endColumns": "166",
-                        "endOffsets": "417"
-                    },
-                    "to": {
-                        "startLines": "45",
-                        "startColumns": "4",
-                        "startOffsets": "4172",
-                        "endColumns": "166",
-                        "endOffsets": "4334"
-                    }
-                },
-                {
                     "source": "C:\\Users\\Davide\\.gradle\\caches\\transforms-2\\files-2.1\\2f0243775b69924bde81423ed1eb6443\\navigation-ui-2.3.5\\res\\values-zh-rHK\\values-zh-rHK.xml",
                     "from": {
                         "startLines": "2,3",
@@ -105,6 +88,23 @@
                         "endLines": "5,33,34,35,36,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,106",
                         "endColumns": "12,66,89,106,72,61,77,58,57,77,56,55,58,57,53,85,55,57,53,64,92,73,77,89,62,62,76,66,65,63,68,74,60,70,66,59,79,62,82,84,73,64,75,47,63,75,77,61,63,62,79,74,75,75,68",
                         "endOffsets": "247,2875,2965,3072,3145,5522,5600,5659,5717,5795,5852,5908,5967,6025,6079,6165,6221,6279,6333,6398,6491,6565,6643,6733,6796,6859,6936,7003,7069,7133,7202,7277,7338,7409,7476,7536,7616,7679,7762,7847,7921,7986,8062,8110,8174,8250,8328,8390,8454,8517,8597,8672,8748,8824,9092"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Davide\\.gradle\\caches\\transforms-2\\files-2.1\\24429c5cdf7d98a8dd3c11a688a020f2\\jetified-play-services-basement-17.1.1\\res\\values-zh-rHK\\values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "251",
+                        "endColumns": "166",
+                        "endOffsets": "417"
+                    },
+                    "to": {
+                        "startLines": "45",
+                        "startColumns": "4",
+                        "startOffsets": "4172",
+                        "endColumns": "166",
+                        "endOffsets": "4334"
                     }
                 }
             ]

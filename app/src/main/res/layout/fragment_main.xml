@@ -30,16 +30,6 @@
         app:layout_constraintTop_toTopOf="@id/appTitle"
         app:tint="@color/main" />
 
-    <ImageView
-        android:id="@+id/profilePic"
-        android:layout_width="@dimen/iconNearTitle"
-        android:layout_height="@dimen/iconNearTitle"
-        android:layout_margin="@dimen/marginStandard"
-        android:contentDescription="@string/profile_picture"
-        android:src="@drawable/ic_baseline_account_circle_24"
-        app:layout_constraintBottom_toBottomOf="@id/appTitle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/appTitle" />
 
     <TextView
         android:id="@+id/notificationLabel"

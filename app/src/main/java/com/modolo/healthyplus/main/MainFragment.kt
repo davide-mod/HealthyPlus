@@ -9,7 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.ContextCompat.getColor
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.modolo.healthyplus.MainActivity
 import com.modolo.healthyplus.R
 
@@ -18,6 +20,8 @@ class MainFragment : Fragment(), NotificationAdapter.NotificationListener{
     private val PREF_NAME = "data"
     private val MOD_FOOD_JOURNAL = "food"
     private val MOD_SPORT_JOURNAL = "sport"
+
+    private lateinit var mAuth: FirebaseAuth
 
     companion object {
         fun newInstance() = MainFragment()
@@ -50,6 +54,18 @@ class MainFragment : Fragment(), NotificationAdapter.NotificationListener{
 
 
         return view
+    }
+
+    override fun onStart() {
+        super.onStart()
+        mAuth = FirebaseAuth.getInstance()
+        val user = mAuth.currentUser
+        if(user == null)
+            findNavController().navigate(R.id.loginFragment)
+        else {
+            Log.i("devdebug", "Già loggato")
+            //lettura da db
+        }
     }
 
     override fun onNotificationListener(notification: Notification, position: Int, longpress: Boolean) {

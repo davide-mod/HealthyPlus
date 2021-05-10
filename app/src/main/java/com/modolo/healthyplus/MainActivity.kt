@@ -1,16 +1,12 @@
 package com.modolo.healthyplus
 
-import android.content.Intent
-import android.graphics.drawable.ColorDrawable
-import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import com.google.android.material.navigation.NavigationView
-import com.modolo.healthyplus.R
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var drawer: DrawerLayout
