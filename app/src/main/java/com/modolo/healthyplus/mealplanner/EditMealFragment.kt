@@ -21,6 +21,11 @@ import com.modolo.healthyplus.R
 import com.modolo.healthyplus.mealplanner.food.Food
 import com.modolo.healthyplus.mealplanner.food.FoodAdapter
 import com.modolo.healthyplus.mealplanner.mealdb.Meal
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import java.lang.reflect.ParameterizedType
 
 class EditMealFragment : Fragment(), FoodAdapter.FoodListener {
 
@@ -65,7 +70,7 @@ class EditMealFragment : Fragment(), FoodAdapter.FoodListener {
                 val kcalTmp =
                     if (foodKcal.text.toString() != "") foodKcal.text.toString().toFloat() else 0.0F
                 foodListTmp.add(Food(nameTmp, quantityTmp, udmTmp, kcalTmp))
-                foodRecycler.adapter = FoodAdapter(ArrayList(foodListTmp), this, requireContext())
+                foodRecycler.adapter = FoodAdapter(foodListTmp, this, requireContext())
 
                 foodName.setText("")
                 foodQuantity.setText("")
@@ -80,18 +85,17 @@ class EditMealFragment : Fragment(), FoodAdapter.FoodListener {
         }
 
         save.setOnClickListener {
+            save.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
+            viewModel.deleteMeal(mealPassed)
             mealPassed.name = nameEdit.text.toString()
             mealPassed.foodList = Gson().toJson(foodListTmp)
-            Log.i("devdebug", "editMeal: save pressed")
-            viewModel.updateMeal(mealPassed)
-            save.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
+            viewModel.insertMeal(mealPassed)
             findNavController().navigateUp()
         }
 
         //chiudi quando si preme la X senza salvare
         val close = view.findViewById<ImageView>(R.id.close)
         close.setOnClickListener {
-            //viewModel.resetEdit()
             findNavController().navigateUp()
         }
         return view
@@ -103,11 +107,22 @@ class EditMealFragment : Fragment(), FoodAdapter.FoodListener {
         mealPassed = viewModel.getMealtoEdit()
         Log.i("devdebug", "EditMealFragment received: $mealPassed")
         nameEdit.setText(mealPassed.name)
+        foodDeserializer(mealPassed.foodList)
 
-        val foodList = Gson().fromJson(mealPassed.foodList, ArrayList<Food>()::class.java)
+    }
 
-        foodRecycler.adapter = FoodAdapter(foodList, this, requireContext())
+    private val listTypeFood: ParameterizedType = Types.newParameterizedType(
+        List::class.java, Food::class.java
+    )
 
+    private fun foodDeserializer(jsonListOfFood: String) {
+        val moshi = Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
+        val adapter: JsonAdapter<List<Food>> = moshi.adapter(listTypeFood)
+        val foods: List<Food>? = adapter.fromJson(jsonListOfFood)
+        foodListTmp = foods as ArrayList<Food>
+        foodRecycler.adapter = FoodAdapter(foods, this, requireContext())
     }
 
     override fun onFoodListener(food: Food, position: Int, longpress: Boolean) {
@@ -116,7 +131,7 @@ class EditMealFragment : Fragment(), FoodAdapter.FoodListener {
         udmSpinner.setSelection(findSpinnerElement(food.udm))
         foodKcal.setText(food.kcal.toString())
         foodListTmp.remove(food)
-        foodRecycler.adapter = FoodAdapter(ArrayList(foodListTmp), this, requireContext())
+        foodRecycler.adapter = FoodAdapter(foodListTmp, this, requireContext())
     }
 
     private fun findSpinnerElement(value: String): Int {

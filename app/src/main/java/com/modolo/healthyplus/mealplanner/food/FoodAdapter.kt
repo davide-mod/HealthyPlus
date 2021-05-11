@@ -14,7 +14,7 @@ import com.google.gson.Gson
 import com.modolo.healthyplus.R
 import java.time.format.DateTimeFormatter
 
-class FoodAdapter(private val foodList: ArrayList<Food>, private val foodListener: FoodListener, private val context: Context) : RecyclerView.Adapter<FoodAdapter.ViewHolder>() {
+class FoodAdapter(private val foodList: List<Food>, private val foodListener: FoodListener, private val context: Context) : RecyclerView.Adapter<FoodAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val foodName: TextView = itemView.findViewById(R.id.name)

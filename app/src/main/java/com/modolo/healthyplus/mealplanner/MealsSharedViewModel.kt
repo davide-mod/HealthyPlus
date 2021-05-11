@@ -16,6 +16,7 @@ import com.modolo.healthyplus.mealplanner.mealdb.MealRepository
 import java.time.LocalDateTime
 
 class MealsSharedViewModel(val app: Application) : AndroidViewModel(app) {
+    private val mAuth = FirebaseAuth.getInstance()
     private val mealsdb = MealRepository(app)
     var meals = MutableLiveData<List<Meal>>()
     var mealToEdit: Meal? = null
@@ -34,14 +35,22 @@ class MealsSharedViewModel(val app: Application) : AndroidViewModel(app) {
 
     fun insertMeal(meal: Meal) {
         mealsdb.insertMeal(meal)
+        DButil(mAuth, Firebase.firestore).addMeal(meal)
     }
 
     fun deleteMeal(meal: Meal) {
         mealsdb.deleteMeal(meal)
+        DButil(mAuth, Firebase.firestore).deleteMeal(meal)
     }
 
-    fun updateMeal(meal: Meal) {
-        mealsdb.updateMeal(meal.id, meal.name, meal.foodList as ArrayList<Food>, meal.date, meal.ispreset, meal.isdone)
+
+    fun getPresets(): ArrayList<Meal>{
+        val presets = ArrayList<Meal>()
+        meals.value!!.forEach {
+            if(it.ispreset)
+                presets.add(it)
+        }
+        return presets
     }
     /*val mAuth  = FirebaseAuth.getInstance()
     var meals = MutableLiveData(ArrayList<Meal>())

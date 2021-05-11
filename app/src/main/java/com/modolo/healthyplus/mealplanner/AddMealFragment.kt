@@ -23,6 +23,11 @@ import com.modolo.healthyplus.mealplanner.food.Food
 import com.modolo.healthyplus.mealplanner.food.FoodAdapter
 import com.modolo.healthyplus.mealplanner.mealdb.Meal
 import com.modolo.healthyplus.mealplanner.presets.PresetAdapter
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import java.lang.reflect.ParameterizedType
 import java.time.LocalDateTime
 import kotlin.collections.ArrayList
 
@@ -173,8 +178,7 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, PresetAdapter.Pres
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(MealsSharedViewModel::class.java)
-        if(presetList.size > 0)
-            Log.i("devdebug", "AddFragment: viewModel element[0] ${presetList[0].name} e id ${presetList[0].id}")
+        presetList = viewModel.getPresets()
 
     }
 
@@ -202,15 +206,27 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, PresetAdapter.Pres
 
     override fun onPresetListener(
         mealName: String,
-        foodJson: String,
+        presetFoods: String,
         position: Int,
         longpress: Boolean
     ) {
         mealTitle.setText(mealName)
-        foodList = Gson().fromJson(foodJson, ArrayList<Food>()::class.java)
-        foodRecycler.adapter = FoodAdapter(foodList, this, requireContext())
+        foodDeserializer(presetFoods)
         presetDialog.dismiss()
         Log.i("devdebug", "AddFragment: presetListener $mealName e $foodList")
 
+    }
+    private val listTypeFood: ParameterizedType = Types.newParameterizedType(
+        List::class.java, Food::class.java
+    )
+
+    private fun foodDeserializer(jsonListOfFood: String) {
+        val moshi = Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
+        val adapter: JsonAdapter<List<Food>> = moshi.adapter(listTypeFood)
+        val foods: List<Food>? = adapter.fromJson(jsonListOfFood)
+        foodList = foods as ArrayList<Food>
+        foodRecycler.adapter = FoodAdapter(foods, this, requireContext())
     }
 }

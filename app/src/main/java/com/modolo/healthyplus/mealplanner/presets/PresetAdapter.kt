@@ -33,12 +33,11 @@ class PresetAdapter(
         val meal = presetList[position]
         with(holder) {
             mealName.text = meal.name
-            val foodJson = Gson().toJson(meal.foodList)
             holder.itemView.setOnClickListener {
-                presetListener.onPresetListener(meal.name, foodJson, holder.layoutPosition, false)
+                presetListener.onPresetListener(meal.name, meal.foodList, holder.layoutPosition, false)
             }
             holder.itemView.setOnLongClickListener {
-                presetListener.onPresetListener(meal.name, foodJson, holder.layoutPosition, true)
+                presetListener.onPresetListener(meal.name, meal.foodList, holder.layoutPosition, true)
                 true
             }
         }
@@ -46,6 +45,6 @@ class PresetAdapter(
 
 
     interface PresetListener {
-        fun onPresetListener(mealName: String, foodJson: String, position: Int, longpress: Boolean)
+        fun onPresetListener(mealName: String, presetFoods: String, position: Int, longpress: Boolean)
     }
 }

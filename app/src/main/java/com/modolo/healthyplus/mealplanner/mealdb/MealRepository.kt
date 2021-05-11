@@ -79,7 +79,7 @@ class MealRepository(app: Application) {
     fun updateMeal(
         id: Int,
         name: String,
-        foodList: ArrayList<Food>,
+        foodList: String,
         data: String,
         ispreset: Boolean,
         isdone: Boolean
@@ -88,7 +88,7 @@ class MealRepository(app: Application) {
             mealDAO.updateMeal(
                 id,
                 name,
-                foodList.toString(),
+                foodList,
                 data,
                 ispreset,
                 isdone

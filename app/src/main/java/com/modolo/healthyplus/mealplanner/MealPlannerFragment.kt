@@ -58,6 +58,7 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
         ham.setOnClickListener {
             (activity as MainActivity?)?.openDrawer()
         }
+        //prendo la sessione del login per poi salvare i pasti all'utente corrente
         mAuth = FirebaseAuth.getInstance()
 
         //carico le Recycler dei vari pasti (preset, in arrivo e lo storico)
@@ -65,13 +66,15 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
         incomingView = view.findViewById(R.id.incomingMeals)
         historyView = view.findViewById(R.id.historyMeals)
 
-        //aggiunta pasto
+        //passo al fragment per l'aggiunta del pasto
         val btnMeal = view.findViewById<TextView>(R.id.btnMeal)
         btnMeal.setOnClickListener {
             btnMeal.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
             findNavController().navigate(R.id.addMealFragment)
         }
 
+        //apro il dialog per l'aggiunta di uno snack rapido
+        //snack = pasto con singolo cibo con nome pari al titolo, modificabile poi come pasto normale
         val btnSnack = view.findViewById<TextView>(R.id.btnSnack)
         btnSnack.setOnClickListener {
             val dialog = Dialog(requireContext())
@@ -88,19 +91,32 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
 
             snackSave.setOnClickListener {
                 //recupero i parametri dal dialog permettendo anche di lasciare il tutto non compilato
-                val snackNam = if(snackTitle.text.toString() == "") "Snack" else snackTitle.text.toString()
-                val snackQua = if(snackQuantity.text.toString() == "") 0.0F else snackQuantity.text.toString().toFloat()
+                val snackNam =
+                    if (snackTitle.text.toString() == "") "Snack" else snackTitle.text.toString()
+                val snackQua =
+                    if (snackQuantity.text.toString() == "") 0.0F else snackQuantity.text.toString()
+                        .toFloat()
                 val snackSpi = snackSpinner.selectedItem.toString()
-                val snackKca = if(snackKcal.text.toString() == "") 0.0F else snackKcal.text.toString().toFloat()
+                val snackKca =
+                    if (snackKcal.text.toString() == "") 0.0F else snackKcal.text.toString()
+                        .toFloat()
                 val food = mutableListOf<Food>()
                 food.add(Food(snackNam, snackQua, snackSpi, snackKca))
                 val foodJson = Gson().toJson(food)
-                val snackMeal = Meal(0, snackNam, foodJson, LocalDateTime.now().toString(), isdone = true, ispreset = false)
+                val snackMeal = Meal(
+                    0,
+                    snackNam,
+                    foodJson,
+                    LocalDateTime.now().toString(),
+                    isdone = true,
+                    ispreset = false
+                )
                 viewModel.insertMeal(snackMeal)
                 history.add(snackMeal)
                 val sortedHistory =
                     history.sortedByDescending { it.date } //ordino la lista per avere in cima gli ultimi
-                historyView.adapter = MealAdapterHistory(ArrayList(sortedHistory), this, requireContext())
+                historyView.adapter =
+                    MealAdapterHistory(ArrayList(sortedHistory), this, requireContext())
                 dialog.dismiss()
             }
 
@@ -127,7 +143,6 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
                 else -> incoming.add(meal)
             }
         }
-        Log.i("devdebug", meals.toString())
         val sortedHistory =
             history.sortedByDescending { it.date } //ordino la lista per avere in cima gli ultimi
         presetsView.adapter = MealAdapter(presets, this, requireContext())
@@ -141,20 +156,24 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
         if (editMeal) {
             //carico il fragment di edit passando il pasto come parametro
             Log.i("devdebug", "MainFragment: wanna edit ${meal.name} e id ${meal.id}")
-
-            val mealToEdit = Meal(meal.id, meal.name, meal.foodList, meal.date, meal.ispreset, meal.isdone)
+            val mealToEdit =
+                Meal(meal.id, meal.name, meal.foodList, meal.date, meal.ispreset, meal.isdone)
+            //salvo il pasto da modificare nella viewmodel e apro il fragment per la modifica
             viewModel.setMealtoEdit(mealToEdit)
-
             findNavController().navigate(R.id.editMealFragment)
+
         } else if (done) { //se invece è stato premuto il tasto "fatto" lo sposto nello storico
+            viewModel.deleteMeal(meal)
             meal.isdone = true
-            viewModel.updateMeal(meal)
+            viewModel.insertMeal(meal)
+
             incoming.remove(meal)
             history.add(meal)
             val sortedHistory =
                 history.sortedByDescending { it.date } //ordino la lista per avere in cima gli ultimi
             incomingView.adapter = MealAdapter(incoming, this, requireContext())
-            historyView.adapter = MealAdapterHistory(ArrayList(sortedHistory), this, requireContext())
+            historyView.adapter =
+                MealAdapterHistory(ArrayList(sortedHistory), this, requireContext())
         }
     }
 
