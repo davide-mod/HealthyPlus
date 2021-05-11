@@ -6490,7 +6490,7 @@
         <item>g</item>
         <item>l</item>
         <item>u</item>
-    </string-array><string name="meal_eaten">MANGIATO!</string><string name="meal_fit_addpreset">AGGIUNGI AI PRESET</string><string name="meal_fit_schedule">PROGRAMMA PER DOPO</string><string name="fitness_tracker_title">Fitness Tracker</string><string name="fitness_tracker_card_label"><u>scheda</u></string><string name="fitness_tracker_placeholdername">GAMBE</string><string name="fitness_tracker_rapid_activity">Attività rapida</string></file><file path="C:\Users\Davide\AndroidStudioProjects\HealthyPlus\app\src\main\res\values\themes.xml" qualifiers=""><style name="Theme.HealthyPlus" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    </string-array><string name="meal_eaten">MANGIATO!</string><string name="meal_fit_addpreset">AGGIUNGI AI PRESET</string><string name="meal_fit_schedule">IN ARRIVO</string><string name="fitness_tracker_title">Fitness Tracker</string><string name="fitness_tracker_card_label"><u>scheda</u></string><string name="fitness_tracker_placeholdername">GAMBE</string><string name="fitness_tracker_rapid_activity">Attività rapida</string></file><file path="C:\Users\Davide\AndroidStudioProjects\HealthyPlus\app\src\main\res\values\themes.xml" qualifiers=""><style name="Theme.HealthyPlus" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         
         <item name="colorPrimary">@color/main</item>
         <item name="colorPrimaryVariant">@color/main_mealplanner</item>

@@ -10,6 +10,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.modolo.healthyplus.R
 import com.modolo.healthyplus.mealplanner.mealdb.Meal
+import java.time.Duration
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class MealAdapterHistory(private val meals: ArrayList<Meal>, private val mealListener: MealHistoryListener, private val context: Context) : RecyclerView.Adapter<MealAdapterHistory.ViewHolder>() {
 
@@ -32,10 +36,13 @@ class MealAdapterHistory(private val meals: ArrayList<Meal>, private val mealLis
         val meal = meals[position]
         with(holder) {
             mealName.text = meal.name
-            //val formatter = DateTimeFormatter.ofPattern("HH:mm dd/MM")
-            //mealDate.text = meal.date.format(formatter).toString()
-            //val daysBetween = Duration.between(meal.date as LocalDateTime, LocalDateTime.now()).toDays()
-            mealDateAgo.text = meal.date
+
+            val aLDT = LocalDateTime.parse(meal.date)
+            val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm");
+            mealDate.text = aLDT.format(formatter)
+            val daysBetween = Duration.between(aLDT, LocalDateTime.now()).toDays()
+            val daysAgo = if(daysBetween.toInt() != 1) "$daysBetween giorni fa" else  "$daysBetween giorno fa"
+            mealDateAgo.text = daysAgo
 
             mealEdit.setOnClickListener {
                 mealEdit.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))

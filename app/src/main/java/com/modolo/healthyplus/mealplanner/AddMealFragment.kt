@@ -1,9 +1,12 @@
 package com.modolo.healthyplus.mealplanner
 
+import android.app.DatePickerDialog
 import android.app.Dialog
+import android.app.TimePickerDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.format.DateFormat.is24HourFormat
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -28,7 +31,10 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import java.lang.reflect.ParameterizedType
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 import java.time.LocalDateTime
+import java.util.*
 import kotlin.collections.ArrayList
 
 class AddMealFragment : Fragment(), FoodAdapter.FoodListener, PresetAdapter.PresetListener {
@@ -106,7 +112,7 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, PresetAdapter.Pres
                 val title = dialog.findViewById<TextView>(R.id.title)
                 title.text = mealNameTmp //imposto il titolo in base al nome del pasto
                 val foodJson = Gson().toJson(foodList)
-                val newId = viewModel.getLastId()+1
+                val newId = viewModel.getLastId() + 1
                 newMeal = Meal(
                     newId,
                     mealNameTmp, foodJson, LocalDateTime.now().toString(),
@@ -140,8 +146,6 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, PresetAdapter.Pres
                     viewModel.insertMeal(newMeal)
                     dialog.dismiss()
                     findNavController().navigateUp()
-                    //dopo aver selezionato data e ora si manderà ai pasti in arrivo
-                    //TODO dateandtimepicker dialog -> add to db ->open mealplannerFrag
                 }
                 dialog.show()
             } else {
@@ -231,4 +235,5 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, PresetAdapter.Pres
         foodList = foods as ArrayList<Food>
         foodRecycler.adapter = FoodAdapter(foods, this, requireContext())
     }
+
 }
