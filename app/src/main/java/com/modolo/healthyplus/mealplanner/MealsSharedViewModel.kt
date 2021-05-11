@@ -1,6 +1,8 @@
 package com.modolo.healthyplus.mealplanner
 
+import android.app.Application
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
@@ -9,11 +11,40 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.modolo.healthyplus.DButil
 import com.modolo.healthyplus.mealplanner.food.Food
+import com.modolo.healthyplus.mealplanner.mealdb.Meal
+import com.modolo.healthyplus.mealplanner.mealdb.MealRepository
 import java.time.LocalDateTime
 
-class MealsSharedViewModel: ViewModel() {
-    val mAuth  = FirebaseAuth.getInstance()
-    val meals = MutableLiveData(ArrayList<Meal>())
+class MealsSharedViewModel(val app: Application) : AndroidViewModel(app) {
+    private val mealsdb = MealRepository(app)
+    var meals = MutableLiveData<List<Meal>>()
+    var mealToEdit: Meal? = null
+    init {
+        mealsdb.getAll()
+        meals = mealsdb.mealData
+        Log.i("devdebug", "ViewModel init: $meals")
+    }
+
+    fun setMealtoEdit(meal: Meal){
+        mealToEdit = meal
+    }
+    fun getMealtoEdit(): Meal{
+        return mealToEdit!!
+    }
+
+    fun insertMeal(meal: Meal) {
+        mealsdb.insertMeal(meal)
+    }
+
+    fun deleteMeal(meal: Meal) {
+        mealsdb.deleteMeal(meal)
+    }
+
+    fun updateMeal(meal: Meal) {
+        mealsdb.updateMeal(meal.id, meal.name, meal.foodList as ArrayList<Food>, meal.date, meal.ispreset, meal.isdone)
+    }
+    /*val mAuth  = FirebaseAuth.getInstance()
+    var meals = MutableLiveData(ArrayList<Meal>())
     var mealtoEdit = MutableLiveData(
         Meal(
             "", ArrayList(), LocalDateTime.now().toString(),
@@ -24,6 +55,7 @@ class MealsSharedViewModel: ViewModel() {
     )
 
     fun addMeal(meal: Meal) {
+        meal.id=(meals.value!!.size+1).toString()
         meals.value!!.add(meal)
         DButil(mAuth, Firebase.firestore).addMeal(meal)
         Log.i("devdebug", "viewModel: added ${meal.name} with id ${meal.id}")
@@ -35,6 +67,10 @@ class MealsSharedViewModel: ViewModel() {
 
     fun setMealToEdit(meal: Meal) {
         mealtoEdit = MutableLiveData(meal)
+    }
+
+    fun setMeals(tmpmeals: ArrayList<Meal>){
+        meals.value = tmpmeals
     }
 
     fun removeMeal(id: String) {
@@ -73,6 +109,6 @@ class MealsSharedViewModel: ViewModel() {
 
     fun getEdit(): Meal {
         return mealtoEdit.value!!
-    }
+    }*/
 }
 

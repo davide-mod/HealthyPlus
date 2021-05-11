@@ -11,7 +11,7 @@ import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.modolo.healthyplus.R
-import com.modolo.healthyplus.mealplanner.Meal
+import com.modolo.healthyplus.mealplanner.mealdb.Meal
 import java.time.format.DateTimeFormatter
 
 class MealAdapter(private val meals: ArrayList<Meal>, private val mealListener: MealListener, private val context: Context) : RecyclerView.Adapter<MealAdapter.ViewHolder>() {

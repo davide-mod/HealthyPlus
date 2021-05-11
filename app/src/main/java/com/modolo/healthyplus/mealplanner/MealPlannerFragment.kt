@@ -1,5 +1,6 @@
 package com.modolo.healthyplus.mealplanner
 
+import android.app.Application
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -19,12 +20,14 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.gson.Gson
 import com.modolo.healthyplus.DButil
 import com.modolo.healthyplus.MainActivity
 import com.modolo.healthyplus.R
 import com.modolo.healthyplus.mealplanner.food.Food
 import com.modolo.healthyplus.mealplanner.meal.MealAdapter
 import com.modolo.healthyplus.mealplanner.meal.MealAdapterHistory
+import com.modolo.healthyplus.mealplanner.mealdb.Meal
 import java.time.LocalDateTime
 
 class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
@@ -55,30 +58,12 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
         ham.setOnClickListener {
             (activity as MainActivity?)?.openDrawer()
         }
+        mAuth = FirebaseAuth.getInstance()
 
         //carico le Recycler dei vari pasti (preset, in arrivo e lo storico)
         presetsView = view.findViewById(R.id.presetsMeals)
         incomingView = view.findViewById(R.id.incomingMeals)
         historyView = view.findViewById(R.id.historyMeals)
-
-        mAuth = FirebaseAuth.getInstance()
-        val mealsFromGoogle = DButil(mAuth, Firebase.firestore).getMeals()
-        mealsFromGoogle.addOnSuccessListener { doc ->
-            doc.forEach { me ->
-                meals.add(
-                    Meal(
-                        name = me.data["name"] as String,
-                        foodList = (me.data["foodList"] as ArrayList<Food>).toMutableList(),
-                        date = (me.data["date"] as String),
-                        ispreset = me.data["ispreset"] as Boolean,
-                        isdone = me.data["isdone"] as Boolean,
-                        id = me.id
-                    )
-                )
-            }
-        }
-        //TODO SET MEALS ON VIEWMODEL
-        setMeals()
 
         //aggiunta pasto
         val btnMeal = view.findViewById<TextView>(R.id.btnMeal)
@@ -109,8 +94,9 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
                 val snackKca = if(snackKcal.text.toString() == "") 0.0F else snackKcal.text.toString().toFloat()
                 val food = mutableListOf<Food>()
                 food.add(Food(snackNam, snackQua, snackSpi, snackKca))
-                val snackMeal = Meal(snackNam, food, LocalDateTime.now().toString(), isdone = true, ispreset = false, id = "")
-                viewModel.addMeal(snackMeal)
+                val foodJson = Gson().toJson(food)
+                val snackMeal = Meal(0, snackNam, foodJson, LocalDateTime.now().toString(), isdone = true, ispreset = false)
+                viewModel.insertMeal(snackMeal)
                 history.add(snackMeal)
                 val sortedHistory =
                     history.sortedByDescending { it.date } //ordino la lista per avere in cima gli ultimi
@@ -123,7 +109,14 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
         return view
     }
 
-    private fun setMeals(){
+
+    //viewmodel per comunicare tra fragment
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(requireActivity()).get(MealsSharedViewModel::class.java)
+        viewModel.meals.observe(viewLifecycleOwner, { mutableList ->
+            meals = mutableList as ArrayList<Meal>
+        })
         presets.clear()
         history.clear()
         incoming.clear()
@@ -142,28 +135,20 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
         historyView.adapter = MealAdapterHistory(ArrayList(sortedHistory), this, requireContext())
     }
 
-    //viewmodel per comunicare tra fragment
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity()).get(MealsSharedViewModel::class.java)
-        viewModel.meals.observe(viewLifecycleOwner, { mutableList ->
-            meals = mutableList as ArrayList<Meal>
-            //setMeals()
-        })
-    }
-
     //quando un pasto tra i preset o quelli in arrivo viene premuto
     override fun onMealListener(meal: Meal, position: Int, editMeal: Boolean, done: Boolean) {
         //si controlla se ad essere premuto è stato il pulsante di edit
         if (editMeal) {
             //carico il fragment di edit passando il pasto come parametro
             Log.i("devdebug", "MainFragment: wanna edit ${meal.name} e id ${meal.id}")
-            val mealToEdit = Meal(meal.name, meal.foodList, meal.date, meal.ispreset, meal.isdone, meal.id)
-            viewModel.setMealToEdit(mealToEdit)
+
+            val mealToEdit = Meal(meal.id, meal.name, meal.foodList, meal.date, meal.ispreset, meal.isdone)
+            viewModel.setMealtoEdit(mealToEdit)
+
             findNavController().navigate(R.id.editMealFragment)
         } else if (done) { //se invece è stato premuto il tasto "fatto" lo sposto nello storico
             meal.isdone = true
-            //viewModel.updateMeal(meal)
+            viewModel.updateMeal(meal)
             incoming.remove(meal)
             history.add(meal)
             val sortedHistory =
@@ -175,7 +160,7 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
 
     override fun onMealHistoryListener(meal: Meal, position: Int, editMeal: Boolean) {
         Log.i("devdebug", "MainFragment: wannaEditHistory ${meal.name} e id ${meal.id}")
-        viewModel.setMealToEdit(meal)
+        viewModel.setMealtoEdit(meal)
         findNavController().navigate(R.id.editMealFragment)
     }
 

@@ -17,9 +17,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
+import com.google.gson.Gson
 import com.modolo.healthyplus.R
 import com.modolo.healthyplus.mealplanner.food.Food
 import com.modolo.healthyplus.mealplanner.food.FoodAdapter
+import com.modolo.healthyplus.mealplanner.mealdb.Meal
 import com.modolo.healthyplus.mealplanner.presets.PresetAdapter
 import java.time.LocalDateTime
 import kotlin.collections.ArrayList
@@ -36,7 +38,6 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, PresetAdapter.Pres
     private var presetList = ArrayList<Meal>()
     private lateinit var presetDialog: Dialog
     private lateinit var mealTitle: EditText
-    private var newId = ""
     private lateinit var newMeal: Meal
 
     private lateinit var viewModel: MealsSharedViewModel
@@ -99,11 +100,12 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, PresetAdapter.Pres
                 //recupero i vari elementi per poter procedere
                 val title = dialog.findViewById<TextView>(R.id.title)
                 title.text = mealNameTmp //imposto il titolo in base al nome del pasto
+                val foodJson = Gson().toJson(foodList)
                 newMeal = Meal(
-                    mealNameTmp, foodList, LocalDateTime.now().toString(),
+                    id = 0,
+                    mealNameTmp, foodJson, LocalDateTime.now().toString(),
                     ispreset = false,
-                    isdone = false,
-                    id = ""
+                    isdone = false
                 )
                 Log.i("devdebug", "AddFragment: newMeal $newMeal")
                 Log.i("devdebug", "AddFragment: newMeal ${newMeal.name} e id ${newMeal.id}")
@@ -112,7 +114,7 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, PresetAdapter.Pres
                     eaten.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
                     newMeal.isdone = true //imposto che è stato mangiato
                     Log.i("devdebug", "AddFragment: asEaten ${newMeal.name} e id ${newMeal.id}")
-                    viewModel.addMeal(newMeal) //lo passo alla viewmodel condivisa
+                    viewModel.insertMeal(newMeal) //lo passo alla viewmodel condivisa
                     dialog.dismiss()
                     findNavController().navigateUp() //torno alla home del modulo
                 }
@@ -121,7 +123,7 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, PresetAdapter.Pres
                     aspreset.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
                     newMeal.ispreset = true
                     Log.i("devdebug", "AddFragment: asPreset ${newMeal.name} e id ${newMeal.id}")
-                    viewModel.addMeal(newMeal)
+                    viewModel.insertMeal(newMeal)
                     dialog.dismiss()
                     findNavController().navigateUp()
                 }
@@ -129,7 +131,7 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, PresetAdapter.Pres
                 schedule.setOnClickListener {
                     schedule.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
                     Log.i("devdebug", "AddFragment: asIncoming ${newMeal.name} e id ${newMeal.id}")
-                    viewModel.addMeal(newMeal)
+                    viewModel.insertMeal(newMeal)
                     dialog.dismiss()
                     findNavController().navigateUp()
                     //dopo aver selezionato data e ora si manderà ai pasti in arrivo
@@ -171,13 +173,8 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, PresetAdapter.Pres
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(MealsSharedViewModel::class.java)
-        viewModel.getMeals().forEach {
-            if (it.ispreset)
-                presetList.add(it)
-        }
         if(presetList.size > 0)
             Log.i("devdebug", "AddFragment: viewModel element[0] ${presetList[0].name} e id ${presetList[0].id}")
-        newId = ""
 
     }
 
@@ -205,15 +202,15 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, PresetAdapter.Pres
 
     override fun onPresetListener(
         mealName: String,
-        foodListPar: MutableList<Food>,
+        foodJson: String,
         position: Int,
         longpress: Boolean
     ) {
         mealTitle.setText(mealName)
-        foodList = ArrayList(foodListPar)
+        foodList = Gson().fromJson(foodJson, ArrayList<Food>()::class.java)
         foodRecycler.adapter = FoodAdapter(foodList, this, requireContext())
         presetDialog.dismiss()
-        Log.i("devdebug", "AddFragment: presetListener $mealName e size presetList ${foodListPar.size}")
+        Log.i("devdebug", "AddFragment: presetListener $mealName e $foodList")
 
     }
 }

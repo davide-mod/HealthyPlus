@@ -9,10 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.modolo.healthyplus.R
-import com.modolo.healthyplus.mealplanner.Meal
-import java.time.Duration
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+import com.modolo.healthyplus.mealplanner.mealdb.Meal
 
 class MealAdapterHistory(private val meals: ArrayList<Meal>, private val mealListener: MealHistoryListener, private val context: Context) : RecyclerView.Adapter<MealAdapterHistory.ViewHolder>() {
 

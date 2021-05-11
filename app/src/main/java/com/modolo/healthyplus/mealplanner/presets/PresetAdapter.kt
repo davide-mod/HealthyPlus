@@ -4,15 +4,12 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.content.res.AppCompatResources.getDrawable
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import com.modolo.healthyplus.R
-import com.modolo.healthyplus.mealplanner.Meal
 import com.modolo.healthyplus.mealplanner.food.Food
-import java.time.format.DateTimeFormatter
+import com.modolo.healthyplus.mealplanner.mealdb.Meal
 
 class PresetAdapter(
     private val presetList: ArrayList<Meal>,
@@ -36,11 +33,12 @@ class PresetAdapter(
         val meal = presetList[position]
         with(holder) {
             mealName.text = meal.name
+            val foodJson = Gson().toJson(meal.foodList)
             holder.itemView.setOnClickListener {
-                presetListener.onPresetListener(meal.name, meal.foodList, holder.layoutPosition, false)
+                presetListener.onPresetListener(meal.name, foodJson, holder.layoutPosition, false)
             }
             holder.itemView.setOnLongClickListener {
-                presetListener.onPresetListener(meal.name, meal.foodList, holder.layoutPosition, true)
+                presetListener.onPresetListener(meal.name, foodJson, holder.layoutPosition, true)
                 true
             }
         }
@@ -48,6 +46,6 @@ class PresetAdapter(
 
 
     interface PresetListener {
-        fun onPresetListener(mealName: String, foodListPar :MutableList<Food>, position: Int, longpress: Boolean)
+        fun onPresetListener(mealName: String, foodJson: String, position: Int, longpress: Boolean)
     }
 }

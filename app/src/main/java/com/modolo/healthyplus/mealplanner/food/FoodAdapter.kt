@@ -1,6 +1,7 @@
 package com.modolo.healthyplus.mealplanner.food
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import com.modolo.healthyplus.R
 import java.time.format.DateTimeFormatter
 
@@ -29,10 +31,12 @@ class FoodAdapter(private val foodList: ArrayList<Food>, private val foodListene
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        //Log.i("devdebug", "FoodAdapter: $foodList")
         val food = foodList[position]
         with(holder) {
             foodName.text = food.name
-            foodQuantity.text = food.quantity.toString() + food.udm
+            val quant = food.quantity.toString() + food.udm
+            foodQuantity.text = quant
             foodKcal.text = food.kcal.toString()
             holder.itemView.setOnClickListener {
                 foodListener.onFoodListener(food, holder.layoutPosition, false)

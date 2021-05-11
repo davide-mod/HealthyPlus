@@ -16,9 +16,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
+import com.google.gson.Gson
 import com.modolo.healthyplus.R
 import com.modolo.healthyplus.mealplanner.food.Food
 import com.modolo.healthyplus.mealplanner.food.FoodAdapter
+import com.modolo.healthyplus.mealplanner.mealdb.Meal
 
 class EditMealFragment : Fragment(), FoodAdapter.FoodListener {
 
@@ -73,13 +75,13 @@ class EditMealFragment : Fragment(), FoodAdapter.FoodListener {
 
         delete.setOnClickListener {
             delete.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
-            viewModel.removeMeal(mealPassed.id)
+            viewModel.deleteMeal(mealPassed)
             findNavController().navigateUp()
         }
 
         save.setOnClickListener {
             mealPassed.name = nameEdit.text.toString()
-            mealPassed.foodList = foodListTmp
+            mealPassed.foodList = Gson().toJson(foodListTmp)
             Log.i("devdebug", "editMeal: save pressed")
             viewModel.updateMeal(mealPassed)
             save.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
@@ -89,7 +91,7 @@ class EditMealFragment : Fragment(), FoodAdapter.FoodListener {
         //chiudi quando si preme la X senza salvare
         val close = view.findViewById<ImageView>(R.id.close)
         close.setOnClickListener {
-            viewModel.resetEdit()
+            //viewModel.resetEdit()
             findNavController().navigateUp()
         }
         return view
@@ -98,11 +100,13 @@ class EditMealFragment : Fragment(), FoodAdapter.FoodListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(MealsSharedViewModel::class.java)
-        mealPassed = viewModel.getEdit()
-        Log.i("devdebug", "editMeal received: $mealPassed")
+        mealPassed = viewModel.getMealtoEdit()
+        Log.i("devdebug", "EditMealFragment received: $mealPassed")
         nameEdit.setText(mealPassed.name)
-        foodListTmp = ArrayList(mealPassed.foodList)
-        foodRecycler.adapter = FoodAdapter(ArrayList(foodListTmp), this, requireContext())
+
+        val foodList = Gson().fromJson(mealPassed.foodList, ArrayList<Food>()::class.java)
+
+        foodRecycler.adapter = FoodAdapter(foodList, this, requireContext())
 
     }
 

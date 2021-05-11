@@ -19,6 +19,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.modolo.healthyplus.DButil
 import com.modolo.healthyplus.MainActivity
 import com.modolo.healthyplus.R
 import com.modolo.healthyplus.signup.SignupFragment
@@ -97,6 +101,11 @@ class LoginFragment : Fragment(){
         mAuth.signInWithCredential(credential)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
+                    val user = mAuth.currentUser
+                    val userUpdate = UserProfileChangeRequest.Builder().setDisplayName(user.displayName).build()
+                    user?.updateProfile(userUpdate)?.addOnCompleteListener {
+                        DButil(mAuth, Firebase.firestore).addUser("", "")
+                    }
                     // Sign in success, update UI with the signed-in user's information
                     Log.i("devdebug", "signInWithCredential:success")
                     findNavController().navigate(R.id.mainFragment)
