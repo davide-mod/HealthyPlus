@@ -44,4 +44,9 @@
         android:name="com.modolo.healthyplus.mealplanner.AddMealFragment"
         android:label="AddMealFragment"
         tools:layout="@layout/mealplanner_frag_add"/>
+    <fragment
+        android:id="@+id/userFragment"
+        tools:layout="@layout/fragment_user"
+        android:name="com.modolo.healthyplus.userpage.UserFragment"
+        android:label="UserFragment" />
 </navigation>

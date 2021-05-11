@@ -17,22 +17,12 @@ import com.modolo.healthyplus.R
 
 class MainFragment : Fragment(), NotificationAdapter.NotificationListener{
 
-    private val PREF_NAME = "data"
-    private val MOD_FOOD_JOURNAL = "food"
-    private val MOD_SPORT_JOURNAL = "sport"
-
     private lateinit var mAuth: FirebaseAuth
-
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        //requireActivity().supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, LoginFragment(), "LoginFragmentTag").commit()
         val view = inflater.inflate(R.layout.fragment_main, container, false)
-        //check which module has to be shown
-        val sharedPref: SharedPreferences? = activity?.getSharedPreferences(PREF_NAME, 0)
-        val foodJournal = sharedPref?.getBoolean(MOD_FOOD_JOURNAL, false)
-        //if(foodJournal!!)
+
         val ham = view.findViewById<ImageView>(R.id.hamburger)
         ham.setOnClickListener {
             (activity as MainActivity?)?.openDrawer()

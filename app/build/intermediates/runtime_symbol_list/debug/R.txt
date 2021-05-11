@@ -1938,6 +1938,7 @@ int id btnDelete 0x7f0a0064
 int id btnMeal 0x7f0a0065
 int id btnProceed 0x7f0a0066
 int id btnSave 0x7f0a0067
+int id btnSavePreferences 0x7f0a0201
 int id btnSavedMeals 0x7f0a0068
 int id btnSnack 0x7f0a0069
 int id buttonPanel 0x7f0a006a
@@ -1948,6 +1949,8 @@ int id center_horizontal 0x7f0a006e
 int id center_vertical 0x7f0a006f
 int id chain 0x7f0a0070
 int id chains 0x7f0a0071
+int id checkFitnessTracker 0x7f0a0202
+int id checkMealPlanner 0x7f0a0203
 int id checkbox 0x7f0a0072
 int id checked 0x7f0a0073
 int id chip 0x7f0a0074
@@ -2092,10 +2095,12 @@ int id light 0x7f0a00fe
 int id line1 0x7f0a00ff
 int id line3 0x7f0a0100
 int id linear 0x7f0a0101
+int id linearUser 0x7f0a0204
 int id listMode 0x7f0a0102
 int id list_item 0x7f0a0103
 int id loginFragment 0x7f0a0104
 int id loginLabel 0x7f0a0105
+int id logout 0x7f0a0205
 int id main 0x7f0a0106
 int id mainActivity 0x7f0a0107
 int id mainFragment 0x7f0a0108
@@ -2126,7 +2131,6 @@ int id mealDone 0x7f0a0120
 int id mealEdit 0x7f0a0121
 int id mealName 0x7f0a0122
 int id mealplannerFragment 0x7f0a0123
-int id menulaterale 0x7f0a0124
 int id message 0x7f0a0125
 int id middle 0x7f0a0126
 int id mini 0x7f0a0127
@@ -2168,6 +2172,7 @@ int id nav_controller_view_tag 0x7f0a014a
 int id nav_graph 0x7f0a014b
 int id nav_host_fragment 0x7f0a014c
 int id nav_host_fragment_container 0x7f0a014d
+int id nav_view 0x7f0a0207
 int id navigation_header_container 0x7f0a014e
 int id never 0x7f0a014f
 int id noScroll 0x7f0a0150
@@ -2336,6 +2341,7 @@ int id uniform 0x7f0a01f2
 int id unlabeled 0x7f0a01f3
 int id up 0x7f0a01f4
 int id useLogo 0x7f0a01f5
+int id userFragment 0x7f0a0206
 int id viewPager 0x7f0a01f6
 int id view_offset_helper 0x7f0a01f7
 int id view_tree_view_model_store_owner 0x7f0a01f8
@@ -2432,6 +2438,7 @@ int layout fragment_login 0x7f0d002f
 int layout fragment_main 0x7f0d0030
 int layout fragment_mealplanner 0x7f0d0031
 int layout fragment_signup 0x7f0d0032
+int layout fragment_user 0x7f0d0080
 int layout login_item_card 0x7f0d0033
 int layout main_notification_item 0x7f0d0034
 int layout material_chip_input_combo 0x7f0d0035
@@ -2599,6 +2606,7 @@ int string hide_bottom_view_on_scroll_behavior 0x7f120051
 int string home 0x7f120052
 int string icon_content_description 0x7f120053
 int string item_view_role_description 0x7f120054
+int string log_out 0x7f1200b9
 int string login_email 0x7f120055
 int string login_facebook 0x7f120056
 int string login_google 0x7f120057

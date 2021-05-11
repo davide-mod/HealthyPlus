@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/marginStandard"
+        android:drawablePadding="@dimen/marginStandard"
+        app:drawableStartCompat="@drawable/signup_username"
+        app:drawableTint="@color/main"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/hamburger"
+        android:layout_width="@dimen/iconNearTitle"
+        android:layout_height="@dimen/iconNearTitle"
+        android:layout_margin="@dimen/marginStandard"
+        android:contentDescription="@string/profile_picture"
+        android:src="@drawable/icon_hamburger"
+        app:layout_constraintBottom_toBottomOf="@id/title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/title"
+        app:tint="@color/main_mealplanner" />
+
+    <LinearLayout
+        android:id="@+id/linearUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/marginStandard"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/logout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title">
+
+        <TextView
+            style="@style/buttonText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/marginStandard"
+            android:gravity="start"
+            android:text="Moduli:" />
+
+        <CheckBox
+            android:id="@+id/checkMealPlanner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/marginStandard"
+            android:layout_marginTop="@dimen/marginStandard"
+            android:text="@string/meal_planner_title" />
+
+        <CheckBox
+            android:id="@+id/checkFitnessTracker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/marginStandard"
+            android:layout_marginTop="@dimen/marginStandard"
+            android:text="@string/fitness_tracker_title" />
+
+        <Button
+            android:id="@+id/btnSavePreferences"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginStandard"
+            android:text="salva" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/logout"
+        style="@style/label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/marginStandard"
+        android:text="@string/log_out"
+        android:textColor="@color/red"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

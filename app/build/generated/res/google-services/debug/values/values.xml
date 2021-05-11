@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">27644008478-3a5750f46o7lld22bdrphmomjk4jc3om.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">27644008478</string>
+    <string name="google_api_key" translatable="false">AIzaSyDpm0KO61o1NvPQjQzZGGbh0nlOnQR2a-c</string>
+    <string name="google_app_id" translatable="false">1:27644008478:android:ef76be2ce19d1c36db760f</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDpm0KO61o1NvPQjQzZGGbh0nlOnQR2a-c</string>
+    <string name="google_storage_bucket" translatable="false">healthyplus-297ed.appspot.com</string>
+    <string name="project_id" translatable="false">healthyplus-297ed</string>
+</resources>

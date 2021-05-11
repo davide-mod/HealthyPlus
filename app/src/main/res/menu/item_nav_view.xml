@@ -17,7 +17,7 @@
         android:title="@string/fitness_tracker_title" />
     <item
         android:id="@+id/itemUser"
-        android:icon="@drawable/meal_fit_delete"
+        android:icon="@drawable/signup_username"
         android:title="@string/user_title" />
     <item
         android:id="@+id/itemCredits"

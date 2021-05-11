@@ -71,5 +71,6 @@
     <string name="fitness_tracker_card_label"><u>scheda</u></string>
     <string name="fitness_tracker_placeholdername">GAMBE</string>
     <string name="fitness_tracker_rapid_activity">Attività rapida</string>
+    <string name="log_out">Log Out</string>
 
 </resources>

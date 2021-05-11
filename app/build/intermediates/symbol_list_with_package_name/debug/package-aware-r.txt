@@ -1939,6 +1939,7 @@ id btnDelete
 id btnMeal
 id btnProceed
 id btnSave
+id btnSavePreferences
 id btnSavedMeals
 id btnSnack
 id buttonPanel
@@ -1949,6 +1950,8 @@ id center_horizontal
 id center_vertical
 id chain
 id chains
+id checkFitnessTracker
+id checkMealPlanner
 id checkbox
 id checked
 id chip
@@ -2093,10 +2096,12 @@ id light
 id line1
 id line3
 id linear
+id linearUser
 id listMode
 id list_item
 id loginFragment
 id loginLabel
+id logout
 id main
 id mainActivity
 id mainFragment
@@ -2127,7 +2132,6 @@ id mealDone
 id mealEdit
 id mealName
 id mealplannerFragment
-id menulaterale
 id message
 id middle
 id mini
@@ -2169,6 +2173,7 @@ id nav_controller_view_tag
 id nav_graph
 id nav_host_fragment
 id nav_host_fragment_container
+id nav_view
 id navigation_header_container
 id never
 id noScroll
@@ -2337,6 +2342,7 @@ id uniform
 id unlabeled
 id up
 id useLogo
+id userFragment
 id viewPager
 id view_offset_helper
 id view_tree_view_model_store_owner
@@ -2433,6 +2439,7 @@ layout fragment_login
 layout fragment_main
 layout fragment_mealplanner
 layout fragment_signup
+layout fragment_user
 layout login_item_card
 layout main_notification_item
 layout material_chip_input_combo
@@ -2600,6 +2607,7 @@ string hide_bottom_view_on_scroll_behavior
 string home
 string icon_content_description
 string item_view_role_description
+string log_out
 string login_email
 string login_facebook
 string login_google
