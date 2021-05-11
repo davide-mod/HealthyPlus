@@ -7,7 +7,7 @@ import com.modolo.healthyplus.mealplanner.food.Food
 @Entity(tableName = "meals")
 data class Meal(
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    var id: Int,
     var name: String,
     var foodList: String,
     var date: String,

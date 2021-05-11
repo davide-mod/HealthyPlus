@@ -1,3 +1,7 @@
+com/modolo/healthyplus/main/MainFragmentDirections.java
+ com.modolo.healthyplus.main.MainFragmentDirections
+com/modolo/healthyplus/BuildConfig.java
+ com.modolo.healthyplus.BuildConfig
 com/modolo/healthyplus/mealplanner/mealdb/MealDAO_Impl.java
  com.modolo.healthyplus.mealplanner.mealdb.MealDAO_Impl
  com.modolo.healthyplus.mealplanner.mealdb.MealDAO_Impl$1
@@ -9,10 +13,6 @@ com/modolo/healthyplus/mealplanner/mealdb/MealDAO_Impl.java
  com.modolo.healthyplus.mealplanner.mealdb.MealDAO_Impl$7
  com.modolo.healthyplus.mealplanner.mealdb.MealDAO_Impl$8
  com.modolo.healthyplus.mealplanner.mealdb.MealDAO_Impl$9
-com/modolo/healthyplus/BuildConfig.java
- com.modolo.healthyplus.BuildConfig
 com/modolo/healthyplus/mealplanner/mealdb/MealDatabase_Impl.java
  com.modolo.healthyplus.mealplanner.mealdb.MealDatabase_Impl
  com.modolo.healthyplus.mealplanner.mealdb.MealDatabase_Impl$1
-com/modolo/healthyplus/main/MainFragmentDirections.java
- com.modolo.healthyplus.main.MainFragmentDirections

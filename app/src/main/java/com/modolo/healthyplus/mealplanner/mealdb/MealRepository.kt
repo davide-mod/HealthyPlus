@@ -21,16 +21,14 @@ class MealRepository(app: Application) {
         CoroutineScope(Dispatchers.IO).launch {
             var data: List<Meal> = mealDAO.getAll()
             if (data.isNullOrEmpty()) {
-
                 val mAuth = FirebaseAuth.getInstance()
-
                 val mealsFromGoogle = DButil(mAuth, Firebase.firestore).getAll()
                 val mealsTmp = mutableListOf<Meal>()
                 mealsFromGoogle.get().addOnSuccessListener { doc ->
                     doc.forEach { me ->
                         Log.i("devdebug", "MealRepo: $me")
                         val mealTmp = Meal(
-                            id = me.data["id"] as Int,
+                            id = (me.data["id"] as Long).toInt(),
                             name = me.data["name"] as String,
                             foodList = me.data["foodList"] as String,
                             date = (me.data["date"] as String),
@@ -40,11 +38,7 @@ class MealRepository(app: Application) {
                         mealsTmp.add(mealTmp)
                     }
                 }
-                mealsTmp.forEach {
-                    mealDAO.insertMeal(it)
-                }
-                data = mealDAO.getAll()
-                mealData.postValue(data)
+                mealData.postValue(mealsTmp)
             } else {
                 //se il database di pasti è già popolato recupero le entry
                 mealData.postValue(data)

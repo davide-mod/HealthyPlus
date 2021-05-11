@@ -106,8 +106,9 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, PresetAdapter.Pres
                 val title = dialog.findViewById<TextView>(R.id.title)
                 title.text = mealNameTmp //imposto il titolo in base al nome del pasto
                 val foodJson = Gson().toJson(foodList)
+                val newId = viewModel.getLastId()+1
                 newMeal = Meal(
-                    id = 0,
+                    newId,
                     mealNameTmp, foodJson, LocalDateTime.now().toString(),
                     ispreset = false,
                     isdone = false
@@ -216,6 +217,7 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, PresetAdapter.Pres
         Log.i("devdebug", "AddFragment: presetListener $mealName e $foodList")
 
     }
+
     private val listTypeFood: ParameterizedType = Types.newParameterizedType(
         List::class.java, Food::class.java
     )

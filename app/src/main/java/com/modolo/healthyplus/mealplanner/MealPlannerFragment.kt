@@ -103,8 +103,9 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
                 val food = mutableListOf<Food>()
                 food.add(Food(snackNam, snackQua, snackSpi, snackKca))
                 val foodJson = Gson().toJson(food)
+                val newId = viewModel.getLastId()+1
                 val snackMeal = Meal(
-                    0,
+                    newId,
                     snackNam,
                     foodJson,
                     LocalDateTime.now().toString(),
@@ -132,34 +133,31 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
         viewModel = ViewModelProvider(requireActivity()).get(MealsSharedViewModel::class.java)
         viewModel.meals.observe(viewLifecycleOwner, { mutableList ->
             meals = mutableList as ArrayList<Meal>
-        })
-        presets.clear()
-        history.clear()
-        incoming.clear()
-        for (meal in meals) {
-            when {
-                meal.ispreset -> presets.add(meal)
-                meal.isdone -> history.add(meal)
-                else -> incoming.add(meal)
+            presets.clear()
+            history.clear()
+            incoming.clear()
+            for (meal in meals) {
+                when {
+                    meal.ispreset -> presets.add(meal)
+                    meal.isdone -> history.add(meal)
+                    else -> incoming.add(meal)
+                }
             }
-        }
-        val sortedHistory =
-            history.sortedByDescending { it.date } //ordino la lista per avere in cima gli ultimi
-        presetsView.adapter = MealAdapter(presets, this, requireContext())
-        incomingView.adapter = MealAdapter(incoming, this, requireContext())
-        historyView.adapter = MealAdapterHistory(ArrayList(sortedHistory), this, requireContext())
+            val sortedHistory =
+                history.sortedByDescending { it.date } //ordino la lista per avere in cima gli ultimi
+            presetsView.adapter = MealAdapter(presets, this, requireContext())
+            incomingView.adapter = MealAdapter(incoming, this, requireContext())
+            historyView.adapter = MealAdapterHistory(ArrayList(sortedHistory), this, requireContext())
+        })
+
     }
 
     //quando un pasto tra i preset o quelli in arrivo viene premuto
     override fun onMealListener(meal: Meal, position: Int, editMeal: Boolean, done: Boolean) {
         //si controlla se ad essere premuto è stato il pulsante di edit
         if (editMeal) {
-            //carico il fragment di edit passando il pasto come parametro
-            Log.i("devdebug", "MainFragment: wanna edit ${meal.name} e id ${meal.id}")
-            val mealToEdit =
-                Meal(meal.id, meal.name, meal.foodList, meal.date, meal.ispreset, meal.isdone)
             //salvo il pasto da modificare nella viewmodel e apro il fragment per la modifica
-            viewModel.setMealtoEdit(mealToEdit)
+            viewModel.setMealtoEdit(meal)
             findNavController().navigate(R.id.editMealFragment)
 
         } else if (done) { //se invece è stato premuto il tasto "fatto" lo sposto nello storico

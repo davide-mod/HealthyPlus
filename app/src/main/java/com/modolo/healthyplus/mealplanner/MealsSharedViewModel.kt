@@ -42,6 +42,13 @@ class MealsSharedViewModel(val app: Application) : AndroidViewModel(app) {
         mealsdb.deleteMeal(meal)
         DButil(mAuth, Firebase.firestore).deleteMeal(meal)
     }
+    fun getLastId(): Int{
+        var maxId = 0
+        meals.value!!.forEach {
+            maxId = if(it.id > maxId) it.id else maxId
+        }
+        return maxId
+    }
 
 
     fun getPresets(): ArrayList<Meal>{
