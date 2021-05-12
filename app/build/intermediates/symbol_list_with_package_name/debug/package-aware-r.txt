@@ -2099,8 +2099,13 @@ id linear
 id linearUser
 id listMode
 id list_item
+id loginBtn
+id loginEmailBox
+id loginEmailText
 id loginFragment
 id loginLabel
+id loginPasswordBox
+id loginPasswordText
 id logout
 id main
 id mainActivity
@@ -2440,6 +2445,7 @@ layout fragment_main
 layout fragment_mealplanner
 layout fragment_signup
 layout fragment_user
+layout login_dialog_mail
 layout login_item_card
 layout main_notification_item
 layout material_chip_input_combo

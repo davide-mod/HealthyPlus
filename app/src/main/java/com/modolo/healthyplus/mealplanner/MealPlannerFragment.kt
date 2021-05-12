@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
@@ -103,7 +104,7 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
                 val food = mutableListOf<Food>()
                 food.add(Food(snackNam, snackQua, snackSpi, snackKca))
                 val foodJson = Gson().toJson(food)
-                val newId = viewModel.getLastId()+1
+                val newId = viewModel.getLastId() + 1
                 val snackMeal = Meal(
                     newId,
                     snackNam,
@@ -130,6 +131,11 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
     //viewmodel per comunicare tra fragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Snackbar.make(
+            view,
+            "Recupero eventuali dati salvati online...",
+            Snackbar.LENGTH_SHORT
+        ).show()
         viewModel = ViewModelProvider(requireActivity()).get(MealsSharedViewModel::class.java)
         viewModel.meals.observe(viewLifecycleOwner, { mutableList ->
             meals = mutableList as ArrayList<Meal>
@@ -147,7 +153,8 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
                 history.sortedByDescending { it.date } //ordino la lista per avere in cima gli ultimi
             presetsView.adapter = MealAdapter(presets, this, requireContext())
             incomingView.adapter = MealAdapter(incoming, this, requireContext())
-            historyView.adapter = MealAdapterHistory(ArrayList(sortedHistory), this, requireContext())
+            historyView.adapter =
+                MealAdapterHistory(ArrayList(sortedHistory), this, requireContext())
         })
 
     }

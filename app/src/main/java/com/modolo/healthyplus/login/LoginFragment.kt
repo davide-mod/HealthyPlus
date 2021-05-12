@@ -21,6 +21,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
@@ -33,15 +34,17 @@ import com.modolo.healthyplus.MainActivity
 import com.modolo.healthyplus.R
 import com.modolo.healthyplus.signup.SignupFragment
 
-class LoginFragment : Fragment(){
+class LoginFragment : Fragment() {
     private lateinit var mAuth: FirebaseAuth
-    private lateinit var googleSignInClient : GoogleSignInClient
+    private lateinit var googleSignInClient: GoogleSignInClient
 
     private val RC_SIGN_IN = 120
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         val view = inflater.inflate(R.layout.fragment_login, container, false)
         (activity as MainActivity?)!!.setDrawerEnabled(false)
 
@@ -57,10 +60,11 @@ class LoginFragment : Fragment(){
             findNavController().navigate(R.id.signupFragment)
         }
 
-        val gso: GoogleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
+        val gso: GoogleSignInOptions =
+            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build()
         googleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
 
         mAuth = FirebaseAuth.getInstance()
@@ -74,7 +78,11 @@ class LoginFragment : Fragment(){
         val facebook = view.findViewById<TextView>(R.id.layoutFacebook)
         facebook.setOnClickListener {
             facebook.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
-            Toast.makeText(requireContext(), "Login con Facebook non disponibile", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                "Login con Facebook non disponibile",
+                Toast.LENGTH_SHORT
+            ).show()
         }
 
         val email = view.findViewById<TextView>(R.id.layoutEmail)
@@ -93,8 +101,7 @@ class LoginFragment : Fragment(){
                 loginBtn.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
                 val emailTmp = emailText.text.toString()
                 val passwordTmp = passwordText.text.toString()
-                if(emailTmp!="" && passwordTmp!="")
-                {
+                if (emailTmp != "" && passwordTmp != "") {
                     val mAuth = Firebase.auth
                     mAuth.signInWithEmailAndPassword(emailTmp, passwordTmp)
                         .addOnCompleteListener { task ->
@@ -102,12 +109,16 @@ class LoginFragment : Fragment(){
                                 findNavController().navigate(R.id.mainFragment)
                                 dialog.dismiss()
                             } else {
-                                Toast.makeText(requireContext(), "Login fallito", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Login fallito",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                         }
 
-                }
-                else Toast.makeText(requireContext(), "Completa i campi", Toast.LENGTH_SHORT).show()
+                } else Toast.makeText(requireContext(), "Completa i campi", Toast.LENGTH_SHORT)
+                    .show()
             }
             dialog.show()
         }
@@ -118,12 +129,13 @@ class LoginFragment : Fragment(){
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            if(task.isSuccessful){
+            if (task.isSuccessful) {
                 try {
                     // Google Sign In was successful, authenticate with Firebase
                     val account = task.getResult(ApiException::class.java)!!
@@ -137,13 +149,17 @@ class LoginFragment : Fragment(){
 
         }
     }
+
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         mAuth.signInWithCredential(credential)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
+                    Toast.makeText(requireContext(), "Login avvenuto con successo", Toast.LENGTH_SHORT)
+                        .show()
                     val user = mAuth.currentUser
-                    val userUpdate = UserProfileChangeRequest.Builder().setDisplayName(user.displayName).build()
+                    val userUpdate =
+                        UserProfileChangeRequest.Builder().setDisplayName(user.displayName).build()
                     user?.updateProfile(userUpdate)?.addOnCompleteListener {
                         DButil(mAuth, Firebase.firestore).addUser("", "")
                     }
