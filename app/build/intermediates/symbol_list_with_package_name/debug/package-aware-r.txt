@@ -1921,6 +1921,7 @@ id all
 id always
 id animateToEnd
 id animateToStart
+id appNameHeader
 id appTitle
 id asConfigured
 id aspreset
@@ -2082,6 +2083,7 @@ id ifRoom
 id ignore
 id ignoreRequest
 id image
+id imageHeader
 id incomingMeals
 id incomingMealsLabel
 id incomingWorkout
@@ -2552,6 +2554,7 @@ layout mtrl_picker_header_title_text
 layout mtrl_picker_header_toggle
 layout mtrl_picker_text_input_date
 layout mtrl_picker_text_input_date_range
+layout nav_view_header
 layout notification_action
 layout notification_action_tombstone
 layout notification_template_custom_big

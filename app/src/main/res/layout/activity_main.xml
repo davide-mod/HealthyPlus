@@ -33,6 +33,7 @@
         android:layout_gravity="start"
         android:background="@color/main"
         app:itemIconTint="@color/white"
+        app:headerLayout="@layout/nav_view_header"
         app:itemTextColor="@color/white"
         app:menu="@menu/item_nav_view" />
 

@@ -7,7 +7,7 @@
     <dimen name="marginSmall">7dp</dimen>
     <dimen name="radius">10dp</dimen>
     <!--LOGIN-->
-    <dimen name="buttonText">16sp</dimen>
+    <dimen name="buttonText">18sp</dimen>
     <dimen name="buttonIcon">16dp</dimen>
     <dimen name="label">14sp</dimen>
     <dimen name="cardsize">333dp</dimen>

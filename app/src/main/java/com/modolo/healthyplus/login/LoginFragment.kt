@@ -69,7 +69,7 @@ class LoginFragment : Fragment() {
         cardList.add(
             LoginCard(
                 "Fitness Tracker",
-                "Allenamento ancora più immediato",
+                "Schede di allenamento più immediate",
                 ContextCompat.getColor(requireContext(), R.color.main_fitnesstracker),
                 R.drawable.card_fitnesstracker
             )

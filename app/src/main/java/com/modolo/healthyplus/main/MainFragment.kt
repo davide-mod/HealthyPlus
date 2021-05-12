@@ -34,9 +34,9 @@ class MainFragment : Fragment(), NotificationAdapter.NotificationListener{
             if(i%2 == 0)
                 notifications.add(Notification("Notifica/Notizia Base $i", "12-4"))
             else if(i%3 == 0)
-                notifications.add(Notification("Notifica colorata $i", "12-4", "descrizione di test", getColor(requireContext(), R.color.main)))
+                notifications.add(Notification("Notifica colorata $i", "12-4", "descrizione di test $i", getColor(requireContext(), R.color.main)))
             else
-                notifications.add(Notification("Notifica colorata $i", "12-4", "descrizione di test", getColor(requireContext(), R.color.main_fitnesstracker)))
+                notifications.add(Notification("Notifica colorata $i", "12-4", "descrizione di test $i", getColor(requireContext(), R.color.main_fitnesstracker)))
         }
         Log.i("devdebug", notifications.toString())
         val notificationView = view.findViewById<RecyclerView>(R.id.recyclerNotifications)
@@ -57,7 +57,7 @@ class MainFragment : Fragment(), NotificationAdapter.NotificationListener{
     }
 
     override fun onNotificationListener(notification: Notification, position: Int, longpress: Boolean) {
-        Log.i("lol", "ciao")
+        Log.i("devdebug", "$notification")
     }
 
 

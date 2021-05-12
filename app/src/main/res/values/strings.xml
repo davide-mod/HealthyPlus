@@ -35,9 +35,9 @@
     <!-- FITNESS & MEAL MODULES STRINGS -->
     <string name="fitness_meal_today">oggi</string>
     <string name="fitness_meal_done">Fatto!</string>
-    <string name="fitness_meal_coming">in arrivo:</string>
-    <string name="fitness_meal_preset">preimpostati:</string>
-    <string name="fitness_meal_history">storico:</string>
+    <string name="fitness_meal_coming">In arrivo:</string>
+    <string name="fitness_meal_preset">Preimpostati:</string>
+    <string name="fitness_meal_history">Storico:</string>
     <string name="fitness_meal_daysago"> giorni fa</string>
     <string name="fitness_meal_procede">Procedi</string>
     <string name="fitness_meal_delete">Elimina</string>

@@ -48,8 +48,8 @@ class MainActivity : AppCompatActivity() {
         setDrawerElementVisible(R.id.itemMealPlanner, mealPlanner!!)
         setDrawerElementVisible(R.id.itemFitnessTracker, fitnessTracker!!)
 
-        val menulaterale = findViewById<NavigationView>(R.id.nav_view)
-        menulaterale.setNavigationItemSelectedListener(navigationListener)
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        navigationView.setNavigationItemSelectedListener(navigationListener)
     }
 
     fun openDrawer() {
