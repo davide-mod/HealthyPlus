@@ -38,15 +38,20 @@
         android:id="@+id/editMealFragment"
         android:name="com.modolo.healthyplus.mealplanner.EditMealFragment"
         android:label="EditMealFragment"
-        tools:layout="@layout/mealplanner_frag_edit"/>
+        tools:layout="@layout/mealplanner_frag_edit" />
     <fragment
         android:id="@+id/addMealFragment"
         android:name="com.modolo.healthyplus.mealplanner.AddMealFragment"
         android:label="AddMealFragment"
-        tools:layout="@layout/mealplanner_frag_add"/>
+        tools:layout="@layout/mealplanner_frag_add" />
     <fragment
         android:id="@+id/userFragment"
-        tools:layout="@layout/fragment_user"
         android:name="com.modolo.healthyplus.userpage.UserFragment"
-        android:label="UserFragment" />
+        android:label="UserFragment"
+        tools:layout="@layout/fragment_user" />
+    <fragment
+        android:id="@+id/fitnessTrackerFragment"
+        android:name="com.modolo.healthyplus.fitnesstracker.FitnessTrackerFragment"
+        android:label="FitnessTrackerFragment"
+        tools:layout="@layout/fragment_fitnesstracker" />
 </navigation>

@@ -56,14 +56,6 @@ class MealRepository(app: Application) {
         }
     }
 
-    private fun insertMeals(meals: MutableList<Meal>){
-        CoroutineScope(Dispatchers.IO).launch {
-            meals.forEach {
-                mealDAO.insertMeal(it)
-            }
-        }
-    }
-
     //inserisco un nuovo ingrediente e aggiorno la lista richiedendola
     fun insertMeal(meal: Meal) {
         CoroutineScope(Dispatchers.IO).launch {

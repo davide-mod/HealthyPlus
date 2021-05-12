@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/marginStandard"
+        android:drawablePadding="@dimen/marginSmall"
+        android:text="@string/meal_planner_title"
+        android:textColor="@color/main_fitnesstracker"
+        app:drawableStartCompat="@drawable/icon_fit"
+        android:drawableTint="@color/main_fitnesstracker"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/hamburger"
+        android:layout_width="@dimen/iconNearTitle"
+        android:layout_height="@dimen/iconNearTitle"
+        android:layout_margin="@dimen/marginStandard"
+        android:contentDescription="@string/profile_picture"
+        android:src="@drawable/icon_hamburger"
+        app:layout_constraintBottom_toBottomOf="@id/title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/title"
+        app:tint="@color/main_fitnesstracker" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mainView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/marginStandard"
+        android:background="@color/bg_grey"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title">
+
+        <TextView
+            android:id="@+id/incomingWorkoutLabel"
+            style="@style/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/marginStandard"
+            android:text="@string/fitness_meal_coming"
+            android:textSize="@dimen/mealLabel"
+            app:layout_constraintBottom_toTopOf="@id/incomingWorkout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/incomingWorkout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/presetsWorkoutLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/incomingWorkoutLabel" />
+
+        <TextView
+            android:id="@+id/presetsWorkoutLabel"
+            style="@style/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/marginStandard"
+            android:text="@string/fitness_meal_preset"
+            android:textSize="@dimen/mealLabel"
+            app:layout_constraintBottom_toTopOf="@id/presetsWorkout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/incomingWorkout" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/presetsWorkout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/historyWorkoutLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/presetsWorkoutLabel" />
+
+        <TextView
+            android:id="@+id/historyWorkoutLabel"
+            style="@style/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/marginStandard"
+            android:text="@string/fitness_meal_history"
+            android:textSize="@dimen/mealLabel"
+            app:layout_constraintBottom_toTopOf="@id/historyWorkout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/presetsWorkout" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/historyWorkout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/btnWorkout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/historyWorkoutLabel" />
+
+
+        <TextView
+            android:id="@+id/btnWorkout"
+            style="@style/buttonTextFinish"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/main_fitnesstracker"
+            android:padding="@dimen/marginStandard"
+            android:text="@string/fitness_training"
+            app:drawableStartCompat="@drawable/icon_add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

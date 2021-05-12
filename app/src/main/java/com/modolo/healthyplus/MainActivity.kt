@@ -28,13 +28,10 @@ class MainActivity : AppCompatActivity() {
                     findNavController(R.id.nav_host_fragment).navigate(R.id.mealplannerFragment)
                 }
                 R.id.itemFitnessTracker -> {
-                    findNavController(R.id.nav_host_fragment).navigate(R.id.mainFragment)
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.fitnessTrackerFragment)
                 }
                 R.id.itemUser -> {
                     findNavController(R.id.nav_host_fragment).navigate(R.id.userFragment)
-                }
-                R.id.itemCredits -> {
-                    findNavController(R.id.nav_host_fragment).navigate(R.id.mainFragment)
                 }
             }
             false

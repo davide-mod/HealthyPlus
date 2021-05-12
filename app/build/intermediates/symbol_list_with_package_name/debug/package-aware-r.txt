@@ -1945,6 +1945,7 @@ id btnSave
 id btnSavePreferences
 id btnSavedMeals
 id btnSnack
+id btnWorkout
 id buttonPanel
 id cache_measures
 id cancel_button
@@ -2036,6 +2037,7 @@ id fill_horizontal
 id fill_vertical
 id filled
 id fitToContents
+id fitnessTrackerFragment
 id fixed
 id flip
 id floating
@@ -2058,6 +2060,8 @@ id header_title
 id hideable
 id historyMeals
 id historyMealsLabel
+id historyWorkout
+id historyWorkoutLabel
 id home
 id homeAsUp
 id honorRequest
@@ -2070,13 +2074,14 @@ id ignoreRequest
 id image
 id incomingMeals
 id incomingMealsLabel
+id incomingWorkout
+id incomingWorkoutLabel
 id indicator
 id info
 id inputLayout
 id invisible
 id inward
 id italic
-id itemCredits
 id itemFitnessTracker
 id itemHome
 id itemMealPlanner
@@ -2221,6 +2226,8 @@ id position
 id postLayout
 id presetsMeals
 id presetsMealsLabel
+id presetsWorkout
+id presetsWorkoutLabel
 id progress_circular
 id progress_horizontal
 id quantity
@@ -2445,6 +2452,7 @@ layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
+layout fragment_fitnesstracker
 layout fragment_login
 layout fragment_main
 layout fragment_mealplanner
@@ -2608,6 +2616,7 @@ string fitness_tracker_card_label
 string fitness_tracker_placeholdername
 string fitness_tracker_rapid_activity
 string fitness_tracker_title
+string fitness_training
 string gcm_defaultSenderId
 string google_api_key
 string google_app_id

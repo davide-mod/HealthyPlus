@@ -1944,6 +1944,7 @@ int id btnSave 0x7f0a0067
 int id btnSavePreferences 0x7f0a0068
 int id btnSavedMeals 0x7f0a0069
 int id btnSnack 0x7f0a006a
+int id btnWorkout 0x7f0a020e
 int id buttonPanel 0x7f0a006b
 int id cache_measures 0x7f0a006c
 int id cancel_button 0x7f0a006d
@@ -2035,6 +2036,7 @@ int id fill_horizontal 0x7f0a00c2
 int id fill_vertical 0x7f0a00c3
 int id filled 0x7f0a00c4
 int id fitToContents 0x7f0a00c5
+int id fitnessTrackerFragment 0x7f0a020f
 int id fixed 0x7f0a00c6
 int id flip 0x7f0a00c7
 int id floating 0x7f0a00c8
@@ -2057,6 +2059,8 @@ int id header_title 0x7f0a00d8
 int id hideable 0x7f0a00d9
 int id historyMeals 0x7f0a00da
 int id historyMealsLabel 0x7f0a00db
+int id historyWorkout 0x7f0a0210
+int id historyWorkoutLabel 0x7f0a0211
 int id home 0x7f0a00dc
 int id homeAsUp 0x7f0a00dd
 int id honorRequest 0x7f0a00de
@@ -2069,13 +2073,14 @@ int id ignoreRequest 0x7f0a00e4
 int id image 0x7f0a00e5
 int id incomingMeals 0x7f0a00e6
 int id incomingMealsLabel 0x7f0a00e7
+int id incomingWorkout 0x7f0a0212
+int id incomingWorkoutLabel 0x7f0a0213
 int id indicator 0x7f0a00e8
 int id info 0x7f0a00e9
 int id inputLayout 0x7f0a00ea
 int id invisible 0x7f0a00eb
 int id inward 0x7f0a00ec
 int id italic 0x7f0a00ed
-int id itemCredits 0x7f0a00ee
 int id itemFitnessTracker 0x7f0a00ef
 int id itemHome 0x7f0a00f0
 int id itemMealPlanner 0x7f0a00f1
@@ -2220,6 +2225,8 @@ int id position 0x7f0a017b
 int id postLayout 0x7f0a017c
 int id presetsMeals 0x7f0a017d
 int id presetsMealsLabel 0x7f0a017e
+int id presetsWorkout 0x7f0a0214
+int id presetsWorkoutLabel 0x7f0a0215
 int id progress_circular 0x7f0a017f
 int id progress_horizontal 0x7f0a0180
 int id quantity 0x7f0a0181
@@ -2444,6 +2451,7 @@ int layout design_navigation_menu 0x7f0d002b
 int layout design_navigation_menu_item 0x7f0d002c
 int layout design_text_input_end_icon 0x7f0d002d
 int layout design_text_input_start_icon 0x7f0d002e
+int layout fragment_fitnesstracker 0x7f0d0082
 int layout fragment_login 0x7f0d002f
 int layout fragment_main 0x7f0d0030
 int layout fragment_mealplanner 0x7f0d0031
@@ -2607,6 +2615,7 @@ int string fitness_tracker_card_label 0x7f120047
 int string fitness_tracker_placeholdername 0x7f120048
 int string fitness_tracker_rapid_activity 0x7f120049
 int string fitness_tracker_title 0x7f12004a
+int string fitness_training 0x7f1200ba
 int string gcm_defaultSenderId 0x7f12004b
 int string google_api_key 0x7f12004c
 int string google_app_id 0x7f12004d
