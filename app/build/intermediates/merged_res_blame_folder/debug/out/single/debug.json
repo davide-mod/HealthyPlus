@@ -192,6 +192,10 @@
         "source": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\src\\main\\res\\layout\\mealplanner_itm_meal.xml"
     },
     {
+        "merged": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\build\\intermediates\\res\\merged\\debug\\drawable_card_mealplanner.xml.flat",
+        "source": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\src\\main\\res\\drawable\\card_mealplanner.xml"
+    },
+    {
         "merged": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\build\\intermediates\\res\\merged\\debug\\layout_mealplanner_frag_edit.xml.flat",
         "source": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\src\\main\\res\\layout\\mealplanner_frag_edit.xml"
     },
@@ -248,6 +252,10 @@
         "source": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\src\\main\\res\\layout\\fragment_signup.xml"
     },
     {
+        "merged": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\build\\intermediates\\res\\merged\\debug\\drawable_card_fitnesstracker.xml.flat",
+        "source": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\src\\main\\res\\drawable\\card_fitnesstracker.xml"
+    },
+    {
         "merged": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\build\\intermediates\\res\\merged\\debug\\drawable_meal_fit_close.xml.flat",
         "source": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\src\\main\\res\\drawable\\meal_fit_close.xml"
     },
@@ -274,6 +282,10 @@
     {
         "merged": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher_round.png.flat",
         "source": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\build\\intermediates\\res\\merged\\debug\\drawable_card_healthyplus.xml.flat",
+        "source": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\src\\main\\res\\drawable\\card_healthyplus.xml"
     },
     {
         "merged": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\build\\intermediates\\res\\merged\\debug\\font_ubuntu_regular.ttf.flat",

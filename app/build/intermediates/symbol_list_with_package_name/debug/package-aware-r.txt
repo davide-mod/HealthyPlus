@@ -1105,7 +1105,7 @@ color foreground_material_light
 color highlighted_text_material_dark
 color highlighted_text_material_light
 color main
-color main_light
+color main_fitnesstracker
 color main_mealplanner
 color material_blue_grey_800
 color material_blue_grey_900
@@ -1736,6 +1736,9 @@ drawable btn_radio_on_to_off_mtrl_animation
 drawable btn_top
 drawable btn_top_left
 drawable btn_top_right
+drawable card_fitnesstracker
+drawable card_healthyplus
+drawable card_mealplanner
 drawable common_full_open_on_phone
 drawable common_google_signin_btn_icon_dark
 drawable common_google_signin_btn_icon_dark_focused
@@ -1945,6 +1948,8 @@ id btnSnack
 id buttonPanel
 id cache_measures
 id cancel_button
+id cardDescription
+id cardImage
 id center
 id center_horizontal
 id center_vertical

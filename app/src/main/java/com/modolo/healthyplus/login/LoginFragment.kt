@@ -15,6 +15,7 @@ import android.view.animation.AnimationUtils
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.github.islamkhsh.CardSliderViewPager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -48,12 +49,12 @@ class LoginFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_login, container, false)
         (activity as MainActivity?)!!.setDrawerEnabled(false)
 
-        val lista = ArrayList<String>()
-        lista.add("Healthy Plus\nIl contenitore di funzionalità per una vita sana")
-        lista.add("Meal Planner\nDiario Alimentare completo per aiutarti a programmare i pasti")
-        lista.add("Fitness Tracker\nL'allenamento in palestra ancora più immediato")
+        val cardList = ArrayList<LoginCard>()
+        cardList.add(LoginCard("Healthy Plus", "Il contenitore di funzionalità per una vita sana", ContextCompat.getColor(requireContext(), R.color.main), R.drawable.card_healthyplus))
+        cardList.add(LoginCard("Meal Planner", "Diario Alimentare completo", ContextCompat.getColor(requireContext(), R.color.main_mealplanner), R.drawable.card_mealplanner))
+        cardList.add(LoginCard("Fitness Tracker", "Allenamento ancora più immediato", ContextCompat.getColor(requireContext(), R.color.main_fitnesstracker), R.drawable.card_fitnesstracker))
         val cards = view.findViewById<CardSliderViewPager>(R.id.viewPager)
-        cards.adapter = LoginCardsAdapter(lista)
+        cards.adapter = LoginCardsAdapter(cardList)
         val layoutSignup = view.findViewById<TextView>(R.id.layoutSignup)
         layoutSignup.setOnClickListener {
             layoutSignup.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))

@@ -30,18 +30,4 @@ class DButil(mAuth: FirebaseAuth, private val db: FirebaseFirestore) {
         }
 
     }
-
-    fun addMeal(newMeal: Meal) {
-        db.collection("user").document(user?.uid.toString()).collection("meals").document(newMeal.id.toString())
-            .set(newMeal)
-    }
-
-    fun deleteMeal(meal: Meal){
-        db.collection("user").document(user?.uid.toString()).collection("meals").document(meal.id.toString())
-            .delete()
-    }
-
-    fun getAll(): CollectionReference {
-        return db.collection("user").document(user?.uid.toString()).collection("meals")
-    }
 }

@@ -35,12 +35,12 @@ class MealsSharedViewModel(val app: Application) : AndroidViewModel(app) {
 
     fun insertMeal(meal: Meal) {
         mealsdb.insertMeal(meal)
-        DButil(mAuth, Firebase.firestore).addMeal(meal)
+        DButilMealPlanner(mAuth, Firebase.firestore).addMeal(meal)
     }
 
     fun deleteMeal(meal: Meal) {
         mealsdb.deleteMeal(meal)
-        DButil(mAuth, Firebase.firestore).deleteMeal(meal)
+        DButilMealPlanner(mAuth, Firebase.firestore).deleteMeal(meal)
     }
     fun getLastId(): Int{
         var maxId = 0

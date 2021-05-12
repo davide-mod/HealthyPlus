@@ -7,6 +7,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.modolo.healthyplus.DButil
+import com.modolo.healthyplus.mealplanner.DButilMealPlanner
 import com.modolo.healthyplus.mealplanner.food.Food
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -22,7 +23,7 @@ class MealRepository(app: Application) {
             val data: List<Meal> = mealDAO.getAll()
             if (data.isNullOrEmpty()) {
                 val mAuth = FirebaseAuth.getInstance()
-                val mealsFromGoogle = DButil(mAuth, Firebase.firestore).getAll()
+                val mealsFromGoogle = DButilMealPlanner(mAuth, Firebase.firestore).getAll()
                 val mealsTmp = mutableListOf<Meal>()
                 mealsFromGoogle.get().addOnSuccessListener { doc ->
                     doc.forEach { me ->

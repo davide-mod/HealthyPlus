@@ -3,19 +3,22 @@ package com.modolo.healthyplus.login
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.github.islamkhsh.CardSliderAdapter
 import com.modolo.healthyplus.R
 
-class LoginCardsAdapter(private val listaStringhe: ArrayList<String>) :
+class LoginCardsAdapter(private val cardList: ArrayList<LoginCard>) :
         CardSliderAdapter<LoginCardsAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val text: TextView = itemView.findViewById(R.id.text)
+        val text: TextView = itemView.findViewById(R.id.title)
+        val image: ImageView = itemView.findViewById(R.id.cardImage)
+        val desc: TextView = itemView.findViewById(R.id.cardDescription)
     }
 
-    override fun getItemCount() = listaStringhe.size
+    override fun getItemCount() = cardList.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
@@ -24,9 +27,12 @@ class LoginCardsAdapter(private val listaStringhe: ArrayList<String>) :
     }
 
     override fun bindVH(holder: ViewHolder, position: Int) {
-        val testo = listaStringhe[position]
+        val card = cardList[position]
         with(holder) {
-            text.text = testo
+            text.text = card.title
+            text.setTextColor(card.titleColor)
+            image.setBackgroundResource(card.drawableID)
+            desc.text = card.description
         }
     }
 }
