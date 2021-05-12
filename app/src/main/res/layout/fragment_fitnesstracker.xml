@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/marginStandard"
         android:drawablePadding="@dimen/marginSmall"
-        android:text="@string/meal_planner_title"
+        android:text="@string/fitness_tracker_title"
         android:textColor="@color/main_fitnesstracker"
         app:drawableStartCompat="@drawable/icon_fit"
         android:drawableTint="@color/main_fitnesstracker"
