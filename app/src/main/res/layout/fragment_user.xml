@@ -12,12 +12,12 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/marginStandard"
         android:drawablePadding="@dimen/marginStandard"
+        android:text="Area Personale"
         app:drawableStartCompat="@drawable/signup_username"
         app:drawableTint="@color/main"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
     <ImageView
         android:id="@+id/hamburger"
         android:layout_width="@dimen/iconNearTitle"
@@ -30,22 +30,61 @@
         app:layout_constraintTop_toTopOf="@id/title"
         app:tint="@color/main_mealplanner" />
 
+    <TextView
+        android:id="@+id/userLabel"
+        style="@style/buttonText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/marginStandard"
+        android:layout_marginTop="@dimen/doubleMargin"
+        android:text="Utente:"
+        app:layout_constraintBottom_toTopOf="@id/userName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <TextView
+        android:id="@+id/userName"
+        style="@style/buttonText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/marginStandard"
+        android:textSize="@dimen/title"
+        app:layout_constraintBottom_toTopOf="@id/userEmail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/userLabel" />
+
+    <TextView
+        android:id="@+id/userEmail"
+        style="@style/buttonText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/marginStandard"
+        android:layout_marginBottom="@dimen/doubleMargin"
+        android:textSize="@dimen/title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/linearUser"
+        app:layout_constraintTop_toBottomOf="@id/userName" />
+
     <LinearLayout
         android:id="@+id/linearUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/marginStandard"
+        android:layout_marginStart="@dimen/marginStandard"
+        android:layout_marginEnd="@dimen/marginStandard"
+        android:layout_marginTop="@dimen/doubleMargin"
+        android:background="@drawable/background"
+        android:backgroundTint="@color/bg_grey"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@id/logout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title">
+        app:layout_constraintTop_toBottomOf="@id/userEmail">
 
         <TextView
             style="@style/buttonText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/marginStandard"
+            android:layout_marginTop="@dimen/marginStandard"
+            android:layout_marginStart="@dimen/marginStandard"
             android:gravity="start"
             android:text="Moduli:" />
 
@@ -55,7 +94,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/marginStandard"
             android:layout_marginTop="@dimen/marginStandard"
-            android:text="@string/meal_planner_title" />
+            android:text="@string/meal_planner_title"
+            android:textSize="@dimen/buttonText" />
 
         <CheckBox
             android:id="@+id/checkFitnessTracker"
@@ -63,7 +103,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/marginStandard"
             android:layout_marginTop="@dimen/marginStandard"
-            android:text="@string/fitness_tracker_title" />
+            android:text="@string/fitness_tracker_title"
+            android:textSize="@dimen/buttonText" />
 
         <Button
             android:id="@+id/btnSavePreferences"
@@ -83,6 +124,7 @@
         android:layout_margin="@dimen/marginStandard"
         android:text="@string/log_out"
         android:textColor="@color/red"
+        android:textSize="@dimen/notTitleText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

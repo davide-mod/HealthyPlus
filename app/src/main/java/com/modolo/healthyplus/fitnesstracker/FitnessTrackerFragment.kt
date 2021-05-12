@@ -21,10 +21,12 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import com.modolo.healthyplus.MainActivity
 import com.modolo.healthyplus.R
+import com.modolo.healthyplus.fitnesstracker.workout.WorkoutAdapter
+import com.modolo.healthyplus.fitnesstracker.workout.WorkoutHistoryAdapter
 import com.modolo.healthyplus.fitnesstracker.workoutdb.Workout
 import java.time.LocalDateTime
 
-class FitnessTrackerFragment : Fragment(){
+class FitnessTrackerFragment : Fragment(), WorkoutAdapter.WorkoutListener, WorkoutHistoryAdapter.WorkoutHistoryListener{
 
     private val presets = ArrayList<Workout>()
     private val incoming = ArrayList<Workout>()
@@ -63,7 +65,7 @@ class FitnessTrackerFragment : Fragment(){
         val btnWorkout = view.findViewById<TextView>(R.id.btnWorkout)
         btnWorkout.setOnClickListener {
             btnWorkout.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
-            //findNavController().navigate(R.id.addWorkoutFragment)
+            findNavController().navigate(R.id.addWorkoutFragment)
         }
         return view
     }
@@ -74,7 +76,7 @@ class FitnessTrackerFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
         Snackbar.make(
             view,
-            "Recupero eventuali dati salvati online...",
+            "Sincronizzo online...",
             Snackbar.LENGTH_SHORT
         ).show()
         viewModel = ViewModelProvider(requireActivity()).get(FitnessSharedViewModel::class.java)
@@ -90,44 +92,44 @@ class FitnessTrackerFragment : Fragment(){
                     else -> incoming.add(workout)
                 }
             }
-            /*val sortedHistory =
+            val sortedHistory =
                 history.sortedByDescending { it.date } //ordino la lista per avere in cima gli ultimi
-            presetsView.adapter = MealAdapter(presets, this, requireContext())
-            incomingView.adapter = MealAdapter(incoming, this, requireContext())
+            presetsView.adapter = WorkoutAdapter(presets, this, requireContext())
+            incomingView.adapter = WorkoutAdapter(incoming, this, requireContext())
             historyView.adapter =
-                MealAdapterHistory(ArrayList(sortedHistory), this, requireContext())*/
+                WorkoutHistoryAdapter(ArrayList(sortedHistory), this, requireContext())
         })
 
     }
 
     //quando un pasto tra i preset o quelli in arrivo viene premuto
-    /*override fun onMealListener(meal: Meal, position: Int, editMeal: Boolean, done: Boolean) {
+    override fun onWorkoutListener(workout: Workout, position: Int, editWorkout: Boolean, done: Boolean) {
         //si controlla se ad essere premuto è stato il pulsante di edit
-        if (editMeal) {
+        if (editWorkout) {
             //salvo il pasto da modificare nella viewmodel e apro il fragment per la modifica
-            viewModel.setMealtoEdit(meal)
-            findNavController().navigate(R.id.editMealFragment)
+            viewModel.setWorkouttoEdit(workout)
+            findNavController().navigate(R.id.editWorkoutFragment)
 
         } else if (done) { //se invece è stato premuto il tasto "fatto" lo sposto nello storico
-            viewModel.deleteMeal(meal)
-            meal.isdone = true
-            meal.date = LocalDateTime.now().toString()
-            viewModel.insertMeal(meal)
+            viewModel.deleteWorkout(workout)
+            workout.isdone = true
+            workout.date = LocalDateTime.now().toString()
+            viewModel.insertWorkout(workout)
 
-            incoming.remove(meal)
-            history.add(meal)
+            incoming.remove(workout)
+            history.add(workout)
             val sortedHistory =
                 history.sortedByDescending { it.date } //ordino la lista per avere in cima gli ultimi
-            incomingView.adapter = MealAdapter(incoming, this, requireContext())
+            incomingView.adapter = WorkoutAdapter(incoming, this, requireContext())
             historyView.adapter =
-                MealAdapterHistory(ArrayList(sortedHistory), this, requireContext())
+                WorkoutHistoryAdapter(ArrayList(sortedHistory), this, requireContext())
         }
     }
 
-    override fun onMealHistoryListener(meal: Meal, position: Int, editMeal: Boolean) {
-        Log.i("devdebug", "MainFragment: wannaEditHistory ${meal.name} e id ${meal.id}")
-        viewModel.setMealtoEdit(meal)
-        findNavController().navigate(R.id.editMealFragment)
-    }*/
+    override fun onWorkoutHistoryListener(workout: Workout, position: Int, editMeal: Boolean) {
+        Log.i("devdebug", "MainFragment: wannaEditHistory ${workout.name} e id ${workout.id}")
+        viewModel.setWorkouttoEdit(workout)
+        findNavController().navigate(R.id.editWorkoutFragment)
+    }
 
 }

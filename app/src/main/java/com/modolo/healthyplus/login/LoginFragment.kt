@@ -160,7 +160,7 @@ class LoginFragment : Fragment() {
                         .show()
                     val user = mAuth.currentUser
                     val userUpdate =
-                        UserProfileChangeRequest.Builder().setDisplayName(user.displayName).build()
+                        UserProfileChangeRequest.Builder().setDisplayName(user?.displayName).build()
                     user?.updateProfile(userUpdate)?.addOnCompleteListener {
                         DButil(mAuth, Firebase.firestore).addUser("", "")
                     }

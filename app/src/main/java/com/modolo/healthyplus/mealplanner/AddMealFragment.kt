@@ -1,12 +1,9 @@
 package com.modolo.healthyplus.mealplanner
 
-import android.app.DatePickerDialog
 import android.app.Dialog
-import android.app.TimePickerDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.text.format.DateFormat.is24HourFormat
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -25,19 +22,16 @@ import com.modolo.healthyplus.R
 import com.modolo.healthyplus.mealplanner.food.Food
 import com.modolo.healthyplus.mealplanner.food.FoodAdapter
 import com.modolo.healthyplus.mealplanner.mealdb.Meal
-import com.modolo.healthyplus.mealplanner.presets.PresetAdapter
+import com.modolo.healthyplus.mealplanner.mealpresets.MealPresetAdapter
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import java.lang.reflect.ParameterizedType
-import java.text.DateFormat
-import java.text.SimpleDateFormat
 import java.time.LocalDateTime
-import java.util.*
 import kotlin.collections.ArrayList
 
-class AddMealFragment : Fragment(), FoodAdapter.FoodListener, PresetAdapter.PresetListener {
+class AddMealFragment : Fragment(), FoodAdapter.FoodListener, MealPresetAdapter.PresetListener {
 
     private lateinit var foodName: TextInputEditText
     private lateinit var foodQuantity: TextInputEditText
@@ -167,7 +161,7 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, PresetAdapter.Pres
             presetDialog.setContentView(R.layout.mealplanner_dialog_presets)
 
             val recyclerPresets = presetDialog.findViewById<RecyclerView>(R.id.recyclerMeals)
-            recyclerPresets.adapter = PresetAdapter(presetList, this, requireContext())
+            recyclerPresets.adapter = MealPresetAdapter(presetList, this, requireContext())
             presetDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             presetDialog.show()
         }

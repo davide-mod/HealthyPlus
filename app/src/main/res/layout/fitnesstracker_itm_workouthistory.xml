@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/marginStandard"
+    android:layout_marginEnd="@dimen/marginStandard"
+    android:layout_marginBottom="@dimen/marginStandard"
+    android:background="@drawable/background"
+    android:backgroundTint="@color/white">
+
+    <TextView
+        android:id="@+id/workoutName"
+        style="@style/mealName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/marginStandard"
+        android:layout_marginTop="@dimen/marginSmall"
+        android:layout_marginEnd="@dimen/marginStandard"
+        android:text="PRANZO"
+        app:layout_constraintBottom_toTopOf="@id/workoutDate"
+        app:layout_constraintEnd_toEndOf="@id/workoutDate"
+        app:layout_constraintStart_toStartOf="@id/workoutDate"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/workoutDate"
+        style="@style/mealDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/marginStandard"
+        android:layout_marginEnd="@dimen/marginStandard"
+        android:layout_marginBottom="@dimen/marginSmall"
+        android:text="12:00 10/06"
+        app:drawableStartCompat="@drawable/melafit_clock"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/workoutName" />
+
+    <TextView
+        android:id="@+id/workoutDateAgo"
+        style="@style/mealName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/marginStandard"
+        android:text="6 GIORNI FA"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/workoutEdit"
+        app:layout_constraintStart_toEndOf="@id/workoutName"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/workoutEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:background="@drawable/btn_end"
+        android:backgroundTint="@color/main_fitnesstracker"
+        android:padding="@dimen/marginSmall"
+        android:src="@drawable/icon_edit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

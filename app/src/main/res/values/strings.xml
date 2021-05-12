@@ -3,6 +3,7 @@
     <string name="hamburger_menu_icon">Hamburger Menu Icon</string>
     <string name="profile_picture">Profile Picture</string>
 
+    <string name="log_out">Log Out</string>
     <!-- LOGIN STRINGS -->
     <string name="login_label">Login:</string>
     <string name="login_google">Google</string>
@@ -68,10 +69,10 @@
     <string name="meal_fit_schedule">IN ARRIVO</string>
     <!-- FITNESS TRACKER STRINGS -->
     <string name="fitness_tracker_title">Fitness Tracker</string>
-    <string name="fitness_tracker_card_label"><u>scheda</u></string>
     <string name="fitness_tracker_placeholdername">GAMBE</string>
     <string name="fitness_tracker_rapid_activity">Attività rapida</string>
     <string name="fitness_training">Allenamento</string>
-    <string name="log_out">Log Out</string>
+    <string name="fitness_saved_workouts">Schede salvate</string>
+    <string name="fitness_exercise_hint">Esercizio</string>
 
 </resources>

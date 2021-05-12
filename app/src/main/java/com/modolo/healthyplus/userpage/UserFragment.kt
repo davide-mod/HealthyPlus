@@ -24,7 +24,8 @@ class UserFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val view = inflater.inflate(R.layout.fragment_user, container, false)
-        val title = view.findViewById<TextView>(R.id.title)
+        val userName = view.findViewById<TextView>(R.id.userName)
+        val userEmail = view.findViewById<TextView>(R.id.userEmail)
         val logout = view.findViewById<TextView>(R.id.logout)
         val ham = view.findViewById<ImageView>(R.id.hamburger)
         ham.setOnClickListener {
@@ -45,7 +46,8 @@ class UserFragment : Fragment() {
 
         val mAuth = FirebaseAuth.getInstance()
         val user = mAuth.currentUser
-        title.text = user?.displayName
+        userName.text = user?.displayName
+        userEmail.text = user?.email
 
         savePref.setOnClickListener {
             val editor = sharedPref.edit()

@@ -54,4 +54,14 @@
         android:name="com.modolo.healthyplus.fitnesstracker.FitnessTrackerFragment"
         android:label="FitnessTrackerFragment"
         tools:layout="@layout/fragment_fitnesstracker" />
+    <fragment
+        android:id="@+id/addWorkoutFragment"
+        tools:layout="@layout/fitnesstracker_frag_add"
+        android:name="com.modolo.healthyplus.fitnesstracker.AddWorkoutFragment"
+        android:label="AddWorkoutFragment" />
+    <fragment
+        android:id="@+id/editWorkoutFragment"
+        tools:layout="@layout/fitnesstracker_frag_edit"
+        android:name="com.modolo.healthyplus.fitnesstracker.EditWorkoutFragment"
+        android:label="EditWorkoutFragment" />
 </navigation>

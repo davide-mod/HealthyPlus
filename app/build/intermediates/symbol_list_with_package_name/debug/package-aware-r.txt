@@ -1192,6 +1192,7 @@ color mtrl_textinput_disabled_color
 color mtrl_textinput_filled_box_default_background_color
 color mtrl_textinput_focused_box_stroke_color
 color mtrl_textinput_hovered_box_stroke_color
+color newicon_background
 color notification_action_color_filter
 color notification_icon_bg_color
 color primary_dark_material_dark
@@ -1369,6 +1370,8 @@ dimen design_tab_text_size_2line
 dimen design_textinput_caption_translate_y
 dimen disabled_alpha_material_dark
 dimen disabled_alpha_material_light
+dimen doubleMargin
+dimen exerciseData
 dimen fastscroll_default_thickness
 dimen fastscroll_margin
 dimen fastscroll_minimum_range
@@ -1909,6 +1912,7 @@ id activity_chooser_view_content
 id add
 id addBtn
 id addMealFragment
+id addWorkoutFragment
 id adjust_height
 id adjust_width
 id alertTitle
@@ -1944,6 +1948,7 @@ id btnProceed
 id btnSave
 id btnSavePreferences
 id btnSavedMeals
+id btnSavedWorkouts
 id btnSnack
 id btnWorkout
 id buttonPanel
@@ -2006,6 +2011,7 @@ id disableHome
 id disablePostScroll
 id disableScroll
 id disjoint
+id doneWorkout
 id dragDown
 id dragEnd
 id dragLeft
@@ -2019,6 +2025,7 @@ id easeInOut
 id easeOut
 id eaten
 id editMealFragment
+id editWorkoutFragment
 id edit_query
 id elastic
 id emailBox
@@ -2027,6 +2034,9 @@ id end
 id endToStart
 id enterAlways
 id enterAlwaysCollapsed
+id exerciseNameBox
+id exerciseNameText
+id exerciseRecycler
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
@@ -2092,6 +2102,9 @@ id jumpToStart
 id kcal
 id kcalBox
 id kcalText
+id kg
+id kgBox
+id kgText
 id labelGroup
 id labeled
 id largeLabel
@@ -2106,6 +2119,7 @@ id light
 id line1
 id line3
 id linear
+id linearExercise
 id linearUser
 id listMode
 id list_item
@@ -2235,10 +2249,17 @@ id quantityBox
 id quantityText
 id radio
 id ratio
+id rec
+id recLabel
+id recValue
 id rectangles
 id recyclerMeals
 id recyclerNotifications
 id recyclerWidgets
+id recyclerWorkouts
+id rep
+id repBox
+id repText
 id reverseSawtooth
 id right
 id rightToLeft
@@ -2271,6 +2292,9 @@ id search_voice_btn
 id select_dialog_listview
 id selected
 id selection_type
+id serie
+id serieBox
+id serieText
 id shortcut
 id showCustom
 id showHome
@@ -2359,7 +2383,10 @@ id uniform
 id unlabeled
 id up
 id useLogo
+id userEmail
 id userFragment
+id userLabel
+id userName
 id viewPager
 id view_offset_helper
 id view_tree_view_model_store_owner
@@ -2368,6 +2395,11 @@ id visible_removing_fragment_view_tag
 id wide
 id withText
 id withinBounds
+id workoutDate
+id workoutDateAgo
+id workoutDone
+id workoutEdit
+id workoutName
 id wrap
 id wrap_content
 id zero_corner_chip
@@ -2452,6 +2484,14 @@ layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
+layout fitnesstracker_dialog_presets
+layout fitnesstracker_dialog_save
+layout fitnesstracker_frag_add
+layout fitnesstracker_frag_edit
+layout fitnesstracker_itm_exercise
+layout fitnesstracker_itm_preset
+layout fitnesstracker_itm_workout
+layout fitnesstracker_itm_workouthistory
 layout fragment_fitnesstracker
 layout fragment_login
 layout fragment_main
@@ -2539,6 +2579,9 @@ layout text_view_without_line_height
 menu item_nav_view
 mipmap ic_launcher
 mipmap ic_launcher_round
+mipmap newicon
+mipmap newicon_foreground
+mipmap newicon_round
 navigation nav_graph
 plurals mtrl_badge_content_description
 string abc_action_bar_home_description
@@ -2601,6 +2644,7 @@ string error_icon_content_description
 string exposed_dropdown_menu_content_description
 string fab_transformation_scrim_behavior
 string fab_transformation_sheet_behavior
+string fitness_exercise_hint
 string fitness_meal_coming
 string fitness_meal_daysago
 string fitness_meal_delete
@@ -2612,7 +2656,7 @@ string fitness_meal_preset
 string fitness_meal_procede
 string fitness_meal_save_edit
 string fitness_meal_today
-string fitness_tracker_card_label
+string fitness_saved_workouts
 string fitness_tracker_placeholdername
 string fitness_tracker_rapid_activity
 string fitness_tracker_title
@@ -3446,6 +3490,7 @@ style Widget_MaterialComponents_Tooltip
 style Widget_Support_CoordinatorLayout
 style buttonText
 style buttonTextFinish
+style fitnessExerciseData
 style label
 style mealDate
 style mealName

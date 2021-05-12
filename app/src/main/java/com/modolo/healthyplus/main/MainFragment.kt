@@ -32,9 +32,11 @@ class MainFragment : Fragment(), NotificationAdapter.NotificationListener{
         val notifications = ArrayList<Notification>()
         for(i in 1..20) {
             if(i%2 == 0)
-                notifications.add(Notification("Titolo$i", "12-4"))
+                notifications.add(Notification("Notifica/Notizia Base $i", "12-4"))
+            else if(i%3 == 0)
+                notifications.add(Notification("Notifica colorata $i", "12-4", "descrizione di test", getColor(requireContext(), R.color.main)))
             else
-                notifications.add(Notification(getString(R.string.app_name), "12-4", "notifica di test", getColor(requireContext(), R.color.main)))
+                notifications.add(Notification("Notifica colorata $i", "12-4", "descrizione di test", getColor(requireContext(), R.color.main_fitnesstracker)))
         }
         Log.i("devdebug", notifications.toString())
         val notificationView = view.findViewById<RecyclerView>(R.id.recyclerNotifications)

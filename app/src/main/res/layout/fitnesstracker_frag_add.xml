@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="@dimen/iconNearTitle"
+        android:layout_height="@dimen/iconNearTitle"
+        android:layout_margin="@dimen/marginStandard"
+        android:src="@drawable/icon_fit"
+        app:layout_constraintBottom_toBottomOf="@id/title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/title"
+        app:tint="@color/main_fitnesstracker" />
+
+    <EditText
+        android:id="@+id/title"
+        style="@style/titleText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/marginStandard"
+        android:gravity="start"
+        android:hint="Scheda"
+        android:inputType="text"
+        android:textColor="@color/main_fitnesstracker"
+        app:layout_constraintEnd_toStartOf="@id/close"
+        app:layout_constraintStart_toEndOf="@id/icon"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/close"
+        android:layout_width="@dimen/iconNearTitle"
+        android:layout_height="@dimen/iconNearTitle"
+        android:layout_margin="@dimen/marginStandard"
+        android:src="@drawable/meal_fit_close"
+        app:layout_constraintBottom_toBottomOf="@id/title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/title"
+        app:tint="@color/main_fitnesstracker" />
+
+    <TextView
+        android:id="@+id/btnSavedWorkouts"
+        style="@style/buttonTextFinish"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/marginStandard"
+        android:background="@drawable/background"
+        android:backgroundTint="@color/main_fitnesstracker"
+        android:gravity="center"
+        android:padding="@dimen/marginStandard"
+        android:text="@string/fitness_saved_workouts"
+        app:drawableStartCompat="@drawable/meal_fit_cards"
+        app:layout_constraintEnd_toStartOf="@id/btnProceed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <TextView
+        android:id="@+id/btnProceed"
+        style="@style/buttonTextFinish"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginStandard"
+        android:layout_marginEnd="@dimen/marginStandard"
+        android:layout_marginBottom="@dimen/marginStandard"
+        android:background="@drawable/background"
+        android:backgroundTint="@color/main"
+        android:gravity="center"
+        android:padding="@dimen/marginStandard"
+        android:text="@string/fitness_meal_procede"
+        app:drawableEndCompat="@drawable/meal_fit_arrow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnSavedWorkouts"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/exerciseRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/marginStandard"
+        android:background="@drawable/background"
+        android:backgroundTint="@color/bg_grey"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/inputLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnSavedWorkouts" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/inputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/marginStandard"
+        android:layout_marginEnd="@dimen/marginStandard"
+        android:background="@drawable/btn_top"
+        android:backgroundTint="@color/bg_grey"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/recLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/doubleMargin"
+            android:layout_marginTop="@dimen/marginStandard"
+            android:layout_marginBottom="@dimen/marginStandard"
+            android:text="Recupero (s):"
+            style="@style/label"
+            android:textSize="@dimen/buttonText"
+            app:layout_constraintBottom_toTopOf="@id/exerciseNameBox"
+            />
+
+        <EditText
+            android:id="@+id/recValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/recLabel"
+            app:layout_constraintTop_toTopOf="@id/recLabel"
+            app:layout_constraintBottom_toBottomOf="@id/recLabel"
+            android:layout_margin="@dimen/marginStandard"
+            android:hint="000"
+            android:inputType="number"
+            />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/exerciseNameBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/marginStandard"
+            android:layout_marginEnd="@dimen/marginStandard"
+            android:layout_marginBottom="@dimen/marginStandard"
+            android:background="@drawable/background"
+            android:backgroundTint="@color/white"
+            app:boxStrokeWidth="0dp"
+            app:layout_constraintBottom_toTopOf="@id/repBox"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recLabel">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/exerciseNameText"
+                style="@style/label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background"
+                android:backgroundTint="@color/white"
+                android:gravity="start"
+                android:hint="@string/fitness_exercise_hint"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/repBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/marginStandard"
+            android:layout_marginBottom="@dimen/marginStandard"
+            android:background="@drawable/background"
+            android:backgroundTint="@color/white"
+            android:gravity="center"
+            app:boxStrokeWidth="0dp"
+            app:layout_constraintBottom_toTopOf="@id/addBtn"
+            app:layout_constraintEnd_toStartOf="@id/serieBox"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/exerciseNameBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/repText"
+                style="@style/label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background"
+                android:backgroundTint="@color/white"
+                android:gravity="start"
+                android:hint="Rep"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/serieBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/marginStandard"
+            android:background="@drawable/background"
+            android:backgroundTint="@color/white"
+            android:gravity="center"
+            app:boxStrokeWidth="0dp"
+            app:layout_constraintBottom_toTopOf="@id/addBtn"
+            app:layout_constraintEnd_toStartOf="@id/kgBox"
+            app:layout_constraintStart_toEndOf="@id/repBox"
+            app:layout_constraintTop_toBottomOf="@id/exerciseNameBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/serieText"
+                style="@style/label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background"
+                android:backgroundTint="@color/white"
+                android:gravity="start"
+                android:hint="Serie"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/kgBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/marginStandard"
+            android:layout_marginEnd="@dimen/marginStandard"
+            android:background="@drawable/background"
+            android:backgroundTint="@color/white"
+            app:boxStrokeWidth="0dp"
+            app:layout_constraintBottom_toTopOf="@id/addBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/serieBox"
+            app:layout_constraintTop_toBottomOf="@id/exerciseNameBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/kgText"
+                style="@style/label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background"
+                android:backgroundTint="@color/white"
+                android:gravity="start"
+                android:hint="Kg"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/addBtn"
+            style="@style/buttonTextFinish"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/marginStandard"
+            android:layout_marginTop="@dimen/marginSmall"
+            android:layout_marginEnd="@dimen/marginStandard"
+            android:layout_marginBottom="@dimen/marginSmall"
+            android:background="@drawable/background"
+            android:backgroundTint="@color/main_fitnesstracker"
+            android:padding="@dimen/marginStandard"
+            android:text="Aggiungi l'esercizio alla scheda"
+            app:drawableStartCompat="@drawable/icon_add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

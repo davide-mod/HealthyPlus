@@ -1,4 +1,4 @@
-package com.modolo.healthyplus.mealplanner.presets
+package com.modolo.healthyplus.mealplanner.mealpresets
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,16 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.Gson
 import com.modolo.healthyplus.R
-import com.modolo.healthyplus.mealplanner.food.Food
 import com.modolo.healthyplus.mealplanner.mealdb.Meal
 
-class PresetAdapter(
+class MealPresetAdapter(
     private val presetList: ArrayList<Meal>,
     private val presetListener: PresetListener,
     private val context: Context
-) : RecyclerView.Adapter<PresetAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<MealPresetAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val mealName: TextView = itemView.findViewById(R.id.mealName)

@@ -133,7 +133,7 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
         super.onViewCreated(view, savedInstanceState)
         Snackbar.make(
             view,
-            "Recupero eventuali dati salvati online...",
+            "Sincronizzo online...",
             Snackbar.LENGTH_SHORT
         ).show()
         viewModel = ViewModelProvider(requireActivity()).get(MealsSharedViewModel::class.java)
