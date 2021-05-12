@@ -163,6 +163,7 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
         } else if (done) { //se invece è stato premuto il tasto "fatto" lo sposto nello storico
             viewModel.deleteMeal(meal)
             meal.isdone = true
+            meal.date = LocalDateTime.now().toString()
             viewModel.insertMeal(meal)
 
             incoming.remove(meal)

@@ -1,12 +1,16 @@
 package com.modolo.healthyplus.login
 
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.view.animation.AnimationUtils
 import android.widget.TextView
 import android.widget.Toast
@@ -17,9 +21,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.modolo.healthyplus.DButil
@@ -69,6 +75,41 @@ class LoginFragment : Fragment(){
         facebook.setOnClickListener {
             facebook.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
             Toast.makeText(requireContext(), "Login con Facebook non disponibile", Toast.LENGTH_SHORT).show()
+        }
+
+        val email = view.findViewById<TextView>(R.id.layoutEmail)
+        email.setOnClickListener {
+            email.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
+            val dialog = Dialog(requireContext())
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog.setCancelable(true)
+            dialog.setContentView(R.layout.login_dialog_mail)
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+            val emailText = dialog.findViewById<TextInputEditText>(R.id.loginEmailText)
+            val passwordText = dialog.findViewById<TextInputEditText>(R.id.loginPasswordText)
+            val loginBtn = dialog.findViewById<TextView>(R.id.loginBtn)
+            loginBtn.setOnClickListener {
+                loginBtn.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
+                val emailTmp = emailText.text.toString()
+                val passwordTmp = passwordText.text.toString()
+                if(emailTmp!="" && passwordTmp!="")
+                {
+                    val mAuth = Firebase.auth
+                    mAuth.signInWithEmailAndPassword(emailTmp, passwordTmp)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                findNavController().navigate(R.id.mainFragment)
+                                dialog.dismiss()
+                            } else {
+                                Toast.makeText(requireContext(), "Login fallito", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+
+                }
+                else Toast.makeText(requireContext(), "Completa i campi", Toast.LENGTH_SHORT).show()
+            }
+            dialog.show()
         }
         return view
     }

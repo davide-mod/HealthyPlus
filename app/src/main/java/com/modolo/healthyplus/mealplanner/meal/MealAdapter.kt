@@ -12,6 +12,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.modolo.healthyplus.R
 import com.modolo.healthyplus.mealplanner.mealdb.Meal
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class MealAdapter(private val meals: ArrayList<Meal>, private val mealListener: MealListener, private val context: Context) : RecyclerView.Adapter<MealAdapter.ViewHolder>() {
@@ -35,8 +36,9 @@ class MealAdapter(private val meals: ArrayList<Meal>, private val mealListener: 
         val meal = meals[position]
         with(holder) {
             mealName.text = meal.name
+            val aLDT = LocalDateTime.parse(meal.date)
             val formatter = DateTimeFormatter.ofPattern("HH:mm dd/MM")
-            mealDate.text = meal.date.format(formatter)
+            mealDate.text = aLDT.format(formatter)
             if (meal.ispreset) {
                 mealDone.isVisible = false
                 mealDate.isVisible = false
