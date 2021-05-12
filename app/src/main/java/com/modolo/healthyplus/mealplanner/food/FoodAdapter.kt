@@ -37,7 +37,7 @@ class FoodAdapter(private val foodList: List<Food>, private val foodListener: Fo
             foodName.text = food.name
             val quant = food.quantity.toString() + food.udm
             foodQuantity.text = quant
-            foodKcal.text = food.kcal.toString()
+            foodKcal.text = food.kcal.toString() + "kcal"
             holder.itemView.setOnClickListener {
                 foodListener.onFoodListener(food, holder.layoutPosition, false)
             }

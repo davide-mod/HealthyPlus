@@ -191,6 +191,7 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, MealPresetAdapter.
         //e viene rimosso dalla lista, dando la possibilità di modificarlo
         foodList.remove(food)
         foodRecycler.adapter = FoodAdapter(foodList, this, requireContext())
+        foodName.requestFocus()
     }
 
     //funzione per recuperare l'id di un valore nello spinner partendo dal testo

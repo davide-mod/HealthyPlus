@@ -31,6 +31,8 @@
         android:layout_marginEnd="@dimen/marginSmall"
         android:layout_marginBottom="@dimen/marginSmall"
         android:text="12:00 10/06"
+        android:drawablePadding="@dimen/marginSmall"
+
         app:drawableStartCompat="@drawable/melafit_clock"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/mealDone"

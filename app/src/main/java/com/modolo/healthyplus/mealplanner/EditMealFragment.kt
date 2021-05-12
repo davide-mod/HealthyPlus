@@ -75,6 +75,7 @@ class EditMealFragment : Fragment(), FoodAdapter.FoodListener {
                 foodName.setText("")
                 foodQuantity.setText("")
                 foodKcal.setText("")
+                foodName.requestFocus()
             }
         }
 
@@ -132,6 +133,7 @@ class EditMealFragment : Fragment(), FoodAdapter.FoodListener {
         foodKcal.setText(food.kcal.toString())
         foodListTmp.remove(food)
         foodRecycler.adapter = FoodAdapter(foodListTmp, this, requireContext())
+        foodName.requestFocus()
     }
 
     private fun findSpinnerElement(value: String): Int {

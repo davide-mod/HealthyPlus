@@ -208,6 +208,7 @@ class AddWorkoutFragment : Fragment(), ExerciseAdapter.ExerciseListener,
         //e viene rimosso dalla lista, dando la possibilità di modificarlo
         exList.remove(exercise)
         exerciseRecycler.adapter = ExerciseAdapter(exList, this, requireContext())
+        exName.requestFocus()
     }
 
     private val listTypeExercise: ParameterizedType = Types.newParameterizedType(
