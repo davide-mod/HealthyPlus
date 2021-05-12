@@ -1,6 +1,7 @@
 package com.modolo.healthyplus.fitnesstracker
 
 import android.app.Dialog
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -27,6 +28,9 @@ import com.modolo.healthyplus.fitnesstracker.workoutdb.Workout
 import java.time.LocalDateTime
 
 class FitnessTrackerFragment : Fragment(), WorkoutAdapter.WorkoutListener, WorkoutHistoryAdapter.WorkoutHistoryListener{
+
+    private val PREF_NAME = "data"
+    private val FIT_TRACK_FIRST = "fit1"
 
     private val presets = ArrayList<Workout>()
     private val incoming = ArrayList<Workout>()
@@ -74,11 +78,19 @@ class FitnessTrackerFragment : Fragment(), WorkoutAdapter.WorkoutListener, Worko
     //viewmodel per comunicare tra fragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Snackbar.make(
-            view,
-            "Sincronizzo online...",
-            Snackbar.LENGTH_SHORT
-        ).show()
+        val sharedPref: SharedPreferences? = activity?.getSharedPreferences(PREF_NAME, 0)
+        val firstStart = sharedPref?.getBoolean(FIT_TRACK_FIRST, true)
+        if (firstStart == true) {
+            Snackbar.make(
+                view,
+                "Scarico eventuali dati dal server...",
+                Snackbar.LENGTH_SHORT
+            ).show()
+            val editor = sharedPref.edit()
+            editor?.putBoolean(FIT_TRACK_FIRST, false)
+            editor.apply()
+        }
+
         viewModel = ViewModelProvider(requireActivity()).get(FitnessSharedViewModel::class.java)
         viewModel.workouts.observe(viewLifecycleOwner, { mutableList ->
             workouts= mutableList as ArrayList<Workout>

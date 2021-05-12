@@ -50,9 +50,30 @@ class LoginFragment : Fragment() {
         (activity as MainActivity?)!!.setDrawerEnabled(false)
 
         val cardList = ArrayList<LoginCard>()
-        cardList.add(LoginCard("Healthy Plus", "Il contenitore di funzionalità per una vita sana", ContextCompat.getColor(requireContext(), R.color.main), R.drawable.card_healthyplus))
-        cardList.add(LoginCard("Meal Planner", "Diario Alimentare completo", ContextCompat.getColor(requireContext(), R.color.main_mealplanner), R.drawable.card_mealplanner))
-        cardList.add(LoginCard("Fitness Tracker", "Allenamento ancora più immediato", ContextCompat.getColor(requireContext(), R.color.main_fitnesstracker), R.drawable.card_fitnesstracker))
+        cardList.add(
+            LoginCard(
+                "Healthy Plus",
+                "Il contenitore di funzionalità per una vita sana",
+                ContextCompat.getColor(requireContext(), R.color.main),
+                R.drawable.card_healthyplus
+            )
+        )
+        cardList.add(
+            LoginCard(
+                "Meal Planner",
+                "Diario Alimentare completo",
+                ContextCompat.getColor(requireContext(), R.color.main_mealplanner),
+                R.drawable.card_mealplanner
+            )
+        )
+        cardList.add(
+            LoginCard(
+                "Fitness Tracker",
+                "Allenamento ancora più immediato",
+                ContextCompat.getColor(requireContext(), R.color.main_fitnesstracker),
+                R.drawable.card_fitnesstracker
+            )
+        )
         val cards = view.findViewById<CardSliderViewPager>(R.id.viewPager)
         cards.adapter = LoginCardsAdapter(cardList)
         val layoutSignup = view.findViewById<TextView>(R.id.layoutSignup)
@@ -138,6 +159,12 @@ class LoginFragment : Fragment() {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             if (task.isSuccessful) {
                 try {
+                    Toast.makeText(
+                        requireContext(),
+                        "Login avvenuto con successo",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
                     // Google Sign In was successful, authenticate with Firebase
                     val account = task.getResult(ApiException::class.java)!!
                     Log.i("devdebug", "firebaseAuthWithGoogle:" + account.id)
@@ -156,8 +183,6 @@ class LoginFragment : Fragment() {
         mAuth.signInWithCredential(credential)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(requireContext(), "Login avvenuto con successo", Toast.LENGTH_SHORT)
-                        .show()
                     val user = mAuth.currentUser
                     val userUpdate =
                         UserProfileChangeRequest.Builder().setDisplayName(user?.displayName).build()

@@ -79,8 +79,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="C:\Users\Davide\Downloads\iconpng.png" />
-                                                <entry key="scalingPercent" value="55" />
+                                                <entry key="imagePath" value="C:\Users\Davide\Downloads\Telegram Desktop\photo_2021-05-12_18-59-05.jpg" />
+                                                <entry key="scalingPercent" value="67" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -114,7 +114,6 @@
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
                                       <entry key="backgroundColor" value="ffffff" />
-                                      <entry key="legacyIconShape" value="CIRCLE" />
                                       <entry key="outputName" value="newicon" />
                                     </map>
                                   </option>

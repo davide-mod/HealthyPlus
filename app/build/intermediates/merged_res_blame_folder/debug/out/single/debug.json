@@ -356,12 +356,12 @@
         "source": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\src\\main\\res\\drawable\\signup_password.xml"
     },
     {
-        "merged": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher.png.flat",
-        "source": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
-    },
-    {
         "merged": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\build\\intermediates\\res\\merged\\debug\\layout_fitnesstracker_dialog_save.xml.flat",
         "source": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\src\\main\\res\\layout\\fitnesstracker_dialog_save.xml"
+    },
+    {
+        "merged": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
     },
     {
         "merged": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_done.xml.flat",
@@ -372,12 +372,12 @@
         "source": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\src\\main\\res\\drawable\\card_fitnesstracker.xml"
     },
     {
-        "merged": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\build\\intermediates\\res\\merged\\debug\\drawable_meal_fit_close.xml.flat",
-        "source": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\src\\main\\res\\drawable\\meal_fit_close.xml"
-    },
-    {
         "merged": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\build\\intermediates\\res\\merged\\debug\\layout_fitnesstracker_itm_workouthistory.xml.flat",
         "source": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\src\\main\\res\\layout\\fitnesstracker_itm_workouthistory.xml"
+    },
+    {
+        "merged": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\build\\intermediates\\res\\merged\\debug\\drawable_meal_fit_close.xml.flat",
+        "source": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\src\\main\\res\\drawable\\meal_fit_close.xml"
     },
     {
         "merged": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_newicon.png.flat",

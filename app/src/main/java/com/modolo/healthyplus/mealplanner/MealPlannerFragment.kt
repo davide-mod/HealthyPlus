@@ -2,6 +2,7 @@ package com.modolo.healthyplus.mealplanner
 
 import android.app.Application
 import android.app.Dialog
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -33,6 +34,9 @@ import java.time.LocalDateTime
 
 class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
     MealAdapterHistory.MealHistoryListener {
+
+    private val PREF_NAME = "data"
+    private val MEAL_PLAN_FIRST = "meal1"
 
     private val presets = ArrayList<Meal>()
     private val incoming = ArrayList<Meal>()
@@ -131,11 +135,19 @@ class MealPlannerFragment : Fragment(), MealAdapter.MealListener,
     //viewmodel per comunicare tra fragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Snackbar.make(
-            view,
-            "Sincronizzo online...",
-            Snackbar.LENGTH_SHORT
-        ).show()
+        val sharedPref: SharedPreferences? = activity?.getSharedPreferences(PREF_NAME, 0)
+        val firstStart = sharedPref?.getBoolean(MEAL_PLAN_FIRST, true)
+        if (firstStart == true) {
+            Snackbar.make(
+                view,
+                "Scarico eventuali dati dal server...",
+                Snackbar.LENGTH_SHORT
+            ).show()
+            val editor = sharedPref.edit()
+            editor?.putBoolean(MEAL_PLAN_FIRST, false)
+            editor.apply()
+        }
+
         viewModel = ViewModelProvider(requireActivity()).get(MealsSharedViewModel::class.java)
         viewModel.meals.observe(viewLifecycleOwner, { mutableList ->
             meals = mutableList as ArrayList<Meal>
