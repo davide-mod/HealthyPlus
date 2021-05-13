@@ -86,4 +86,27 @@ Premessa: ho già inserito nel codice del progetto delle righe commentate di un 
       (activity as MainActivity?)?.setDrawerElementVisible(R.id.itemNuovoModulo, checkNuovoModulo.isChecked)
       ```
 
-Comunque se si aprono i file sopra descritti si troveranno le righe di codice qui presenti commentate.
+##### Si può poi aggiungere una scheda nella schermata di login in un istante:
+
+Ho predisposto due tipi di "carte" nella schermata di Login, singolo oggetto ma con due costruttori: uno con solo titolo, l'altro con titolo, descrizione, colore del titolo e id dell'immagine che si vuole impostare. Il codice si trova all'interno di *com.modolo.healthyplus/***LoginFragment.kt** e consiste nell'aggiungere:
+
+- ```kotlin
+  cardList.add(LoginCard("Nuovo Modulo"))
+  ```
+
+  oppure
+
+- ```kotlin
+  cardList.add(LoginCard(
+  "Nuovo Modulo",
+  "Descrizione nuovo modulo",
+  ContextCompat.getColor(requireContext(), R.color.main_nuovomodulo),
+  R.drawable.cardimg_nuovomodulo)
+  )
+  ```
+
+Nel primo caso avremo una carta con titolo "Nuovo Modulo" nero e immagine stock, nel secondo una carta con lo stesso titolo, però impostato del colore "main_nuovomodulo", una descrizione e "cardimg_nuovomodulo" come immagine.
+
+-------
+
+In ogni caso se si aprono i file sopra descritti si troveranno le righe di codice qui presenti, commentate.
