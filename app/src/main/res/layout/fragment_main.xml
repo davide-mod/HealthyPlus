@@ -23,7 +23,7 @@
         android:layout_width="@dimen/iconNearTitle"
         android:layout_height="@dimen/iconNearTitle"
         android:layout_margin="@dimen/marginStandard"
-        android:contentDescription="@string/profile_picture"
+        android:contentDescription="@string/content_description"
         android:src="@drawable/icon_hamburger"
         app:layout_constraintBottom_toBottomOf="@id/appTitle"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,22 +51,10 @@
         android:background="@color/white"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@id/recyclerWidgets"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/notificationLabel" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerWidgets"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/bg_grey"
-        android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recyclerNotifications" />
+        app:layout_constraintTop_toBottomOf="@id/notificationLabel" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.islamkhsh.CardSliderAdapter
 import com.modolo.healthyplus.R
 
+/*classico adapter che ricever una lista di "LoginCards" per la schermata di login e le mette nel layout*/
 class LoginCardsAdapter(private val cardList: ArrayList<LoginCard>) :
         CardSliderAdapter<LoginCardsAdapter.ViewHolder>() {
-
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val text: TextView = itemView.findViewById(R.id.title)
         val image: ImageView = itemView.findViewById(R.id.cardImage)

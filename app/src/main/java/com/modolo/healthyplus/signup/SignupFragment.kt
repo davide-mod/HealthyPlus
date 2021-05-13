@@ -3,8 +3,6 @@ package com.modolo.healthyplus.signup
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
-import android.util.Log.i
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,9 +18,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.modolo.healthyplus.DButil
 import com.modolo.healthyplus.MainActivity
-import com.modolo.healthyplus.main.MainFragment
 import com.modolo.healthyplus.R
-import com.modolo.healthyplus.login.LoginFragment
 import java.util.*
 
 class SignupFragment : Fragment() {

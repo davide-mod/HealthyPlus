@@ -9,7 +9,7 @@
         android:layout_width="@dimen/iconNearTitle"
         android:layout_height="@dimen/iconNearTitle"
         android:layout_margin="@dimen/marginStandard"
-        android:src="@drawable/mealplanner_icon"
+        android:src="@drawable/icon_mealplanner"
         app:layout_constraintBottom_toBottomOf="@id/title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/title"

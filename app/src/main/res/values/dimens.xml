@@ -3,16 +3,14 @@
     <dimen name="title">22sp</dimen>
     <dimen name="iconNearTitle">22dp</dimen>
     <dimen name="marginStandard">14dp</dimen>
-    <dimen name="doubleMargin">28dp</dimen>
+    <dimen name="marginDoubled">28dp</dimen>
     <dimen name="marginSmall">7dp</dimen>
     <dimen name="radius">10dp</dimen>
     <!--LOGIN-->
     <dimen name="buttonText">18sp</dimen>
     <dimen name="buttonIcon">16dp</dimen>
     <dimen name="label">14sp</dimen>
-    <dimen name="cardsize">333dp</dimen>
     <!-- HOME -->
-    <dimen name="menuVoice">16sp</dimen>
     <dimen name="notTitleText">16sp</dimen>
     <dimen name="notDescText">14sp</dimen>
     <dimen name="noTimeText">14sp</dimen>
@@ -20,6 +18,6 @@
     <dimen name="mealName">20dp</dimen>
     <dimen name="mealLabel">14sp</dimen>
     <dimen name="mealDate">14dp</dimen>
-
+    <!-- FITNESS TRACKER -->
     <dimen name="exerciseData">12dp</dimen>
 </resources>

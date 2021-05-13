@@ -68,7 +68,7 @@
         android:drawablePadding="@dimen/marginSmall"
         android:padding="@dimen/marginStandard"
         android:text="ALLENAMENTO FATTO"
-        app:drawableStartCompat="@drawable/ic_done"
+        app:drawableStartCompat="@drawable/icon_done"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

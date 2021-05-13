@@ -12,7 +12,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/marginStandard"
-        android:drawableStart="@drawable/icon_meal"
+        android:drawableStart="@drawable/icon_mealplanner"
         android:drawablePadding="@dimen/marginSmall"
         android:drawableTint="@color/main_mealplanner"
         android:gravity="start"

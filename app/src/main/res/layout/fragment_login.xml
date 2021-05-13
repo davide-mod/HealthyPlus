@@ -74,7 +74,7 @@
         android:text="@string/login_facebook"
         android:padding="@dimen/marginStandard"
         android:gravity="center"
-        app:drawableStartCompat="@drawable/login_fb"
+        app:drawableStartCompat="@drawable/login_facebook"
         app:layout_constraintBottom_toTopOf="@id/layoutEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

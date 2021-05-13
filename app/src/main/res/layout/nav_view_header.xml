@@ -10,7 +10,7 @@
         android:layout_width="125dp"
         android:layout_height="125dp"
         android:layout_margin="@dimen/marginSmall"
-        android:src="@drawable/card_healthyplus"
+        android:src="@drawable/cardimg_healthyplus"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/appNameHeader"
         app:layout_constraintStart_toStartOf="parent"

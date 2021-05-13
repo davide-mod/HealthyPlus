@@ -7,12 +7,12 @@
         android:title="@string/home" />
     <item
         android:id="@+id/itemMealPlanner"
-        android:icon="@drawable/icon_meal"
+        android:icon="@drawable/icon_mealplanner"
         android:iconTint="@color/white"
         android:title="@string/meal_planner_title" />
     <item
         android:id="@+id/itemFitnessTracker"
-        android:icon="@drawable/icon_fit"
+        android:icon="@drawable/icon_fitnesstracker"
         android:iconTint="@color/white"
         android:title="@string/fitness_tracker_title" />
     <item

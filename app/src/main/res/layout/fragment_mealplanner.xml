@@ -13,7 +13,8 @@
         android:drawablePadding="@dimen/marginSmall"
         android:text="@string/meal_planner_title"
         android:textColor="@color/main_mealplanner"
-        app:drawableStartCompat="@drawable/mealplanner_icon"
+        app:drawableStartCompat="@drawable/icon_mealplanner"
+        android:drawableTint="@color/main_mealplanner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,7 +24,7 @@
         android:layout_width="@dimen/iconNearTitle"
         android:layout_height="@dimen/iconNearTitle"
         android:layout_margin="@dimen/marginStandard"
-        android:contentDescription="@string/profile_picture"
+        android:contentDescription="@string/content_description"
         android:src="@drawable/icon_hamburger"
         app:layout_constraintBottom_toBottomOf="@id/title"
         app:layout_constraintStart_toStartOf="parent"

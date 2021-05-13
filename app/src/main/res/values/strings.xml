@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Healthy Plus</string>
-    <string name="hamburger_menu_icon">Hamburger Menu Icon</string>
-    <string name="profile_picture">Profile Picture</string>
+    <string name="content_description">Image Content</string>
 
     <string name="log_out">Log Out</string>
     <!-- LOGIN STRINGS -->
@@ -21,32 +20,17 @@
     <!-- MAIN PAGE -->
     <string name="notification_label">Notizie e Notifiche:</string>
     <string name="home">Home</string>
-    <string name="credits">Credits</string>
     <!-- USER PAGE STRINGS -->
     <string name="user_title">Area riservata</string>
-    <string name="user_account_label">Account:</string>
-    <string name="user_birth_label">Nascita:</string>
-    <string name="user_setting_label">Impostazioni:</string>
-    <string name="user_change_email">cambia mail</string>
-    <string name="user_change_psw">cambia password</string>
-    <string name="user_contact_us">contattaci!</string>
-    <string name="user_tos">termini e condizioni</string>
-    <string name="user_logout">Log out</string>
     <!-- FITNESS & MEAL MODULES STRINGS -->
-    <string name="fitness_meal_today">oggi</string>
-    <string name="fitness_meal_done">Fatto!</string>
     <string name="fitness_meal_coming">In arrivo:</string>
     <string name="fitness_meal_preset">Preimpostati:</string>
     <string name="fitness_meal_history">Storico:</string>
-    <string name="fitness_meal_daysago"> giorni fa</string>
     <string name="fitness_meal_procede">Procedi</string>
     <string name="fitness_meal_delete">Elimina</string>
-    <string name="fitness_meal_edit">Modifica</string>
     <string name="fitness_meal_save_edit">Salva modifiche</string>
-    <string name="fitness_meal_placeholdertime">00:00</string>
     <!-- MEAL PLANNER STRINGS -->
     <string name="meal_planner_title">Meal Planner</string>
-    <string name="meal_description_label"><u>descrizione</u></string>
     <string name="meal_planner_snack_btn">Snack</string>
     <string name="meal_planner_meal_btn">Pasto</string>
     <string name="meal_planner_saved_meals">Pasti salvati</string>

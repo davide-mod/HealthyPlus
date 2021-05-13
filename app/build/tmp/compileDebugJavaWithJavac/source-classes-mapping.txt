@@ -17,6 +17,8 @@ com/modolo/healthyplus/BuildConfig.java
 com/modolo/healthyplus/mealplanner/mealdb/MealDatabase_Impl.java
  com.modolo.healthyplus.mealplanner.mealdb.MealDatabase_Impl
  com.modolo.healthyplus.mealplanner.mealdb.MealDatabase_Impl$1
+com/modolo/healthyplus/main/MainFragmentDirections.java
+ com.modolo.healthyplus.main.MainFragmentDirections
 com/modolo/healthyplus/fitnesstracker/workoutdb/WorkoutDAO_Impl.java
  com.modolo.healthyplus.fitnesstracker.workoutdb.WorkoutDAO_Impl
  com.modolo.healthyplus.fitnesstracker.workoutdb.WorkoutDAO_Impl$1
@@ -28,5 +30,3 @@ com/modolo/healthyplus/fitnesstracker/workoutdb/WorkoutDAO_Impl.java
  com.modolo.healthyplus.fitnesstracker.workoutdb.WorkoutDAO_Impl$7
  com.modolo.healthyplus.fitnesstracker.workoutdb.WorkoutDAO_Impl$8
  com.modolo.healthyplus.fitnesstracker.workoutdb.WorkoutDAO_Impl$9
-com/modolo/healthyplus/main/MainFragmentDirections.java
- com.modolo.healthyplus.main.MainFragmentDirections
