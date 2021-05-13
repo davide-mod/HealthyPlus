@@ -1,6 +1,5 @@
 package com.modolo.healthyplus.mealplanner
 
-import android.app.Application
 import android.app.Dialog
 import android.content.SharedPreferences
 import android.graphics.Color
@@ -20,10 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
-import com.modolo.healthyplus.DButil
 import com.modolo.healthyplus.MainActivity
 import com.modolo.healthyplus.R
 import com.modolo.healthyplus.mealplanner.food.Food

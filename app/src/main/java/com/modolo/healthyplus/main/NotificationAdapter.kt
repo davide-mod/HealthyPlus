@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.modolo.healthyplus.R
 
+/*classico adapter che ricever una lista di "Notification" da mostrare in Home*/
 class NotificationAdapter(private val notifications: ArrayList<Notification>, private val notificationListener: NotificationListener) : RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -27,7 +28,7 @@ class NotificationAdapter(private val notifications: ArrayList<Notification>, pr
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val notification = notifications[position]
         with(holder) {
-
+            /*qui vengono recuperati i valori e inseriti nel layout*/
             title.text = notification.title
             if (notification.description == "")
                 desc.isVisible = false
@@ -35,6 +36,7 @@ class NotificationAdapter(private val notifications: ArrayList<Notification>, pr
                 desc.isVisible = true
                 desc.text = notification.description
             }
+            /*in questo punto si potrebbe fare un eventuale calcolo per poter mettere il "3 minuti fa"*/
             date.text = notification.date
 
             title.setTextColor(notification.color)
