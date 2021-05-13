@@ -12,17 +12,20 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class WorkoutRepository(app: Application) {
-
+    /*lista di allenamenti che verrà presa dal database*/
     var workoutData = MutableLiveData<List<Workout>>()
+    /*oggetto per comunicare con il database locale*/
     private val workoutDAO = WorkoutDatabase.getDatabase(app).workoutDAO()
 
     init {
         CoroutineScope(Dispatchers.IO).launch {
             val data: List<Workout> = workoutDAO.getAll()
             if (data.isNullOrEmpty()) {
+                /*se il database locale è vuoto controllo se ci sono elementi online*/
                 val mAuth = FirebaseAuth.getInstance()
                 val workoutsFromGoogle = DButilFitnessTracker(mAuth, Firebase.firestore).getAll()
                 val workoutsTmp = mutableListOf<Workout>()
+                /*se vengono trovati allenamenti online li salvo anche nel database locale*/
                 workoutsFromGoogle.get().addOnSuccessListener { doc ->
                     doc.forEach { me ->
                         Log.i("devdebug", "WorkoutRepo: $me")
@@ -39,22 +42,21 @@ class WorkoutRepository(app: Application) {
                     }
                 }
                 workoutData.postValue(workoutDAO.getAll())
-                //insertMeals(mealsTmp)
             } else {
-                //se il database di allenamenti è già popolato recupero le entry
+                /*se il database di allenamenti è già popolato recupero le entry*/
                 workoutData.postValue(data)
             }
         }
     }
 
-    //recupero tutti gli ingredienti nel database
+    /*recupero tutti gli allenamenti nel database con una coroutine per non appesantire il thread principale*/
     fun getAll() {
         CoroutineScope(Dispatchers.IO).launch {
             workoutData.postValue(workoutDAO.getAll())
         }
     }
 
-    //inserisco un nuovo ingrediente e aggiorno la lista richiedendola
+    /*inserisco un nuovo allenamento nel database con una coroutine*/
     fun insertWorkout(workout: Workout) {
         CoroutineScope(Dispatchers.IO).launch {
             workoutDAO.insertWorkout(workout)
@@ -62,7 +64,7 @@ class WorkoutRepository(app: Application) {
         }
     }
 
-    //elimino un ingrediente e aggiorno la lista richiedendola
+    /*elimino un allenamento dal database con una coroutine*/
     fun deleteWorkout(workout: Workout) {
         CoroutineScope(Dispatchers.IO).launch {
             workoutDAO.deleteWorkout(workout)

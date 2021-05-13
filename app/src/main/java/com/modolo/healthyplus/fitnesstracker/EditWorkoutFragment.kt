@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.Spinner
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
@@ -17,13 +16,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.gson.Gson
+import com.modolo.healthyplus.MainActivity
 import com.modolo.healthyplus.R
 import com.modolo.healthyplus.fitnesstracker.exercise.Exercise
 import com.modolo.healthyplus.fitnesstracker.exercise.ExerciseAdapter
 import com.modolo.healthyplus.fitnesstracker.workoutdb.Workout
-import com.modolo.healthyplus.mealplanner.food.Food
-import com.modolo.healthyplus.mealplanner.food.FoodAdapter
-import com.modolo.healthyplus.mealplanner.mealdb.Meal
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
@@ -52,22 +49,25 @@ class EditWorkoutFragment : Fragment(), ExerciseAdapter.ExerciseListener {
         savedInstanceState: Bundle?
     ): View {
         val view = inflater.inflate(R.layout.fitnesstracker_frag_edit, container, false)
-
+        /*disabilito il drawer*/
+        (activity as MainActivity?)!!.setDrawerEnabled(false)
+        /*inizializzo il componente per modificare il nome dell'allenamento*/
         workoutName = view.findViewById(R.id.title)
 
-        val delete = view.findViewById<TextView>(R.id.btnDelete)
-        val save = view.findViewById<TextView>(R.id.btnSave)
-
+        /*recycler dove verrà mostrata la lista di esercizi nella scheda*/
         exerciseRecycler = view.findViewById(R.id.exerciseRecycler)
+        /*i campi per l'inserimento del nuovo esercizio sono in un ConstraintLayout apposito*/
         val inputFields = view.findViewById<ConstraintLayout>(R.id.inputLayout)
         exName = inputFields.findViewById(R.id.exerciseNameText)
         recValue = inputFields.findViewById(R.id.recValue)
         exRep = inputFields.findViewById(R.id.repText)
         exSerie = inputFields.findViewById(R.id.serieText)
         exKg = inputFields.findViewById(R.id.kgText)
+
         val addEx = inputFields.findViewById<TextView>(R.id.addBtn)
         addEx.setOnClickListener {
             addEx.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
+            /*controllo che ci sia almeno il nome dell'esercizio da aggiungere*/
             if (exName.text.toString() != "") {
                 val exNameTmp = exName.text.toString()
                 val repTmp =
@@ -82,28 +82,31 @@ class EditWorkoutFragment : Fragment(), ExerciseAdapter.ExerciseListener {
                 val recTmp =
                     if (recValue.text.toString() != "") recValue.text.toString()
                         .toInt() else 0
-
+                /*aggiungo l'esercizio alla lista e aggiorno la Recycler che li mostra*/
                 exerciseListTmp.add(Exercise(exNameTmp, repTmp, serieTmp, kgTmp, recTmp))
-                exerciseRecycler.adapter = ExerciseAdapter(exerciseListTmp, this, requireContext())
-                //resetto i campi
+                exerciseRecycler.adapter = ExerciseAdapter(exerciseListTmp, this)
+                /*resetto i campi e sposto il focus sul nome*/
                 exName.setText("")
                 exRep.setText("")
                 exSerie.setText("")
                 exKg.setText("")
                 recValue.setText("")
-
                 exName.requestFocus()
             }
         }
 
+        val delete = view.findViewById<TextView>(R.id.btnDelete)
         delete.setOnClickListener {
             delete.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
+            /*mando l'allenamento da cancellare alla viewmodel e torno alla home*/
             viewModel.deleteWorkout(workoutPassed)
             findNavController().navigateUp()
         }
 
+        val save = view.findViewById<TextView>(R.id.btnSave)
         save.setOnClickListener {
             save.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
+            /*per salvare le modifiche rimuovo l'allenamento, aggiorno i dati e lo inserisco nuovamente*/
             viewModel.deleteWorkout(workoutPassed)
             workoutPassed.name = workoutName.text.toString()
             workoutPassed.exerciseList = Gson().toJson(exerciseListTmp)
@@ -111,7 +114,7 @@ class EditWorkoutFragment : Fragment(), ExerciseAdapter.ExerciseListener {
             findNavController().navigateUp()
         }
 
-        //chiudi quando si preme la X senza salvare
+        /*chiudi quando si preme la X senza salvare*/
         val close = view.findViewById<ImageView>(R.id.close)
         close.setOnClickListener {
             findNavController().navigateUp()
@@ -121,23 +124,25 @@ class EditWorkoutFragment : Fragment(), ExerciseAdapter.ExerciseListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        /*istanzio la viewmodel e recupero l'allenamento da modificare*/
         viewModel = ViewModelProvider(requireActivity()).get(FitnessSharedViewModel::class.java)
         workoutPassed = viewModel.getWorkouttoEdit()
-        Log.i("devdebug", "EditWorkoutFragment received: $workoutPassed")
+        Log.i("hp_EditWorkoutFragment", "received: $workoutPassed")
+        /*modifico la schermata secondo i dati ricevuti*/
         workoutName.setText(workoutPassed.name)
         exerciseDeserializer(workoutPassed.exerciseList)
 
     }
 
     override fun onExerciseListener(exercise: Exercise, position: Int, longpress: Boolean) {
+        /*quando un esercizio viene selezionato lo rimuovo dalla lista e metto i suoi dati nel Layout per la modifica*/
         exName.setText(exercise.name)
         exRep.setText(exercise.rep)
         exSerie.setText(exercise.set)
         exKg.setText(exercise.kg)
         recValue.setText(exercise.rec)
-        //e viene rimosso dalla lista, dando la possibilità di modificarlo
         exerciseListTmp.remove(exercise)
-        exerciseRecycler.adapter = ExerciseAdapter(exerciseListTmp, this, requireContext())
+        exerciseRecycler.adapter = ExerciseAdapter(exerciseListTmp, this)
         exName.requestFocus()
     }
 
@@ -145,6 +150,7 @@ class EditWorkoutFragment : Fragment(), ExerciseAdapter.ExerciseListener {
         List::class.java, Exercise::class.java
     )
 
+    /*funzione che prende il JSON della lista di esercizi e lo trasforma in una lista di oggetti Exercise*/
     private fun exerciseDeserializer(jsonListOfExercise: String) {
         val moshi = Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
@@ -152,6 +158,6 @@ class EditWorkoutFragment : Fragment(), ExerciseAdapter.ExerciseListener {
         val adapter: JsonAdapter<List<Exercise>> = moshi.adapter(listTypeExercise)
         val exercises: List<Exercise>? = adapter.fromJson(jsonListOfExercise)
         exerciseListTmp = exercises as ArrayList<Exercise>
-        exerciseRecycler.adapter = ExerciseAdapter(exercises, this, requireContext())
+        exerciseRecycler.adapter = ExerciseAdapter(exercises, this)
     }
 }

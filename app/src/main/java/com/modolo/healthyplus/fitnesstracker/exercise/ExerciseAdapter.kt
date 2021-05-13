@@ -1,21 +1,18 @@
 package com.modolo.healthyplus.fitnesstracker.exercise
 
-import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.appcompat.content.res.AppCompatResources.getDrawable
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.Gson
 import com.modolo.healthyplus.R
-import java.time.format.DateTimeFormatter
 
-class ExerciseAdapter(private val exerciseList: List<Exercise>, private val exerciseListener: ExerciseListener, private val context: Context) : RecyclerView.Adapter<ExerciseAdapter.ViewHolder>() {
+/*adapter per la lista di esercizi nei fragment di Aggiunta e Modifica allenamento*/
+class ExerciseAdapter(
+    private val exerciseList: List<Exercise>,
+    private val exerciseListener: ExerciseListener
+) : RecyclerView.Adapter<ExerciseAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val exerciseName: TextView = itemView.findViewById(R.id.name)
@@ -36,17 +33,24 @@ class ExerciseAdapter(private val exerciseList: List<Exercise>, private val exer
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        //Log.i("devdebug", "FoodAdapter: $foodList")
+        /*imposto nel layout i dati dell'esercizio*/
         val exercise = exerciseList[position]
         with(holder) {
             exerciseName.text = exercise.name
-            exerciseRep.text = "rep:\n"+exercise.rep.toString()
-            exerciseSerie.text = "serie:\n"+exercise.set.toString()
-            exerciseKg.text = "kg:\n"+exercise.kg.toString()
-            exerciseRec.text = "rec:\n"+exercise.rec.toString()
+            /*utilizzo una variabile d'appoggio per evitare worning da parte del compilatore*/
+            var textTmp = "rep:\n"+exercise.rep.toString()
+            exerciseRep.text = textTmp
+            textTmp = "serie:\n"+exercise.set.toString()
+            exerciseSerie.text = textTmp
+            textTmp = "kg:\n"+exercise.kg.toString()
+            exerciseKg.text = textTmp
+            textTmp = "rec:\n"+exercise.rec.toString()
+            exerciseRec.text = textTmp
+            /*on Click listener che permetterà poi la modifica*/
             holder.itemView.setOnClickListener {
                 exerciseListener.onExerciseListener(exercise, holder.layoutPosition, false)
             }
+            /*on LongClick listener per eventuali necessità future*/
             holder.itemView.setOnLongClickListener {
                 exerciseListener.onExerciseListener(exercise, holder.layoutPosition, true)
                 true

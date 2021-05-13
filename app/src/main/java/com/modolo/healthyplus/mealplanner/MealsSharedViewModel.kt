@@ -20,7 +20,7 @@ class MealsSharedViewModel(val app: Application) : AndroidViewModel(app) {
     private val mAuth = FirebaseAuth.getInstance()
     private val mealsdb = MealRepository(app)
     var meals = MutableLiveData<List<Meal>>()
-    var mealToEdit: Meal? = null
+    private var mealToEdit: Meal? = null
 
     /*inizializzo prendendo dal DB locale tutti i pasti e salvandoli localmente*/
     init {
@@ -46,7 +46,7 @@ class MealsSharedViewModel(val app: Application) : AndroidViewModel(app) {
         mealsdb.deleteMeal(meal)
         DButilMealPlanner(mAuth, Firebase.firestore).deleteMeal(meal)
     }
-    /*calcolo ultimo ID uscito e lo restituisco*/
+    /*calcolo ultimo ID presente e lo restituisco*/
     fun getLastId(): Int{
         var maxId = 0
         meals.value!!.forEach {
@@ -54,7 +54,7 @@ class MealsSharedViewModel(val app: Application) : AndroidViewModel(app) {
         }
         return maxId
     }
-    /*restituisce la lista dei pasti impostati come preset dai pasti "in RAM"*/
+    /*restituisce la lista dei pasti impostati come preset*/
     fun getPresets(): ArrayList<Meal>{
         val presets = ArrayList<Meal>()
         meals.value!!.forEach {

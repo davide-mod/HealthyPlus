@@ -14,7 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MealRepository(app: Application) {
-    /*lista di cibi che verrà presa dal database*/
+    /*lista di pasti che verrà presa dal database*/
     var mealData = MutableLiveData<List<Meal>>()
     /*oggetto per comunicare con il database locale*/
     private val mealDAO = MealDatabase.getDatabase(app).mealDAO()

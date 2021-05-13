@@ -56,7 +56,7 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, MealPresetAdapter.
         /*disabilito il drawer*/
         (activity as MainActivity?)!!.setDrawerEnabled(false)
 
-        /*inizializzo i componente per il nome pasto*/
+        /*inizializzo il componente per il nome del pasto*/
         mealTitle = view.findViewById(R.id.title)
 
         /*recycler dove verrà mostrata la lista di cibi nel pasto*/
@@ -93,7 +93,7 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, MealPresetAdapter.
             }
         }
 
-        /*quando ha terminato di inserire i cibi si procede*/
+        /*quando l'utente ha terminato di inserire i cibi si procede*/
         val proceed = view.findViewById<TextView>(R.id.btnProceed)
         proceed.setOnClickListener {
             proceed.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
@@ -121,7 +121,7 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, MealPresetAdapter.
                 )
                 Log.i("hp_AddMealFragment", "new meal ${newMeal.name} e id ${newMeal.id}")
 
-                /*se mangiato verrà impostato come "fatto"*/
+                /*se mangiato verrà impostato come tale*/
                 val eaten = dialog.findViewById<TextView>(R.id.eaten)
                 eaten.setOnClickListener {
                     eaten.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
@@ -130,7 +130,7 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, MealPresetAdapter.
                     /*passo il nuovo pasto alla viewmodel che lo aggiungerà sia al db online che locale*/
                     viewModel.insertMeal(newMeal)
                     dialog.dismiss()
-                    findNavController().navigateUp() /*torno alla home*/
+                    findNavController().navigateUp() /*torno alla home del modulo*/
                 }
 
                 /*se impostato come preset si procederà di conseguenza*/
@@ -155,7 +155,7 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, MealPresetAdapter.
                     findNavController().navigateUp()
                 }
                 dialog.show()
-            } else { /*è necessario almeno un elemento e il nome*/
+            } else { /*sono necessari almeno un elemento e il nome*/
                 Toast.makeText(
                     requireContext(),
                     "Inserisci il nome ed almeno un elemento",

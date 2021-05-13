@@ -38,8 +38,7 @@ class MealAdapter(private val meals: ArrayList<Meal>, private val mealListener: 
         with(holder) {
             /*per non effettuare un ulteriore adapter extra vado a modificare il layout da codice:
             * se il campo "ispreset" è true, vado a togliere il tasto di "mangiato" e rimuovo la data
-            * altrimenti rendo il tutto visibile e in ogni caso procedo
-            * */
+            * altrimenti rendo il tutto visibile */
             mealName.text = meal.name
             val aLDT = LocalDateTime.parse(meal.date)
             val formatter = DateTimeFormatter.ofPattern("HH:mm dd/MM")

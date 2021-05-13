@@ -14,8 +14,13 @@ import java.time.Duration
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class WorkoutHistoryAdapter(private val workouts: ArrayList<Workout>, private val workoutListener: WorkoutHistoryListener, private val context: Context) : RecyclerView.Adapter<WorkoutHistoryAdapter.ViewHolder>() {
-
+/*adapter per i gli allenamenti già fatti, con la dicitura "X giorni fa"*/
+class WorkoutHistoryAdapter(
+    private val workouts: ArrayList<Workout>,
+    private val workoutListener: WorkoutHistoryListener,
+    private val context: Context
+) : RecyclerView.Adapter<WorkoutHistoryAdapter.ViewHolder>() {
+    /*dichiaro i campi del layout*/
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val workoutName: TextView = itemView.findViewById(R.id.workoutName)
         val workoutDate: TextView = itemView.findViewById(R.id.workoutDate)
@@ -32,17 +37,20 @@ class WorkoutHistoryAdapter(private val workouts: ArrayList<Workout>, private va
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        /*scorro la lista e modifico gli elementi del layout in base ai dati di ogni allenamento*/
         val workout = workouts[position]
         with(holder) {
             workoutName.text = workout.name
-
+            /*visto che la data è salvata come stringa richiede un passaggio extra*/
             val aLDT = LocalDateTime.parse(workout.date)
-            val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm");
+            val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm")
             workoutDate.text = aLDT.format(formatter)
+            /*calcolo la differenza di giorni*/
             val daysBetween = Duration.between(aLDT, LocalDateTime.now()).toDays()
-            val daysAgo = if(daysBetween.toInt() != 1) "$daysBetween giorni fa" else  "$daysBetween giorno fa"
+            val daysAgo =
+                if (daysBetween.toInt() != 1) "$daysBetween giorni fa" else "$daysBetween giorno fa"
             workoutDateAgo.text = daysAgo
-
+            /*imposto i listener*/
             workoutEdit.setOnClickListener {
                 workoutEdit.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
                 workoutListener.onWorkoutHistoryListener(workout, holder.layoutPosition, true)
@@ -52,6 +60,7 @@ class WorkoutHistoryAdapter(private val workouts: ArrayList<Workout>, private va
             }
         }
     }
+
     interface WorkoutHistoryListener {
         fun onWorkoutHistoryListener(workout: Workout, position: Int, editMeal: Boolean)
     }

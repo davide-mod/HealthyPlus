@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
+/*classe per il database locale di allenamenti*/
 @Database(entities = [Workout::class], version = 1, exportSchema = false)
 
 abstract class WorkoutDatabase : RoomDatabase() {

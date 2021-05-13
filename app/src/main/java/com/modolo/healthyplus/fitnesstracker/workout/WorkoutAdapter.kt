@@ -12,10 +12,9 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.modolo.healthyplus.R
 import com.modolo.healthyplus.fitnesstracker.workoutdb.Workout
-import com.modolo.healthyplus.mealplanner.mealdb.Meal
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-
+/*adapter per gli allenamenti "in arrivo" e "preset" nella schermata principale del modulo*/
 class WorkoutAdapter(private val workouts: ArrayList<Workout>, private val workoutListener: WorkoutListener, private val context: Context) : RecyclerView.Adapter<WorkoutAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -36,6 +35,9 @@ class WorkoutAdapter(private val workouts: ArrayList<Workout>, private val worko
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val workout = workouts[position]
         with(holder) {
+            /*per non effettuare un ulteriore adapter extra vado a modificare il layout da codice:
+            * se il campo "ispreset" è true, vado a togliere il tasto di "fatto" e rimuovo la data
+            * altrimenti rendo il tutto visibile*/
             workoutName.text = workout.name
             val aLDT = LocalDateTime.parse(workout.date)
             val formatter = DateTimeFormatter.ofPattern("HH:mm dd/MM")
@@ -50,6 +52,7 @@ class WorkoutAdapter(private val workouts: ArrayList<Workout>, private val worko
                 workoutEdit.background = getDrawable(context, R.drawable.btn_bottom_right)
             }
 
+            /*qui c'è il listener nel caso venga premuto il tasto di edit, il tasto "fatto" o l'allenamento in sè*/
             workoutEdit.setOnClickListener {
                 workoutEdit.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
                 workoutListener.onWorkoutListener(workout, holder.layoutPosition, editWorkout = true, done = false)
@@ -63,7 +66,6 @@ class WorkoutAdapter(private val workouts: ArrayList<Workout>, private val worko
             }
         }
     }
-
 
     interface WorkoutListener {
         fun onWorkoutListener(workout: Workout, position: Int, editWorkout: Boolean, done: Boolean)

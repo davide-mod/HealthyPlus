@@ -15,8 +15,11 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 /*adapter per i pasti "passati", quindi con la dicitura "X giorni fa"*/
-class MealAdapterHistory(private val meals: ArrayList<Meal>, private val mealListener: MealHistoryListener, private val context: Context) : RecyclerView.Adapter<MealAdapterHistory.ViewHolder>() {
-
+class MealAdapterHistory(
+    private val meals: ArrayList<Meal>,
+    private val mealListener: MealHistoryListener,
+    private val context: Context
+) : RecyclerView.Adapter<MealAdapterHistory.ViewHolder>() {
     /*dichiaro i campi del layout*/
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val mealName: TextView = itemView.findViewById(R.id.mealName)
@@ -44,7 +47,8 @@ class MealAdapterHistory(private val meals: ArrayList<Meal>, private val mealLis
             mealDate.text = aLDT.format(formatter)
             /*calcolo la differenza di giorni*/
             val daysBetween = Duration.between(aLDT, LocalDateTime.now()).toDays()
-            val daysAgo = if(daysBetween.toInt() != 1) "$daysBetween giorni fa" else  "$daysBetween giorno fa"
+            val daysAgo =
+                if (daysBetween.toInt() != 1) "$daysBetween giorni fa" else "$daysBetween giorno fa"
             mealDateAgo.text = daysAgo
             /*imposto i listener*/
             mealEdit.setOnClickListener {
@@ -56,7 +60,6 @@ class MealAdapterHistory(private val meals: ArrayList<Meal>, private val mealLis
             }
         }
     }
-
 
     interface MealHistoryListener {
         fun onMealHistoryListener(meal: Meal, position: Int, editMeal: Boolean)

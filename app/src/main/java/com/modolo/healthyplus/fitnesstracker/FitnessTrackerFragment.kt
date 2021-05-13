@@ -1,25 +1,20 @@
 package com.modolo.healthyplus.fitnesstracker
 
-import android.app.Dialog
 import android.content.SharedPreferences
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
 import android.view.animation.AnimationUtils
-import android.widget.*
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
-import com.google.gson.Gson
 import com.modolo.healthyplus.MainActivity
 import com.modolo.healthyplus.R
 import com.modolo.healthyplus.fitnesstracker.workout.WorkoutAdapter
@@ -42,30 +37,31 @@ class FitnessTrackerFragment : Fragment(), WorkoutAdapter.WorkoutListener, Worko
     private lateinit var viewModel: FitnessSharedViewModel
     private var workouts = ArrayList<Workout>()
 
-    lateinit var presetsView: RecyclerView
-    lateinit var incomingView: RecyclerView
-    lateinit var historyView: RecyclerView
+    private lateinit var presetsView: RecyclerView
+    private lateinit var incomingView: RecyclerView
+    private lateinit var historyView: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         val view = inflater.inflate(R.layout.fragment_fitnesstracker, container, false)
-
-        //richiamo l'hamburger menu
+        /*abilito eventualmente il drawer*/
+        (activity as MainActivity?)!!.setDrawerEnabled(true)
+        /*recupero il drawer dalla main activity*/
         val ham = view.findViewById<ImageView>(R.id.hamburger)
         ham.setOnClickListener {
             (activity as MainActivity?)?.openDrawer()
         }
-        //prendo la sessione del login per poi salvare i pasti all'utente corrente
+        /*ora recupero le informazioni dell'utente per leggere e salvare le schede di allenamento*/
         mAuth = FirebaseAuth.getInstance()
 
-        //carico le Recycler dei vari pasti (preset, in arrivo e lo storico)
+        /*carico le Recycler dei vari workout (preset, in arrivo e lo storico)*/
         presetsView = view.findViewById(R.id.presetsWorkout)
         incomingView = view.findViewById(R.id.incomingWorkout)
         historyView = view.findViewById(R.id.historyWorkout)
 
-        //passo al fragment per l'aggiunta del pasto
+        /*passo al fragment per l'aggiunta del workout*/
         val btnWorkout = view.findViewById<TextView>(R.id.btnWorkout)
         btnWorkout.setOnClickListener {
             btnWorkout.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
@@ -75,9 +71,12 @@ class FitnessTrackerFragment : Fragment(), WorkoutAdapter.WorkoutListener, Worko
     }
 
 
-    //viewmodel per comunicare tra fragment
+    /*viewmodel per comunicare con il database*/
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        /*qui eseguo questo codice solo al primo avvio in assoluto della schermata, in quanto il download
+        * di eventuale materiale dal server potrebbe impiegare qualche secondo
+        * */
         val sharedPref: SharedPreferences? = activity?.getSharedPreferences(PREF_NAME, 0)
         val firstStart = sharedPref?.getBoolean(FIT_TRACK_FIRST, true)
         if (firstStart == true) {
@@ -91,6 +90,9 @@ class FitnessTrackerFragment : Fragment(), WorkoutAdapter.WorkoutListener, Worko
             editor.apply()
         }
 
+        /*istanzio effettivamente la viewmodel per parlare col database e richiedo tutti i workout salvati
+        * e li carico nelle varie RecyclerView
+        * */
         viewModel = ViewModelProvider(requireActivity()).get(FitnessSharedViewModel::class.java)
         viewModel.workouts.observe(viewLifecycleOwner, { mutableList ->
             workouts= mutableList as ArrayList<Workout>
@@ -104,6 +106,10 @@ class FitnessTrackerFragment : Fragment(), WorkoutAdapter.WorkoutListener, Worko
                     else -> incoming.add(workout)
                 }
             }
+            /*il caricamento nelle Recycler viene effettuato qui perché altrimenti la prima volta che si
+            * accede a questo fragment ogni volta che si avvia l'app gli elementi non apparirebbero in tempo
+            * per via delle coroutine
+            * */
             val sortedHistory =
                 history.sortedByDescending { it.date } //ordino la lista per avere in cima gli ultimi
             presetsView.adapter = WorkoutAdapter(presets, this, requireContext())
@@ -114,32 +120,36 @@ class FitnessTrackerFragment : Fragment(), WorkoutAdapter.WorkoutListener, Worko
 
     }
 
-    //quando un pasto tra i preset o quelli in arrivo viene premuto
+    /*quando un workout tra i preset o in arrivo viene premuto*/
     override fun onWorkoutListener(workout: Workout, position: Int, editWorkout: Boolean, done: Boolean) {
-        //si controlla se ad essere premuto è stato il pulsante di edit
+        /*si controlla se ad essere premuto è stato il pulsante di edit*/
         if (editWorkout) {
-            //salvo il pasto da modificare nella viewmodel e apro il fragment per la modifica
+            /* in questo caso salvo il workout da modificare nella viewmodel e apro il fragment per la modifica*/
             viewModel.setWorkouttoEdit(workout)
             findNavController().navigate(R.id.editWorkoutFragment)
 
-        } else if (done) { //se invece è stato premuto il tasto "fatto" lo sposto nello storico
+        } else if (done) { /*se invece è stato premuto il tasto "fatto" lo sposto nello storico*/
+            /*rimuovo il workout dal database*/
             viewModel.deleteWorkout(workout)
+            /*aggiorno i parametri*/
             workout.isdone = true
             workout.date = LocalDateTime.now().toString()
+            /*lo reinserisco nel database*/
             viewModel.insertWorkout(workout)
 
+            /*aggiorno la vista locale*/
             incoming.remove(workout)
             history.add(workout)
             val sortedHistory =
-                history.sortedByDescending { it.date } //ordino la lista per avere in cima gli ultimi
+                history.sortedByDescending { it.date } /*ordino la lista per avere in cima gli ultimi*/
             incomingView.adapter = WorkoutAdapter(incoming, this, requireContext())
             historyView.adapter =
                 WorkoutHistoryAdapter(ArrayList(sortedHistory), this, requireContext())
         }
     }
 
+    /*se viene premuto un elemento nello storico lo mando alla modifica come sopra*/
     override fun onWorkoutHistoryListener(workout: Workout, position: Int, editMeal: Boolean) {
-        Log.i("devdebug", "MainFragment: wannaEditHistory ${workout.name} e id ${workout.id}")
         viewModel.setWorkouttoEdit(workout)
         findNavController().navigate(R.id.editWorkoutFragment)
     }
