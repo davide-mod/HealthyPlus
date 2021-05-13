@@ -27,21 +27,23 @@ class FoodAdapter(private val foodList: List<Food>, private val foodListener: Fo
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val food = foodList[position]
         with(holder) {
+            /*imposto nel layout i dati del cibo*/
             foodName.text = food.name
             val quantity = food.quantity.toString() + food.udm
             foodQuantity.text = quantity
             val kcal = food.kcal.toString() + "kcal"
             foodKcal.text = kcal
+            /*on Click listener che permetterà poi la modifica*/
             holder.itemView.setOnClickListener {
                 foodListener.onFoodListener(food, holder.layoutPosition, false)
             }
+            /*on LongClick listener già implementato per futuri aggiornamenti se necessario*/
             holder.itemView.setOnLongClickListener {
                 foodListener.onFoodListener(food, holder.layoutPosition, true)
                 true
             }
         }
     }
-
 
     interface FoodListener {
         fun onFoodListener(food: Food, position: Int, longpress: Boolean)

@@ -50,7 +50,7 @@ class EditMealFragment : Fragment(), FoodAdapter.FoodListener {
         /*disabilito il drawer*/
         (activity as MainActivity?)!!.setDrawerEnabled(false)
 
-        /*inizializzo i componente per modificare il pasto*/
+        /*inizializzo il componente per modificare il nome del pasto*/
         nameEdit = view.findViewById(R.id.title)
 
         /*recycler dove verrà mostrata la lista di cibi nel pasto*/
@@ -77,7 +77,6 @@ class EditMealFragment : Fragment(), FoodAdapter.FoodListener {
                 /*aggiungo il cibo alla lista di cibi e aggiorno la Recycler che li mostra*/
                 foodListTmp.add(Food(nameTmp, quantityTmp, udmTmp, kcalTmp))
                 foodRecycler.adapter = FoodAdapter(foodListTmp, this)
-
                 /*resetto i campi e sposto il focus sul nome del cibo*/
                 foodName.setText("")
                 foodQuantity.setText("")

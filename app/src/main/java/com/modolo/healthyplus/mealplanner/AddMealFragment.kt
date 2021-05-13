@@ -56,22 +56,24 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, MealPresetAdapter.
         /*disabilito il drawer*/
         (activity as MainActivity?)!!.setDrawerEnabled(false)
 
+        /*inizializzo i componente per il nome pasto*/
         mealTitle = view.findViewById(R.id.title)
 
+        /*recycler dove verrà mostrata la lista di cibi nel pasto*/
         foodList = ArrayList()
-        //i campi per l'aggiunta di un cibo
+        /*i campi per l'inserimento del nuovo cibo sono in un ConstraintLayout apposito*/
         val inputFields = view.findViewById<ConstraintLayout>(R.id.inputLayout)
         foodName = inputFields.findViewById(R.id.foodNameText)
         foodQuantity = inputFields.findViewById(R.id.quantityText)
         udmSpinner = inputFields.findViewById(R.id.spinnerUdm)
         foodKcal = inputFields.findViewById(R.id.kcalText)
-        val addFood = inputFields.findViewById<TextView>(R.id.addBtn)
         foodRecycler = view.findViewById(R.id.foodRecycler)
 
-
-        //aggiungi cibo secondo i parametri inseriti
+        /*aggiungi un nuovo cibo secondo i parametri inseriti*/
+        val addFood = inputFields.findViewById<TextView>(R.id.addBtn)
         addFood.setOnClickListener {
             addFood.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
+            /*controllo che ci sia almeno il nome del cibo da aggiungere*/
             if (foodName.text.toString() != "") {
                 val foodNameTmp = foodName.text.toString()
                 val quantityTmp =
@@ -80,9 +82,10 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, MealPresetAdapter.
                 val udmTmp = udmSpinner.selectedItem.toString()
                 val kcalTmp =
                     if (foodKcal.text.toString() != "") foodKcal.text.toString().toFloat() else 0.0F
+                /*aggiungo il cibo alla lista di cibi e aggiorno la Recycler che li mostra*/
                 foodList.add(Food(foodNameTmp, quantityTmp, udmTmp, kcalTmp))
                 foodRecycler.adapter = FoodAdapter(foodList, this)
-                //resetto i campi
+                /*resetto i campi e sposto il focus sul nome del cibo*/
                 foodName.setText("")
                 foodQuantity.setText("")
                 foodKcal.setText("")
@@ -90,24 +93,24 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, MealPresetAdapter.
             }
         }
 
-        //quando ha terminato di inserire i cibi si procede
+        /*quando ha terminato di inserire i cibi si procede*/
         val proceed = view.findViewById<TextView>(R.id.btnProceed)
         proceed.setOnClickListener {
             proceed.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
             val mealNameTmp = mealTitle.text.toString()
             if (foodList.size > 0 && mealNameTmp != "") {
-                //se il nostro pasto ha un nome ed almeno un elemento possiamo salvarlo
-                //apro il dialog per la scelta
+                /*se il nostro pasto ha un nome ed almeno un elemento possiamo salvarlo
+                apro il dialog per la scelta*/
                 val dialog = Dialog(requireContext())
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
                 dialog.setCancelable(true)
                 dialog.setContentView(R.layout.mealplanner_dialog_save)
                 dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-
-                //recupero i vari elementi per poter procedere
+                /*recupero i vari elementi per poter procedere*/
                 val title = dialog.findViewById<TextView>(R.id.title)
-                title.text = mealNameTmp //imposto il titolo in base al nome del pasto
+                title.text = mealNameTmp /*imposto il titolo del dialog in base al nome del pasto*/
+                /*la lista di cibi del pasto viene salvata come stringa JSON*/
                 val foodJson = Gson().toJson(foodList)
                 val newId = viewModel.getLastId() + 1
                 newMeal = Meal(
@@ -116,36 +119,43 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, MealPresetAdapter.
                     ispreset = false,
                     isdone = false
                 )
-                Log.i("devdebug", "AddFragment: newMeal $newMeal")
-                Log.i("devdebug", "AddFragment: newMeal ${newMeal.name} e id ${newMeal.id}")
+                Log.i("hp_AddMealFragment", "new meal ${newMeal.name} e id ${newMeal.id}")
+
+                /*se mangiato verrà impostato come "fatto"*/
                 val eaten = dialog.findViewById<TextView>(R.id.eaten)
                 eaten.setOnClickListener {
                     eaten.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
-                    newMeal.isdone = true //imposto che è stato mangiato
-                    Log.i("devdebug", "AddFragment: asEaten ${newMeal.name} e id ${newMeal.id}")
-                    viewModel.insertMeal(newMeal) //lo passo alla viewmodel condivisa
+                    newMeal.isdone = true
+                    Log.i("hp_AddMealFragment", "asEaten ${newMeal.name} e id ${newMeal.id}")
+                    /*passo il nuovo pasto alla viewmodel che lo aggiungerà sia al db online che locale*/
+                    viewModel.insertMeal(newMeal)
                     dialog.dismiss()
-                    findNavController().navigateUp() //torno alla home del modulo
+                    findNavController().navigateUp() /*torno alla home*/
                 }
+
+                /*se impostato come preset si procederà di conseguenza*/
                 val aspreset = dialog.findViewById<TextView>(R.id.aspreset)
                 aspreset.setOnClickListener {
                     aspreset.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
                     newMeal.ispreset = true
-                    Log.i("devdebug", "AddFragment: asPreset ${newMeal.name} e id ${newMeal.id}")
+                    Log.i("hp_AddMealFragment", "asPreset ${newMeal.name} e id ${newMeal.id}")
+                    /*passo il nuovo pasto alla viewmodel che lo aggiungerà sia al db online che locale*/
                     viewModel.insertMeal(newMeal)
                     dialog.dismiss()
                     findNavController().navigateUp()
                 }
+                /*se impostato come in arrivo si procederà di conseguenza*/
                 val schedule = dialog.findViewById<TextView>(R.id.schedule)
                 schedule.setOnClickListener {
                     schedule.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
-                    Log.i("devdebug", "AddFragment: asIncoming ${newMeal.name} e id ${newMeal.id}")
+                    Log.i("hp_AddMealFragment", "asIncoming ${newMeal.name} e id ${newMeal.id}")
+                    /*passo il nuovo pasto alla viewmodel che lo aggiungerà sia al db online che locale*/
                     viewModel.insertMeal(newMeal)
                     dialog.dismiss()
                     findNavController().navigateUp()
                 }
                 dialog.show()
-            } else {
+            } else { /*è necessario almeno un elemento e il nome*/
                 Toast.makeText(
                     requireContext(),
                     "Inserisci il nome ed almeno un elemento",
@@ -154,7 +164,7 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, MealPresetAdapter.
             }
         }
 
-        //scelta di un eventuale preset
+        /*scelta di un eventuale preset*/
         val savedMeals = view.findViewById<TextView>(R.id.btnSavedMeals)
         savedMeals.setOnClickListener {
             savedMeals.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
@@ -162,14 +172,14 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, MealPresetAdapter.
             presetDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
             presetDialog.setCancelable(true)
             presetDialog.setContentView(R.layout.mealplanner_dialog_presets)
-
+            /*carico la lista dei preset nel dialog*/
             val recyclerPresets = presetDialog.findViewById<RecyclerView>(R.id.recyclerMeals)
             recyclerPresets.adapter = MealPresetAdapter(presetList, this)
             presetDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             presetDialog.show()
         }
 
-        //chiudi se premuto X
+        /*chiudi se premuto X*/
         val close = view.findViewById<ImageView>(R.id.close)
         close.setOnClickListener {
             findNavController().navigateUp()
@@ -179,25 +189,26 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, MealPresetAdapter.
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        /*istanzio la viewmodel per comunicare col database*/
         viewModel = ViewModelProvider(requireActivity()).get(MealsSharedViewModel::class.java)
+        /*recupero la lista di preset*/
         presetList = viewModel.getPresets()
 
     }
 
 
     override fun onFoodListener(food: Food, position: Int, longpress: Boolean) {
-        //quando un cibo viene selezionato, vengono caricati i suoi parametri nei vari campi
+        /*quando un cibo viene selezionato lo rimuovo dalla lista e metto i suoi dati nel Layout per la modifica*/
         foodName.setText(food.name)
         foodQuantity.setText(food.quantity.toString())
         udmSpinner.setSelection(findSpinnerElement(food.udm))
         foodKcal.setText(food.kcal.toString())
-        //e viene rimosso dalla lista, dando la possibilità di modificarlo
         foodList.remove(food)
         foodRecycler.adapter = FoodAdapter(foodList, this)
         foodName.requestFocus()
     }
 
-    //funzione per recuperare l'id di un valore nello spinner partendo dal testo
+    /*funzione per trovare l'indice di un certo valore in uno spinner*/
     private fun findSpinnerElement(value: String): Int {
         val udmlist = resources.getStringArray(R.array.udms_short)
         udmlist.forEachIndexed { index, s ->
@@ -207,6 +218,7 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, MealPresetAdapter.
         return 0
     }
 
+    /*se viene selezionato un preset carico le sue informazioni nella schermata*/
     override fun onPresetListener(
         mealName: String,
         presetFoods: String,
@@ -216,7 +228,7 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, MealPresetAdapter.
         mealTitle.setText(mealName)
         foodDeserializer(presetFoods)
         presetDialog.dismiss()
-        Log.i("devdebug", "AddFragment: presetListener $mealName e $foodList")
+        Log.i("hp_AddMealFragment", "presetListener $mealName e $foodList")
 
     }
 
@@ -224,12 +236,14 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, MealPresetAdapter.
         List::class.java, Food::class.java
     )
 
+    /*funzione che prende il JSON della lista di cibi e lo trasforma in una lista di oggetti Food*/
     private fun foodDeserializer(jsonListOfFood: String) {
         val moshi = Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
             .build()
         val adapter: JsonAdapter<List<Food>> = moshi.adapter(listTypeFood)
         val foods: List<Food>? = adapter.fromJson(jsonListOfFood)
+        /*aggiorna la lista di cibi locale e aggiorna la visualizzazione*/
         foodList = foods as ArrayList<Food>
         foodRecycler.adapter = FoodAdapter(foods, this)
     }

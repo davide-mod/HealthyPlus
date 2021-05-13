@@ -14,17 +14,20 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MealRepository(app: Application) {
-
+    /*lista di cibi che verrà presa dal database*/
     var mealData = MutableLiveData<List<Meal>>()
+    /*oggetto per comunicare con il database locale*/
     private val mealDAO = MealDatabase.getDatabase(app).mealDAO()
 
     init {
         CoroutineScope(Dispatchers.IO).launch {
             val data: List<Meal> = mealDAO.getAll()
+            /*se il database locale è vuoto controllo se ci sono elementi online*/
             if (data.isNullOrEmpty()) {
                 val mAuth = FirebaseAuth.getInstance()
                 val mealsFromGoogle = DButilMealPlanner(mAuth, Firebase.firestore).getAll()
                 val mealsTmp = mutableListOf<Meal>()
+                /*se vengono trovati pasti online li salvo anche nel database locale*/
                 mealsFromGoogle.get().addOnSuccessListener { doc ->
                     doc.forEach { me ->
                         Log.i("devdebug", "MealRepo: $me")
@@ -41,22 +44,21 @@ class MealRepository(app: Application) {
                     }
                 }
                 mealData.postValue(mealDAO.getAll())
-                //insertMeals(mealsTmp)
             } else {
-                //se il database di pasti è già popolato recupero le entry
+                /*se il database locale di pasti è già popolato recupero le entry*/
                 mealData.postValue(data)
             }
         }
     }
 
-    //recupero tutti gli ingredienti nel database
+    /*recupero tutti i pasti nel database attraverso una coroutine per non appesantire il thread principale*/
     fun getAll() {
         CoroutineScope(Dispatchers.IO).launch {
             mealData.postValue(mealDAO.getAll())
         }
     }
 
-    //inserisco un nuovo ingrediente e aggiorno la lista richiedendola
+    /*inserisco un nuovo pasto nel database attraverso una coroutine per non appesantire il thread principale*/
     fun insertMeal(meal: Meal) {
         CoroutineScope(Dispatchers.IO).launch {
             mealDAO.insertMeal(meal)
@@ -64,7 +66,7 @@ class MealRepository(app: Application) {
         }
     }
 
-    //elimino un ingrediente e aggiorno la lista richiedendola
+    /*elimino un pasto dal database attraverso una coroutine per non appesantire il thread principale*/
     fun deleteMeal(meal: Meal) {
         CoroutineScope(Dispatchers.IO).launch {
             mealDAO.deleteMeal(meal)
