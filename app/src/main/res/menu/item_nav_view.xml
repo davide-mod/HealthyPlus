@@ -15,6 +15,10 @@
         android:icon="@drawable/icon_fitnesstracker"
         android:iconTint="@color/white"
         android:title="@string/fitness_tracker_title" />
+    <!--item
+        android:id="@+id/itemNuovoModulo"
+        android:icon="@drawable/icon_nuovomodulo"
+        android:title="@string/nuovomodulo_title" /-->
     <item
         android:id="@+id/itemUser"
         android:icon="@drawable/signup_username"
