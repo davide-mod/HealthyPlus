@@ -59,7 +59,7 @@ class UserFragment : Fragment() {
         checkFitnessTracker.isChecked = fitnessTracker!!
         //checkNuovoModulo.isChecked = nuovoModulo!!
 
-        /*ora recuper le informazioni dell'utente corrente per mostrarle a schermo*/
+        /*ora recupero le informazioni dell'utente corrente per mostrarle a schermo*/
         val mAuth = FirebaseAuth.getInstance()
         val user = mAuth.currentUser
         userName.text = user?.displayName

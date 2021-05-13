@@ -18,6 +18,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.gson.Gson
+import com.modolo.healthyplus.MainActivity
 import com.modolo.healthyplus.R
 import com.modolo.healthyplus.mealplanner.food.Food
 import com.modolo.healthyplus.mealplanner.food.FoodAdapter
@@ -52,6 +53,8 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, MealPresetAdapter.
         savedInstanceState: Bundle?
     ): View {
         val view = inflater.inflate(R.layout.mealplanner_frag_add, container, false)
+        /*disabilito il drawer*/
+        (activity as MainActivity?)!!.setDrawerEnabled(false)
 
         mealTitle = view.findViewById(R.id.title)
 
@@ -78,7 +81,7 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, MealPresetAdapter.
                 val kcalTmp =
                     if (foodKcal.text.toString() != "") foodKcal.text.toString().toFloat() else 0.0F
                 foodList.add(Food(foodNameTmp, quantityTmp, udmTmp, kcalTmp))
-                foodRecycler.adapter = FoodAdapter(foodList, this, requireContext())
+                foodRecycler.adapter = FoodAdapter(foodList, this)
                 //resetto i campi
                 foodName.setText("")
                 foodQuantity.setText("")
@@ -161,7 +164,7 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, MealPresetAdapter.
             presetDialog.setContentView(R.layout.mealplanner_dialog_presets)
 
             val recyclerPresets = presetDialog.findViewById<RecyclerView>(R.id.recyclerMeals)
-            recyclerPresets.adapter = MealPresetAdapter(presetList, this, requireContext())
+            recyclerPresets.adapter = MealPresetAdapter(presetList, this)
             presetDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             presetDialog.show()
         }
@@ -190,7 +193,7 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, MealPresetAdapter.
         foodKcal.setText(food.kcal.toString())
         //e viene rimosso dalla lista, dando la possibilità di modificarlo
         foodList.remove(food)
-        foodRecycler.adapter = FoodAdapter(foodList, this, requireContext())
+        foodRecycler.adapter = FoodAdapter(foodList, this)
         foodName.requestFocus()
     }
 
@@ -228,7 +231,7 @@ class AddMealFragment : Fragment(), FoodAdapter.FoodListener, MealPresetAdapter.
         val adapter: JsonAdapter<List<Food>> = moshi.adapter(listTypeFood)
         val foods: List<Food>? = adapter.fromJson(jsonListOfFood)
         foodList = foods as ArrayList<Food>
-        foodRecycler.adapter = FoodAdapter(foods, this, requireContext())
+        foodRecycler.adapter = FoodAdapter(foods, this)
     }
 
 }

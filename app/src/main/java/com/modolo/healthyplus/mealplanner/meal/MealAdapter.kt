@@ -15,6 +15,7 @@ import com.modolo.healthyplus.mealplanner.mealdb.Meal
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
+/*adapter per i pasti "in arrivo" e "preset" nella schermata principale del modulo*/
 class MealAdapter(private val meals: ArrayList<Meal>, private val mealListener: MealListener, private val context: Context) : RecyclerView.Adapter<MealAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -35,6 +36,10 @@ class MealAdapter(private val meals: ArrayList<Meal>, private val mealListener: 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val meal = meals[position]
         with(holder) {
+            /*per non effettuare un ulteriore adapter extra vado a modificare il layout da codice:
+            * se il campo "ispreset" è true, vado a togliere il tasto di "mangiato" e rimuovo la data
+            * altrimenti rendo il tutto visibile e in ogni caso procedo
+            * */
             mealName.text = meal.name
             val aLDT = LocalDateTime.parse(meal.date)
             val formatter = DateTimeFormatter.ofPattern("HH:mm dd/MM")
@@ -49,6 +54,7 @@ class MealAdapter(private val meals: ArrayList<Meal>, private val mealListener: 
                 mealEdit.background = getDrawable(context, R.drawable.btn_bottom_right)
             }
 
+            /*qui c'è il listener nel caso venga premuto il tasto di edit, il tasto di "mangiato" e il pasto in sè*/
             mealEdit.setOnClickListener {
                 mealEdit.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alpha))
                 mealListener.onMealListener(meal, holder.layoutPosition, editMeal = true, done = false)

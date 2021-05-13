@@ -4,9 +4,8 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import com.modolo.healthyplus.mealplanner.food.Food
-import com.modolo.healthyplus.mealplanner.mealdb.Meal
 
+/*query per il database locale*/
 @Dao
 interface MealDAO {
 

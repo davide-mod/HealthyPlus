@@ -38,7 +38,7 @@ class SignupFragment : Fragment() {
     ): View {
         val view = inflater.inflate(R.layout.fragment_signup, container, false)
 
-        /*disabilitp il drawer*/
+        /*disabilito il drawer*/
         (activity as MainActivity?)!!.setDrawerEnabled(false)
         /*pulsante per tornare alla schermata di login*/
         val back = view.findViewById<ImageView>(R.id.back)

@@ -4,44 +4,49 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.modolo.healthyplus.DButil
-import com.modolo.healthyplus.mealplanner.food.Food
 import com.modolo.healthyplus.mealplanner.mealdb.Meal
 import com.modolo.healthyplus.mealplanner.mealdb.MealRepository
-import java.time.LocalDateTime
 
+/*Viewmodel utilizzata dal modulo MealPlanner per far comunicare i vari fragment e per comunicare col
+* database
+* */
 class MealsSharedViewModel(val app: Application) : AndroidViewModel(app) {
+    /*Di seguito ci sono, gli oggetti per l'autenticazione e per comunicare col db locale, la
+    * lista di pasti "in RAM" e l'oggetto pasto da modificare
+    * */
     private val mAuth = FirebaseAuth.getInstance()
     private val mealsdb = MealRepository(app)
     var meals = MutableLiveData<List<Meal>>()
     var mealToEdit: Meal? = null
+
+    /*inizializzo prendendo dal DB locale tutti i pasti e salvandoli localmente*/
     init {
         mealsdb.getAll()
         meals = mealsdb.mealData
-        Log.i("devdebug", "ViewModel init: $meals")
+        Log.i("hp_MealSharedViewModel", "init: $meals")
     }
-
+    /*funzione alla quale si passa il pasto da modificare*/
     fun setMealtoEdit(meal: Meal){
         mealToEdit = meal
     }
+    /*Funzione con la quale si recupera il pasto da modificare*/
     fun getMealtoEdit(): Meal{
         return mealToEdit!!
     }
-
+    /*inserimento pasto sia nel DB locale che su Firebase*/
     fun insertMeal(meal: Meal) {
         mealsdb.insertMeal(meal)
         DButilMealPlanner(mAuth, Firebase.firestore).addMeal(meal)
     }
-
+    /*rimozione pasto sia dal DB locale che da Firebase*/
     fun deleteMeal(meal: Meal) {
         mealsdb.deleteMeal(meal)
         DButilMealPlanner(mAuth, Firebase.firestore).deleteMeal(meal)
     }
+    /*calcolo ultimo ID uscito e lo restituisco*/
     fun getLastId(): Int{
         var maxId = 0
         meals.value!!.forEach {
@@ -49,8 +54,7 @@ class MealsSharedViewModel(val app: Application) : AndroidViewModel(app) {
         }
         return maxId
     }
-
-
+    /*restituisce la lista dei pasti impostati come preset dai pasti "in RAM"*/
     fun getPresets(): ArrayList<Meal>{
         val presets = ArrayList<Meal>()
         meals.value!!.forEach {
@@ -59,72 +63,5 @@ class MealsSharedViewModel(val app: Application) : AndroidViewModel(app) {
         }
         return presets
     }
-    /*val mAuth  = FirebaseAuth.getInstance()
-    var meals = MutableLiveData(ArrayList<Meal>())
-    var mealtoEdit = MutableLiveData(
-        Meal(
-            "", ArrayList(), LocalDateTime.now().toString(),
-            ispreset = false,
-            isdone = false,
-            id = ""
-        )
-    )
-
-    fun addMeal(meal: Meal) {
-        meal.id=(meals.value!!.size+1).toString()
-        meals.value!!.add(meal)
-        DButil(mAuth, Firebase.firestore).addMeal(meal)
-        Log.i("devdebug", "viewModel: added ${meal.name} with id ${meal.id}")
-    }
-
-    fun getMeals(): ArrayList<Meal> {
-        return ArrayList(meals.value!!)
-    }
-
-    fun setMealToEdit(meal: Meal) {
-        mealtoEdit = MutableLiveData(meal)
-    }
-
-    fun setMeals(tmpmeals: ArrayList<Meal>){
-        meals.value = tmpmeals
-    }
-
-    fun removeMeal(id: String) {
-        Log.i("devdebug", "viewModel: mealList size ${meals.value!!.size}")
-        val iter: MutableIterator<Meal> = meals.value!!.iterator()
-        while (iter.hasNext()) {
-            val meal = iter.next()
-            if (meal.id == id) iter.remove()
-        }
-    }
-
-    fun updateMeal(mealEdited: Meal) {
-        Log.i(
-            "devdebug",
-            "viewModel: mealList before edit ${meals.value!!} with ${mealEdited.name}"
-        )
-        meals.value!!.forEachIndexed { index, meal ->
-            if (meal.id == mealEdited.id) {
-                meals.value!![index] = mealEdited
-            }
-        }
-        Log.i("devdebug", "viewModel: mealList after edit ${meals.value!!}")
-
-    }
-
-    fun resetEdit() {
-        mealtoEdit = MutableLiveData(
-            Meal(
-                "", ArrayList(), LocalDateTime.now().toString(),
-                ispreset = false,
-                isdone = false,
-                id = ""
-            )
-        )
-    }
-
-    fun getEdit(): Meal {
-        return mealtoEdit.value!!
-    }*/
 }
 
