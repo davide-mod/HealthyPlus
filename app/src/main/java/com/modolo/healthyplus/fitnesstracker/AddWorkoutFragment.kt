@@ -214,10 +214,10 @@ class AddWorkoutFragment : Fragment(), ExerciseAdapter.ExerciseListener,
     override fun onExerciseListener(exercise: Exercise, position: Int, longpress: Boolean) {
         /*quando un esercizio viene selezionato lo rimuovo dalla lista e metto i suoi dati nel Layout per la modifica*/
         exName.setText(exercise.name)
-        exRep.setText(exercise.rep)
-        exSerie.setText(exercise.set)
-        exKg.setText(exercise.kg)
-        recValue.setText(exercise.rec)
+        exRep.setText(exercise.rep.toString())
+        exSerie.setText(exercise.set.toString())
+        exKg.setText(exercise.kg.toString())
+        recValue.setText(exercise.rec.toString())
         exList.remove(exercise)
         exerciseRecycler.adapter = ExerciseAdapter(exList, this)
         exName.requestFocus()

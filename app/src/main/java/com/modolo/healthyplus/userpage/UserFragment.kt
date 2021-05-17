@@ -85,6 +85,12 @@ class UserFragment : Fragment() {
         logout.setOnClickListener {
             /*per il logout richiamo la funzione apposita di Firebase e ritorno al Login*/
             mAuth.signOut()
+            /*pulisco la stack dei fragment aperti in modo che dopo aver fatto il logout non si
+            * può tornare alle varie schermate tramite il pulsante back */
+            val count: Int = parentFragmentManager.backStackEntryCount
+            for (i in 0..count) {
+                parentFragmentManager.popBackStack()
+            }
             findNavController().navigate(R.id.loginFragment)
         }
 
