@@ -6,7 +6,7 @@ Premessa: ho già inserito nel codice del progetto delle righe commentate di un 
 
 1. Creare un nuovo package (es. *com.modolo.healthyplus.nuovomodulo*) dove inserire tutti i fragment necessari con i relativi layout nella cartella */res/layout*
 
-2. Aggiungere al file */res/navigation/***nav_graph.xml** tutti i fragment che vogliamo utilizzare. Es: 
+2. Aggiungere al file _/res/navigation/_**nav_graph.xml** tutti i fragment che vogliamo utilizzare. Es: 
 
    ```xml
    <fragment
@@ -16,7 +16,7 @@ Premessa: ho già inserito nel codice del progetto delle righe commentate di un 
        android:label="NuovoModuloFragment" />
    ```
 
-3. Aggiungere al file */res/menu/***item_nav_view.xml** l'oggetto che sarà poi selezionabile nel drawer (o hamburger menu). Es: 
+3. Aggiungere al file _/res/menu/_**item_nav_view.xml** l'oggetto che sarà poi selezionabile nel drawer (o hamburger menu). Es: 
 
    ```xml
    <item
@@ -50,7 +50,7 @@ Premessa: ho già inserito nel codice del progetto delle righe commentate di un 
       setDrawerElementVisible(R.id.itemNuovoModulo, nuovoModulo!!)
       ```
 
-2. Modificare il file */res/layout/***framgment_user.xml** aggiungendo la checkbox nel LinearLayout per selezionare la visibilità: 
+2. Modificare il file _/res/layout/_**framgment_user.xml** aggiungendo la checkbox nel LinearLayout per selezionare la visibilità: 
 
    ```xml
    <CheckBox
@@ -63,7 +63,7 @@ Premessa: ho già inserito nel codice del progetto delle righe commentate di un 
        android:textSize="@dimen/buttonText" />
    ```
 
-3. Modificare il file */userpage/***UserFragment.kt** come segue:
+3. Modificare il file _/userpage/_**UserFragment.kt** come segue:
 
    1. aggiungere anche qui la preferenza: 
 
@@ -86,4 +86,27 @@ Premessa: ho già inserito nel codice del progetto delle righe commentate di un 
       (activity as MainActivity?)?.setDrawerElementVisible(R.id.itemNuovoModulo, checkNuovoModulo.isChecked)
       ```
 
-Comunque se si aprono i file sopra descritti si troveranno le righe di codice qui presenti commentate.
+##### Si può poi aggiungere una scheda nella schermata di login in un istante:
+
+Ho predisposto due tipi di "carte" nella schermata di Login, singolo oggetto ma con due costruttori: uno con solo titolo, l'altro con titolo, descrizione, colore del titolo e id dell'immagine che si vuole impostare. Il codice si trova all'interno di _com.modolo.healthyplus/_**LoginFragment.kt** e consiste nell'aggiungere:
+
+- ```kotlin
+  cardList.add(LoginCard("Nuovo Modulo"))
+  ```
+
+  oppure
+
+- ```kotlin
+  cardList.add(LoginCard(
+  "Nuovo Modulo",
+  "Descrizione nuovo modulo",
+  ContextCompat.getColor(requireContext(), R.color.main_nuovomodulo),
+  R.drawable.cardimg_nuovomodulo)
+  )
+  ```
+
+Nel primo caso avremo una carta con titolo "Nuovo Modulo" nero e immagine stock, nel secondo una carta con lo stesso titolo, però impostato del colore "main_nuovomodulo", una descrizione e "cardimg_nuovomodulo" come immagine.
+
+-------
+
+In ogni caso se si aprono i file sopra descritti si troveranno le righe di codice qui presenti, commentate.
