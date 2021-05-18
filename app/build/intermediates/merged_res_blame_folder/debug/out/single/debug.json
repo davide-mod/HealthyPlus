@@ -8,12 +8,12 @@
         "source": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\src\\main\\res\\layout\\fragment_fitnesstracker.xml"
     },
     {
-        "merged": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\build\\intermediates\\res\\merged\\debug\\drawable_login_mail.xml.flat",
-        "source": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\src\\main\\res\\drawable\\login_mail.xml"
-    },
-    {
         "merged": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\build\\intermediates\\res\\merged\\debug\\layout_mealplanner_itm_food.xml.flat",
         "source": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\src\\main\\res\\layout\\mealplanner_itm_food.xml"
+    },
+    {
+        "merged": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\build\\intermediates\\res\\merged\\debug\\drawable_login_mail.xml.flat",
+        "source": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\src\\main\\res\\drawable\\login_mail.xml"
     },
     {
         "merged": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_user.xml.flat",
@@ -78,6 +78,10 @@
     {
         "merged": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\build\\intermediates\\res\\merged\\debug\\drawable_icon_mealplanner.xml.flat",
         "source": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\src\\main\\res\\drawable\\icon_mealplanner.xml"
+    },
+    {
+        "merged": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\build\\intermediates\\res\\merged\\debug\\drawable_icon_appicon.xml.flat",
+        "source": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\src\\main\\res\\drawable\\icon_appicon.xml"
     },
     {
         "merged": "C:\\Users\\Davide\\AndroidStudioProjects\\HealthyPlus\\app\\build\\intermediates\\res\\merged\\debug\\drawable_background.xml.flat",

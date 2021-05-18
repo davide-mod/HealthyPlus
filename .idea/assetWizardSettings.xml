@@ -319,8 +319,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="card_fitnesstracker" />
-                            <entry key="sourceFile" value="C:\Users\Davide\Downloads\Frame 5 (1).svg" />
+                            <entry key="outputName" value="icon_appicon" />
+                            <entry key="sourceFile" value="C:\Users\Davide\Downloads\iconsvg.svg" />
                           </map>
                         </option>
                       </PersistentState>

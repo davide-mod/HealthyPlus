@@ -1771,6 +1771,7 @@ drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
 drawable icon_add
+drawable icon_appicon
 drawable icon_arrow_back
 drawable icon_done
 drawable icon_edit

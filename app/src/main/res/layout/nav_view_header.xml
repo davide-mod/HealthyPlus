@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:background="@color/white"
+    android:padding="@dimen/marginStandard"
     android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/imageHeader"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_margin="@dimen/marginSmall"
-        android:src="@drawable/cardimg_healthyplus"
+        android:src="@drawable/icon_appicon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/appNameHeader"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,6 +23,7 @@
         android:layout_height="wrap_content"
         android:text="@string/app_name"
         style="@style/buttonTextFinish"
+        android:textSize="@dimen/title"
         android:textColor="@color/main"
         android:layout_marginEnd="@dimen/marginStandard"
         app:layout_constraintBottom_toBottomOf="@id/imageHeader"
