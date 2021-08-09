@@ -1,3 +1,8 @@
+# Healthy Plus
+
+Applicazione sviluppata per il progetto di testi "Healthy Plus - Riprogettazione ed evoluzione di un’applicazione per il monitoraggio di sani stili di vita." che si compone per ora di un modulo per il tracking di attività fisica e uno per la gestione dei pasti.
+Data la natura open del progetto, di seguito sono riportate le istruzioni per aggiungere un nuovo modulo.
+
 ## Come aggiungere un nuovo modulo
 
 Premessa: ho già inserito nel codice del progetto delle righe commentate di un ipotetico "NuovoModulo"
