@@ -38,12 +38,18 @@ data class Workout(
 
 Per quanto riguarda il modulo Meal Planner, le query sono nel file **MealDAO.kt**; vengono richiamate all'interno delle coroutine (ovvero dei processi paralleli per non appesantire quello principale) nella classe **MealRepository.kt** che a loro volta vengono richiamate nel progetto usando la **MealSharedViewModel.kt** in modo da avere l'accesso da qualsiasi punto del modulo Meal Planner. Discorso analogo per Fitness Tracker.
 
+Per aggiungere una nuova tabella, una soluzione può essere il copiare la cartella **mealdb** o **workoutdb** andando poi a modificare i necessari nomi.
+
 ## Database NoSQL Firebase
 
 Per il backup online dei dati è stato utilizzato il "back-end as service" Firebase con una struttura del tipo:
-raccolta utenti (ognuno con un userID) -> dentro il documento ci sono i campi della registrazione e le raccolte relative ai moduli, che sono in questo caso una lista di Meal nella raccolta "meals" e una lista di Workout nella lista "workouts". Ovviamente è 
+- raccolta dei documenti utente (ognuno con un userID come chiave):
+- - dentro il documento, sono presenti i campi della registrazione (_nome_, _cognome_, _email_ e _data di nascita_) e le raccolte relative ai dati dei moduli:
+- - - per ora, i dati presenti sono una lista di **Meal** nella raccolta "meals" e una lista di **Workout** nella lista "workouts".
 
-**WORK IN PROGRESS**
+In geneale la struttura si può semplificare come nell'immagine di seguito:
+
+<img src="https://github.com/davide-mod/HealthyPlus/blob/master/databasescheme.png" width="400" alt="Struttura Firebase">
 
 ## Come aggiungere un nuovo modulo
 
