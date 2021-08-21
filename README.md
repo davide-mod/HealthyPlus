@@ -36,7 +36,7 @@ data class Workout(
 )
 ```
 
-Per quanto riguarda il modulo Meal Planner, le query sono nel file **MealDAO.kt**; vengono richiamate all'interno delle coroutine (ovvero dei processi paralleli per non appesantire quello principale) nella classe **MealRepository.kt** che a loro volta vengono richiamate nel progetto usando la **MealSharedViewModel.kt** in modo da avere l'accesso da qualsiasi punto del modulo Meal Planner. Discorso analogo per Fitness Tracker.
+Per la creazione ho utilizzato la libreria ["Room"](https://developer.android.com/training/data-storage/room) che necessita di alcuni componenti. Per quanto riguarda il modulo Meal Planner, le query sono nel file **MealDAO.kt**; vengono richiamate all'interno delle coroutine (ovvero dei processi paralleli per non appesantire quello principale) nella classe **MealRepository.kt** che a loro volta vengono richiamate nel progetto usando la **MealSharedViewModel.kt** in modo da avere l'accesso da qualsiasi punto del modulo Meal Planner. Discorso analogo per Fitness Tracker.
 
 Per aggiungere una nuova tabella, una soluzione può essere il copiare la cartella **mealdb** o **workoutdb** andando poi a modificare i necessari nomi.
 
