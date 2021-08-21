@@ -1,7 +1,49 @@
 # Healthy Plus
 
 Applicazione sviluppata per il progetto di testi "Healthy Plus - Riprogettazione ed evoluzione di un’applicazione per il monitoraggio di sani stili di vita." che si compone per ora di un modulo per il tracking di attività fisica e uno per la gestione dei pasti.
-Data la natura open del progetto, di seguito sono riportate le istruzioni per aggiungere un nuovo modulo.
+
+Data la natura open del progetto, di seguito sono riportate le istruzioni per aggiungere un nuovo modulo così come la struttura dei database.
+
+## Database in locale 
+
+Ho fatto una tabella per i pasti salvati di Meal Planner e una per gli allenamenti di Fitness Tracker.
+
+Ogni tabella ha le entry che sono poi l'oggetto rispettivamente di tipo Meal e Workout (che si trovano nei file **Meal.kt** e **Workout.kt**).
+
+```kotlin
+@Entity(tableName = "meals")
+data class Meal(
+    @PrimaryKey(autoGenerate = true)
+    var id: Int,
+    var name: String,
+    var foodList: String,
+    var date: String,
+    var ispreset: Boolean,
+    var isdone: Boolean
+)
+```
+
+```kotlin
+@Entity(tableName = "workouts")
+data class Workout(
+    @PrimaryKey(autoGenerate = true)
+    var id: Int,
+    var name: String,
+    var exerciseList: String,
+    var date: String,
+    var ispreset: Boolean,
+    var isdone: Boolean
+)
+```
+
+Per quanto riguarda il modulo Meal Planner, le query sono nel file **MealDAO.kt**; vengono richiamate all'interno delle coroutine (ovvero dei processi paralleli per non appesantire quello principale) nella classe **MealRepository.kt** che a loro volta vengono richiamate nel progetto usando la **MealSharedViewModel.kt** in modo da avere l'accesso da qualsiasi punto del modulo Meal Planner. Discorso analogo per Fitness Tracker.
+
+## Database NoSQL Firebase
+
+Per il backup online dei dati è stato utilizzato il "back-end as service" Firebase con una struttura del tipo:
+raccolta utenti (ognuno con un userID) -> dentro il documento ci sono i campi della registrazione e le raccolte relative ai moduli, che sono in questo caso una lista di Meal nella raccolta "meals" e una lista di Workout nella lista "workouts". Ovviamente è 
+
+**WORK IN PROGRESS**
 
 ## Come aggiungere un nuovo modulo
 
