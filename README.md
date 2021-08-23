@@ -51,6 +51,8 @@ In geneale la struttura si può semplificare come nell'immagine di seguito:
 
 <img src="https://github.com/davide-mod/HealthyPlus/blob/master/databasescheme.png" width="400" alt="Struttura Firebase">
 
+-------
+
 ## Come aggiungere un nuovo modulo
 
 Premessa: ho già inserito nel codice del progetto delle righe commentate di un ipotetico "NuovoModulo"
